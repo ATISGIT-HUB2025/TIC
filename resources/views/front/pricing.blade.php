@@ -10,7 +10,7 @@
           <h2 class="mb-4">Invest Now</h2>
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-0">
-              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
               <li
                 class="breadcrumb-item ms-2 ps-7 active"
                 aria-current="page"
@@ -61,31 +61,82 @@
       </div>
 
       <div class="row">
-        @foreach ($pakeges as $val)
+
+        <div class="tabs_packages">
+          <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Normal</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Business</button>
+            </li>
+          </ul>
+          <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
             
-        <div class="col-md-4">
-          <div class="pricing-table purple">
-            <!-- Table Head -->
-            <div class="pricing-label"><?= getCategoryTitle($val->category) ?></div>
+              <div class="col-md-4">
+                <div class="pricing-table purple">
+                  <!-- Table Head -->
+                  <div class="pricing-label">Star</div>
+      
+                  <h2>Features:</h2>
+      
+                  <!-- Features -->
+                  <div class="pricing-features">
 
-            {{-- <h2>Features:</h2> --}}
+                    <div class="feature">Interest : 6 - 7%</div>
+                    <div class="feature">All Starter Package Features</div>
+                    <div class="feature">Basic Risk Management Tools</div>
+                    <div class="feature">Quarterly Portfolio Review</div>
+                    <div class="feature">24/7 Customer Support</div>
+                    <div class="feature">Monthly Portfolio Review</div>
 
-            <!-- Features -->
-            <div class="pricing-features">
-              <div class="feature"><?= $val->deac?></div>
+                  </div>
+                  <!-- Price -->
+                  <div class="price-tag">
+                    <span class="symbol">₹</span>
+                    <span class="amount" style="font-size: 20px;">Rs.1000 - Rs.9999</span>
+                    <span class="after">/ Month</span>
+                  </div>
+                  <!-- Button -->
+                  <a class="price-button" href="/sign-in">Get Started</a>
+                </div>
+              </div>
+              
             </div>
-            <!-- Price -->
-            <div class="price-tag">
-              <span class="symbol"><?=$val->currency ?></span>
-              <span class="amount"><?=$val->ammount ?></span>
-              <span class="after">/<?=$val->formate ?></span>
+            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+              <div class="row">
+                @foreach ($pakeges as $val)
+            
+                <div class="col-md-4">
+                  <div class="pricing-table purple">
+                    <!-- Table Head -->
+                    <div class="pricing-label"><?= getCategoryTitle($val->category) ?></div>
+        
+                    {{-- <h2>Features:</h2> --}}
+        
+                    <!-- Features -->
+                    <div class="pricing-features">
+                      <div class="feature"><?= $val->deac?></div>
+                    </div>
+                    <!-- Price -->
+                    <div class="price-tag">
+                      <span class="symbol"><?=$val->currency ?></span>
+                      <span class="amount"><?=$val->ammount ?></span>
+                      <span class="after">/<?=$val->formate ?></span>
+                    </div>
+                    <!-- Button -->
+                    <a class="price-button" href="/sign-in">Get Started</a>
+                  </div>
+                </div>
+                
+                @endforeach
+              </div>
             </div>
-            <!-- Button -->
-            <a class="price-button" href="/sign-in">Get Started</a>
           </div>
         </div>
-        
-        @endforeach
+
+       
       </div>
     </div>
   </section>

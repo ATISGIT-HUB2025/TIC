@@ -14,9 +14,13 @@ class Pakeges extends Model
         'category',
         'currency',
         'formate',
+        'benefit',
+        'interest_rate',
+        'clint_criteria',
         'deac',
         'ammount',
         'status',
+        'ac_type',
     ];
 
 

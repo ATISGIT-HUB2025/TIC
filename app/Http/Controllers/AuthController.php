@@ -100,42 +100,39 @@ class AuthController extends Controller
     }
    
    
-    public function loginUser(Request $request){
-
-        if ($request->method() == "POST") {
-            if ($request->method() == "POST") {
-                $validator = Validator::make($request->all(), [
-                    'username' => 'required|string',
-                    'password' => 'required|string|min:6',
-                ]);
-            
-                if ($validator->fails()) {
-                    return response()->json(['errors' => $validator->errors()], 422);
-                }
-
-                $credentials = [
-                    'name' => $request->username,
-                    'password' => $request->password,
-                ];
-
-                if (Auth::attempt($credentials)) {
-                    $request->session()->regenerate();
-
-                    if (Auth::user()->role == "user") {
-                        return response()->json(['success' => 'Login Success'],200);
-                    }else{
-                        return response()->json(['error' => 'Something Went Wrong']);
-                    }
-                }
-                else {
-                    return redirect()->back()->with('error','Invalid Email & Password');
-                }
-
+    public function loginUser(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            $validator = Validator::make($request->all(), [
+                'username' => 'required|string',
+                'password' => 'required|string|min:6',
+            ]);
+    
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()], 422);
             }
-        }else{
+    
+            $credentials = [
+                'name' => $request->username,
+                'password' => $request->password,
+            ];
+    
+            if (Auth::attempt($credentials)) {
+                $request->session()->regenerate();
+    
+                if (Auth::user()->role == "user") {
+                    return response()->json(['success' => 'Login Success'], 200);
+                } else {
+                    return response()->json(['error' => 'Unauthorized Access'], 403);
+                }
+            }
+    
+            return response()->json(['error' => 'Invalid Username or Password'], 401);
+        }
+    
         return view('auth.login');
     }
-    }
+    
 
 
     public function logout(){

@@ -133,6 +133,10 @@ class ServiceController extends Controller
             $pakeges->deac = $request->deac;
             $pakeges->ammount = $request->ammount;
             $pakeges->status = $request->status;
+            $pakeges->ac_type = $request->ac_type;
+            $pakeges->benefit = $request->benefit;
+            $pakeges->interest_rate = $request->interest_rate;
+            $pakeges->clint_criteria = $request->clint_criteria;
             $pakeges->save();
             return redirect('admin/pricing-list')->with('success', 'Created Successfully');;
         }
@@ -150,6 +154,10 @@ class ServiceController extends Controller
             $pakeges->deac = $request->deac;
             $pakeges->ammount = $request->ammount;
             $pakeges->status = $request->status;
+            $pakeges->benefit = $request->benefit;
+            $pakeges->interest_rate = $request->interest_rate;
+            $pakeges->ac_type = $request->ac_type;
+            $pakeges->clint_criteria = $request->clint_criteria;
             $pakeges->save();
             return redirect()->route('pricing-list')->with('success', 'Update Successfully');;
         }

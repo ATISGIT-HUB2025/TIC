@@ -16,7 +16,9 @@ class Customerpayment extends Model
         'customer_id',
         'amount',
         'payment_mode',
-        'payment_date'
+        'payment_date',
+        'status',
+        'utr'
     ];
 
 

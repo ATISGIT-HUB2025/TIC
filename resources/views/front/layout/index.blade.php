@@ -181,7 +181,7 @@ $row = json_decode($data->info_one);
                       <a class="dropdown-item" href="/dashboard">Profile</a>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="/sign-in">Logout</a>
+                      <a class="dropdown-item" href="/userlogout">Logout</a>
                     </li>
                   </ul>
                 </li>

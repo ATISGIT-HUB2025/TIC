@@ -603,4 +603,10 @@ class Commoncontroller extends Controller
         $road = json_decode($roadmaps->info_one);
         return view('front.roadmap',compact('road','roadmaps'));
     }
+
+
+    public function userlogout(){
+        Auth::logout();
+        return redirect('/sign-in');
+    }
 }

@@ -53,7 +53,6 @@
                                             </div>
                                         </div>
 
- 
 
 
                                         <div class="col-lg-2">
@@ -110,6 +109,41 @@
                                             </div>
                                         </div>
 
+
+                                        
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label for="example-select" class="form-label">Fix Interest(Per Month in %)</label>
+                                               <input type="number" class="form-control" name="interest_rate">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label for="example-select" class="form-label">Clint Criteria</label>
+                                               <input type="text" class="form-control" name="clint_criteria">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label for="example-select" class="form-label">Benefit</label>
+                                               <input type="text" class="form-control" name="benefit">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label for="example-select" class="form-label">Business Account Type</label>
+                                                <input type="text" class="form-control" name="ac_type">
+                                                @error('type')
+                                                    <div class="text-danger mt-2">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
 
                                         <div class="col-lg-12">
                                             <div class="mb-3">

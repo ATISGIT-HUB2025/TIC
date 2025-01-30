@@ -151,7 +151,7 @@
         let formData = $("#loginForm").serialize();
         let submitButton = $("#submit");
 
-        // Change button text and disable it
+        // Disable button and change text while processing
         submitButton.prop("disabled", true).text("Signing in...");
 
         $.ajax({
@@ -159,36 +159,63 @@
             type: "POST",
             data: formData,
             success: function (response) {
-                Swal.fire({
-                    icon: "success",
-                    title: "Success",
-                    text: response.success,
-                    confirmButtonText: "OK"
-                }).then(() => {
-                    window.location.href = '/'; // Redirect to home page
-                });
-
+                if (response.success) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Success",
+                        text: response.success,
+                        confirmButtonText: "OK"
+                    }).then(() => {
+                        window.location.href = '/'; // Redirect to home page
+                    });
+                } else {
+                    // If there's no success message, show a toast instead of redirecting
+                    Swal.fire({
+                        icon: "error",
+                        title: "Login Failed",
+                        text: response.error || "Something went wrong!",
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+                }
                 submitButton.prop("disabled", false).text("Sign In");
             },
             error: function (xhr) {
                 submitButton.prop("disabled", false).text("Sign In");
 
-                if (xhr.status === 422 || xhr.status === 401) { // Validation or Authentication Error
+                if (xhr.status === 422) { // Validation errors
                     let errors = xhr.responseJSON.errors;
                     $.each(errors, function (key, value) {
                         $("#error_" + key).text(value[0]);
+                    });
+                } else if (xhr.status === 401 || xhr.status === 403) { // Unauthorized access or authentication failure
+                    Swal.fire({
+                        icon: "error",
+                        title: "Login Failed",
+                        text: xhr.responseJSON.error || "Invalid credentials!",
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 3000
                     });
                 } else {
                     Swal.fire({
                         icon: "error",
                         title: "Error",
-                        text: "Something went wrong. Please try again."
+                        text: "Something went wrong. Please try again.",
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 3000
                     });
                 }
             }
         });
     });
 });
+
 
     </script>
   </body>

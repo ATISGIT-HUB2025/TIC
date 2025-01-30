@@ -4079,3 +4079,22 @@ iframe {
 .red .price-button:hover {
   background: #f23c3c;
 }
+
+.qrcodeimagewallet{
+  height: 150px;
+  width: 150px;
+  padding: 5px;
+  background-color: #eeeeee59;
+}
+
+.available_blance{
+  background-color: #000;
+    padding: 10px;
+    text-align: center;
+    color: #fff !important;
+}
+
+.qrcodebox{
+  display: flex;
+    justify-content: center;
+}

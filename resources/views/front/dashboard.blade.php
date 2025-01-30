@@ -37,6 +37,21 @@
             >
               Bank Details
             </button>
+           
+            <button
+              class="nav-link mb-3"
+              id="v-pills-wallet-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#v-pills-wallet"
+              type="button"
+              role="tab"
+              aria-controls="v-pills-wallet"
+              aria-selected="false"
+            >
+              My Wallet
+            </button>
+
+
             <button
               class="nav-link mb-3"
               id="v-pills-Invested-tab"
@@ -260,7 +275,73 @@
                       </div>
                   </div>
                   <span id="msg"></span>
-                  <button type="submit" class="cmn-btn py-3 px-5 px-lg-6 mt-8 mt-lg-10 d-flex ms-auto" id="submit">
+                  <button type="submit" id="updatesubmitbuton" class="cmn-btn py-3 px-5 px-lg-6 mt-8 mt-lg-10 d-flex ms-auto" id="submit">
+                      Submit<i class="bi bi-arrow-up-right"></i>
+                  </button>
+              </form>
+              
+              </div>
+            </div>
+
+
+
+
+            
+            <!-- Bank Details Tab -->
+            <div
+              class="tab-pane fade"
+              id="v-pills-wallet"
+              role="tabpanel"
+              aria-labelledby="v-pills-wallet-tab"
+            >
+              <div class="comments-form cus-rounded-1 nb3-bg">
+                <form method="POST" autocomplete="off" id="walletform" class="message__form p-4 p-lg-8" enctype="multipart/form-data">
+                  <h6 class="message__title mb-8 mb-lg-10 text-warning">My Wallet</h6>
+                  <div class="d-flex gap-7 gap-lg-8 flex-column">
+                      <div class="row gy-4">
+                          <!-- Account Holder Name -->
+                          <div class="col-12">
+                            <div class="available_blance">Balance : <span class="text-white">Rs.10</span></div>
+
+                          </div>
+                          <div class="col-lg-12">
+                              <div class="single-input text-center">
+                                  <label class="label fw_500 nw1-color mb-4" for="accountHolderName">Make A Payment Using This QR Code</label>
+                                    <div class="qrcodebox">
+                                      <img src="{{ url('') }}/qrcode/qrcode.png" class="qrcodeimagewallet" alt="">
+                                    </div>
+                                  <span class="text-danger error" id="error_account_holder_name"></span>
+                              </div>
+                          </div>
+                          <!-- Account Number -->
+                          <div class="col-lg-12 mt-0">
+                              <div class="single-input">
+                                  <label class="label fw_500 nw1-color mb-4" for="accountNumber">Amount</label>
+                                  <input type="text" class="fs-seven" name="amount" id="accountNumber"/>
+                                  <span class="text-danger error" id="error_account_number"></span>
+                              </div>
+                          </div>
+
+                          <div class="col-lg-12 mt-0">
+                            <div class="single-input">
+                                <label class="label fw_500 nw1-color mb-4" for="accountNumber">UTR / Tranasction Id</label>
+                                <input type="text" class="fs-seven" name="transaction_id" id="accountNumber"/>
+                                <span class="text-danger error" id="error_account_number"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 mt-0">
+                          <div class="single-input">
+                              <label class="label fw_500 nw1-color mb-4" for="accountNumber">Upload An Payment Screenshot</label>
+                              <input type="file" class="fs-seven" name="file" id="accountNumber"/>
+                              <span class="text-danger error" id="error_account_number"></span>
+                          </div>
+                      </div>
+                          
+                      </div>
+                  </div>
+                  <span id="msg"></span>
+                  <button type="submit" id="submit_wallet" class="cmn-btn py-3 px-5 px-lg-6 mt-8 mt-lg-10 d-flex ms-auto" id="submit">
                       Submit<i class="bi bi-arrow-up-right"></i>
                   </button>
               </form>
@@ -754,49 +835,67 @@
 });
 
   </script>
-<script>
-  $(document).ready(function () {
-      // Restore the active tab after refresh
-      if (localStorage.getItem("activeTab") === "bank") {
-          $("#v-pills-Bank-tab").addClass("active");
-          $("#v-pills-Bank").addClass("show active");
-  
-          // Remove active class from Profile tab
-          $("#v-pills-Profile-tab").removeClass("active");
-          $("#v-pills-Profile").removeClass("show active");
-      }
-  
-      $("#updatebank").on("submit", function (e) {
-          e.preventDefault();
-          let formData = new FormData(this);
-          
-          $(".error").text("");
-  
-          // Append CSRF token manually
-          formData.append('_token', '{{ csrf_token() }}');
-  
-          $.ajax({
-              url: "{{ route('update.bank') }}",
-              type: "POST",
-              data: formData,
-              processData: false,
-              contentType: false,
-              success: function (response) {
-                  // Store active tab state before reload
-                  localStorage.setItem("activeTab", "bank");
-  
-                  Swal.fire("Success!", response.success, "success").then(() => {
-                      location.reload();
-                  });
-              },
-              error: function (xhr) {
-                  $.each(xhr.responseJSON.errors, function (key, value) {
-                      $("#error_" + key).text(value[0]);
-                  });
-              }
-          });
-      });
-  });
+
+  <script>
+    $(document).ready(function () {
+    // Remove active tab from localStorage on page load
+    localStorage.removeItem("activeTab");
+
+    // Check if "activeTab" was set before reload (only for form submission)
+    if (sessionStorage.getItem("activeTab") === "bank") {
+        $("#v-pills-Bank-tab").addClass("active");
+        $("#v-pills-Bank").addClass("show active");
+
+        // Remove active class from Profile tab
+        $("#v-pills-Profile-tab").removeClass("active");
+        $("#v-pills-Profile").removeClass("show active");
+    }
+
+    $("#updatebank").on("submit", function (e) {
+        e.preventDefault();
+        let formData = new FormData(this);
+
+        let submitButton = $("#updatesubmitbuton");
+
+// Disable the button and show loading text
+submitButton.prop("disabled", true).text("Updating...");
+        
+        $(".error").text("");
+
+        // Append CSRF token manually
+        formData.append('_token', '{{ csrf_token() }}');
+
+        $.ajax({
+            url: "{{ route('update.bank') }}",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                // Store active tab state in sessionStorage before reload
+                sessionStorage.setItem("activeTab", "bank");
+
+                submitButton.prop("disabled", false).text("Update");
+
+                Swal.fire("Success!", response.success, "success").then(() => {
+                    location.reload();
+                });
+            },
+            error: function (xhr) {
+                $.each(xhr.responseJSON.errors, function (key, value) {
+                    $("#error_" + key).text(value[0]);
+                });
+                submitButton.prop("disabled", false).text("Update");
+            }
+        });
+    });
+
+    // Clear sessionStorage after 1 second (to prevent tab persistence on manual reload)
+    setTimeout(() => {
+        sessionStorage.removeItem("activeTab");
+    }, 1000);
+});
+
   </script>
   
   

@@ -38,7 +38,6 @@ Route::middleware([Team::class])->group(function () {
 Route::get('/dashboard', [Commoncontroller::class, 'dashboard'])->name('dashboard');
 Route::post('/profile-update', [Commoncontroller::class, 'profileupdate'])->name('profile.update');
 Route::post('/update-bank', [Commoncontroller::class, 'updatebank'])->name('update.bank');
-    
 });
 
 Route::get('/', [Commoncontroller::class, 'index'])->name('index');
@@ -60,35 +59,11 @@ Route::get('/pricing', [Commoncontroller::class, 'pricing'])->name('pricing');
 Route::get('/roadmap', [Commoncontroller::class, 'roadmap'])->name('roadmap');
 Route::get('/sign-in', [Commoncontroller::class, 'signin'])->name('signin');
 Route::get('/sign-up', [Commoncontroller::class, 'signup'])->name('signup');
+Route::get('/userlogout', [Commoncontroller::class, 'userlogout'])->name('userlogout');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 
-
-// Route::post('/contact-us', [Commoncontroller::class, 'contactus'])->name('contactus');
-// Route::post('/contact-us-submit', [Commoncontroller::class, 'contactsubmit'])->name('contactsubmit');
-// Route::post('/contact-submit-free', [Commoncontroller::class, 'contactsubmitfree'])->name('contactsubmitfree');
-// Route::get('/projects-details/{slug}', [Commoncontroller::class, 'projectsdetails'])->name('projectsdetails');
-// Route::get('/testimonials', [Commoncontroller::class, 'testimonials'])->name('testimonials');
-// Route::get('/volunteer', [Commoncontroller::class, 'volunteer'])->name('volunteer');
-// Route::get('/error', [Commoncontroller::class, 'error'])->name('error');
-// Route::get('/faq', [Commoncontroller::class, 'faq'])->name('faq');
-// Route::get('/team-details/{slug}', [Commoncontroller::class, 'teamdetails'])->name('teamdetails');
-// Route::get('/comment', [Commoncontroller::class, 'comment'])->name('comment');
-// Route::post('/comment', [Commoncontroller::class, 'comment'])->name('comment');
-// Route::get('/services', [Commoncontroller::class, 'services'])->name('services');
-// Route::get('/services-details/{slug}', [Commoncontroller::class, 'servicesdetails'])->name('services-details');
-
-// Route::get('/get-category-projects/{id}', [Commoncontroller::class, 'getCategoryProjects']);
-
-// Route::get('/submitcontactenquiry', [Commoncontroller::class, 'submitcontactenquiry'])->name('submitcontactenquiry');
-// Route::post('/submitcontactenquiry', [Commoncontroller::class, 'submitcontactenquiry'])->name('submitcontactenquiry');
-
-// admin---panel-----work------------------>
-
-Route::match(['get', 'post'], '/admin/maintenance', [AdminpanelController::class, 'maintenance'])->name('maintenance');
-
 Route::middleware([Superadmin::class])->prefix('admin')->group(function () {
-
     Route::match(['get', 'post'], '/dashboard', [AdminpanelController::class, 'dashboard'])->name('dashboard');
     Route::match(['get', 'post'], '/profile', [AdminpanelController::class, 'profile'])->name('profile');
     Route::post('/change-password', [AdminpanelController::class, 'change_password'])->name('change_password');
@@ -103,26 +78,15 @@ Route::middleware([Superadmin::class])->prefix('admin')->group(function () {
     Route::match(['get', 'post'], '/editpage/{id}', [Pagecontroller::class, 'editpage'])->name('editpage');
 
     Route::match(['get', 'post'], '/deletepage/{id}', [Pagecontroller::class, 'deletepage'])->name('deletepage');
-    Route::match(['get', 'post'], '/payout-setting', [Pagecontroller::class, 'payoutsetting'])->name('payoutsetting');
-
     Route::match(['get', 'post'], '/new-access', [Pagecontroller::class, 'newaccess'])->name('newaccess');
     Route::match(['get', 'post'], '/access-management', [Pagecontroller::class, 'accessmanagement'])->name('accessmanagement');
     Route::match(['get', 'post'], '/edit-accessm-anagement/{id}', [Pagecontroller::class, 'editaccessmanagement'])->name('editaccessmanagement');
 
     // skillsadd
-    Route::match(['get', 'post'], '/skillsadd', [Pagecontroller::class, 'skillsadd'])->name('skillsadd');
-    //
-    Route::match(['get', 'post'], '/workingadd', [Pagecontroller::class, 'workingadd'])->name('workingadd');
-
-    //
     Route::match(['get', 'post'], '/homeadd', [Pagecontroller::class, 'homeadd'])->name('homeadd');
 
     // aboutus
     Route::match(['get', 'post'], '/about-us', [Pagecontroller::class, 'aboutus'])->name('aboutus');
-
-    // Awards
-    Route::match(['get', 'post'], '/awards', [Pagecontroller::class, 'awards'])->name('awards');
-    
 
     // bannners
     Route::get('/home-banners', [Pagecontroller::class, 'home_banners'])->name('home_banners');
@@ -140,21 +104,13 @@ Route::middleware([Superadmin::class])->prefix('admin')->group(function () {
       Route::match(['get', 'post'], '/delete-gallery/{id}', [TeamsController::class, 'deletegallery'])->name('deletegallery');
       Route::match(['get', 'post'], '/gallery', [TeamsController::class, 'gallery'])->name('gallery');
       Route::match(['get', 'post'], '/create-partners', [TeamsController::class, 'creategallery'])->name('creategallery');
-
-
-          // Gallery
           Route::match(['get', 'post'], '/edit-clients/{id}', [TeamsController::class, 'editclients'])->name('editclients');
           Route::match(['get', 'post'], '/delete-clients/{id}', [TeamsController::class, 'deleteclients'])->name('deleteclients');
           Route::match(['get', 'post'], '/clients', [TeamsController::class, 'clients'])->name('clients');
           Route::match(['get', 'post'], '/create-clients', [TeamsController::class, 'createclients'])->name('createclients');
 
-       // Gallery
-       Route::match(['get', 'post'], '/edit-videos/{id}', [TeamsController::class, 'editvideos'])->name('editvideos');
-       Route::match(['get', 'post'], '/delete-videos/{id}', [TeamsController::class, 'deletevideos'])->name('deletevideos');
-       Route::match(['get', 'post'], '/videos', [TeamsController::class, 'videos'])->name('videos');
-       Route::match(['get', 'post'], '/create-video', [TeamsController::class, 'createvideos'])->name('createvideos');
-    //process
-     Route::match(['get', 'post'], '/edit-process/{id}', [TeamsController::class, 'editprocess'])->name('editprocess');
+
+          Route::match(['get', 'post'], '/edit-process/{id}', [TeamsController::class, 'editprocess'])->name('editprocess');
     Route::match(['get', 'post'], '/delete-process/{id}', [TeamsController::class, 'deleteprocess'])->name('deleteprocess');
     Route::match(['get', 'post'], '/process', [TeamsController::class, 'process'])->name('process');
     Route::match(['get', 'post'], '/create-process', [TeamsController::class, 'create_process'])->name('create_process');
@@ -216,13 +172,6 @@ Route::middleware([Superadmin::class])->prefix('admin')->group(function () {
     Route::match(['get', 'post'], '/edit-category/{id}', [Coursecontroller::class, 'editategories'])->name('editategories');
 
     Route::match(['get', 'post'], '/delete/{table}/{id}/{image}', [Pagecontroller::class, 'deleterow'])->name('deleterownew');
-
-    // Project
-    Route::match(['get', 'post'], '/add-project', [ProjectController::class, 'addproject'])->name('add-project');
-    Route::match(['get', 'post'], '/projects-list', [ProjectController::class, 'index'])->name('projects-list');
-    Route::match(['get', 'post'], '/projects-update/{id}', [ProjectController::class, 'update'])->name('project-update');
-    Route::match(['get', 'post'], '/projects-delete/{id}', [ProjectController::class, 'delete'])->name('projects-delete');
-
     // services
     Route::match(['get', 'post'], '/add-services', [ServiceController::class, 'create'])->name('add-services');
     Route::match(['get', 'post'], '/services-list', [ServiceController::class, 'index'])->name('services-list');
