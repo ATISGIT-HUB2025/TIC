@@ -155,7 +155,7 @@
                 /></a>
               </div> --}}
               <div class="mt-8 mt-lg-10">
-                <p>Already have an account? <a href="/signin">Log in</a></p>
+                <p>Already have an account? <a href="/sign-in">Log in</a></p>
               </div>
             </div>
           </div>

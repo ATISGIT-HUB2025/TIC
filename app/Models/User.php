@@ -46,6 +46,7 @@ class User extends Authenticatable
         'account_number',
         'ifsc_code',
         'branch_name',
+        'wallet',
         'aadhar_card_number',
         'aadhar_card',
         'pan_number',

@@ -9,12 +9,94 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Usertype;
 use App\Models\Projects;
+use App\Models\CRM\Customerpayment;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
+
 
 class AdminpanelController extends Controller
 {
+    public function updatetransaction(Request $request)
+    {
+        // Validate request inputs
+        $request->validate([
+            'transaction_id' => 'required|exists:customer_payment,id', 
+            'status' => 'required|in:pending,complete,reject', 
+        ]);
+        $payment = Customerpayment::findOrFail($request->transaction_id);
+        $user = User::findOrFail($payment->customer_id); 
+        if ($request->status == "complete") {
+            $user->wallet += $payment->amount;
+            $user->save();
+        }
+        $payment->status = $request->status;
+        $payment->save();
+        return redirect()->back()->with('success', 'Transaction Updated Successfully!');
+    }
+    
 
+    public function gettransaction($modelid){
+        $row  = Customerpayment::findorfail($modelid);
+        return view('admin/transaction/edit',compact('row'));
+        
+    }
+
+    public function transactions(Request $request){
+        
+        $data['payments'] = Customerpayment::where('status','pending')->latest()->get();
+
+        $searchkey = $request->query('type');  // Use $request->query() to safely retrieve the 'type' parameter
+
+        if ($request->ajax()) {
+            // Fetch the data
+            $query = CustomerPayment::query();
+    
+            // If there is a date filter, add it to the query
+            if ($request->has('start_date') && $request->has('end_date')) {
+                $startDate = $request->start_date;
+                $endDate = $request->end_date;
+                $query->whereBetween('created_at', [$startDate, $endDate]);
+            }
+       
+            if ($request->has('status')) {
+                $query->where('status', $request->status);
+            }
+    
+            // Return the response formatted for DataTables
+            return DataTables::eloquent($query)
+                ->addIndexColumn()
+                ->editColumn('screenshot', function($payment) {
+                    return $payment->screenshot ? 
+                        '<a href="' . $payment->screenshot . '" target="_blank">
+                            <img src="' . $payment->screenshot . '" alt="Screenshot" class="img-thumbnail" width="50" height="50">
+                        </a>' : 
+                        'No Screenshot';
+                })
+                ->editColumn('action', function($payment) {
+                    return $payment->id ? 
+                        '<a href="javascript:void(0)" onclick="openmodel('.$payment->id.')" target="_blank" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</a>' : 
+                        'No Action';
+                })
+                ->editColumn('status', function($payment) {
+                    // Check the status and return corresponding button
+                    if ($payment->status == 'pending') {
+                        return '<button class="badge border-0 bg-warning">Pending</button>';
+                    } elseif ($payment->status == 'complete') {
+                        return '<button class="badge border-0 bg-success">Complete</button>';
+                    } elseif ($payment->status == 'reject') {
+                        return '<button class="badge border-0 bg-danger">Reject</button>';
+                    } else {
+                        return 'Unknown Status';
+                    }
+                })
+                ->setRowId('id') // Optional: You can set a custom row ID here
+                ->rawColumns(['action', 'screenshot', 'status']) // Allow HTML in action, screenshot, and status columns
+                ->make(true);
+        }
+        
+     return view('admin/transaction/index',$data);   
+    }
 
     public function maintenance(){
         return view('maintenance');

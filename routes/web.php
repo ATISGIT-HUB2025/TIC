@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\WorkController;
 use App\Http\Controllers\AdminpanelController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Front\Commoncontroller;
+use App\Http\Controllers\Front\Investcontroller;
 use App\Http\Controllers\Superadmin\SuperadminController;
 use App\Http\Controllers\WorkshopController;
 use App\Http\Middleware\Superadmin;
@@ -38,6 +39,9 @@ Route::middleware([Team::class])->group(function () {
 Route::get('/dashboard', [Commoncontroller::class, 'dashboard'])->name('dashboard');
 Route::post('/profile-update', [Commoncontroller::class, 'profileupdate'])->name('profile.update');
 Route::post('/update-bank', [Commoncontroller::class, 'updatebank'])->name('update.bank');
+Route::post('/wallet-store', [Commoncontroller::class, 'walletstore'])->name('wallet.store');
+Route::post('/buy-normel-package', [Investcontroller::class, 'buynormelpackage'])->name('buy.normel.package');
+Route::get('/investnow/{investtype}/{id}', [Investcontroller::class, 'investnow'])->name('investnow');
 });
 
 Route::get('/', [Commoncontroller::class, 'index'])->name('index');
@@ -66,6 +70,9 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::middleware([Superadmin::class])->prefix('admin')->group(function () {
     Route::match(['get', 'post'], '/dashboard', [AdminpanelController::class, 'dashboard'])->name('dashboard');
     Route::match(['get', 'post'], '/profile', [AdminpanelController::class, 'profile'])->name('profile');
+    Route::match(['get', 'post'], '/transactions', [AdminpanelController::class, 'transactions'])->name('transactions');
+    Route::match(['get', 'post'], '/gettransaction/{id}', [AdminpanelController::class, 'gettransaction'])->name('gettransaction');
+    Route::match(['post'], '/updatetransaction', [AdminpanelController::class, 'updatetransaction'])->name('updatetransaction');
     Route::post('/change-password', [AdminpanelController::class, 'change_password'])->name('change_password');
     Route::post('updateprofileadmin', [AdminpanelController::class, 'updateprofileadmin'])->name('updateprofileadmin');
     Route::get('/changestatus/{table}/{id}/{colom}/{value}', [AdminpanelController::class, 'changestatus'])->name('changestatus');

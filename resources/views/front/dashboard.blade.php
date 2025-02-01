@@ -295,56 +295,65 @@
               aria-labelledby="v-pills-wallet-tab"
             >
               <div class="comments-form cus-rounded-1 nb3-bg">
-                <form method="POST" autocomplete="off" id="walletform" class="message__form p-4 p-lg-8" enctype="multipart/form-data">
+                <form method="POST" autocomplete="off" id="walletForm" class="message__form p-4 p-lg-8" enctype="multipart/form-data">
+                  
+                  @csrf
                   <h6 class="message__title mb-8 mb-lg-10 text-warning">My Wallet</h6>
+              
                   <div class="d-flex gap-7 gap-lg-8 flex-column">
                       <div class="row gy-4">
-                          <!-- Account Holder Name -->
+                          <!-- Wallet Balance -->
                           <div class="col-12">
-                            <div class="available_blance">Balance : <span class="text-white">Rs.10</span></div>
-
+                              <div class="available_blance">Balance: 
+                                  <span class="text-white">Rs.{{ Auth::user()->wallet ?? 0 }}</span>
+                              </div>
                           </div>
+              
+                          <!-- QR Code -->
                           <div class="col-lg-12">
                               <div class="single-input text-center">
-                                  <label class="label fw_500 nw1-color mb-4" for="accountHolderName">Make A Payment Using This QR Code</label>
-                                    <div class="qrcodebox">
-                                      <img src="{{ url('') }}/qrcode/qrcode.png" class="qrcodeimagewallet" alt="">
-                                    </div>
-                                  <span class="text-danger error" id="error_account_holder_name"></span>
+                                  <label class="label fw_500 nw1-color mb-4">Make A Payment Using This QR Code</label>
+                                  <div class="qrcodebox">
+                                      <img src="{{ url('') }}/qrcode/qrcode.png" class="qrcodeimagewallet" alt="QR Code">
+                                  </div>
                               </div>
                           </div>
-                          <!-- Account Number -->
+              
+                          <!-- Amount -->
                           <div class="col-lg-12 mt-0">
                               <div class="single-input">
-                                  <label class="label fw_500 nw1-color mb-4" for="accountNumber">Amount</label>
-                                  <input type="text" class="fs-seven" name="amount" id="accountNumber"/>
-                                  <span class="text-danger error" id="error_account_number"></span>
+                                  <label class="label fw_500 nw1-color mb-4" for="amount">Amount</label>
+                                  <input type="text" class="fs-seven" name="amount" id="amount"/>
+                                  <span class="text-danger error" id="error_amount"></span>
                               </div>
                           </div>
-
+              
+                          <!-- Transaction ID -->
                           <div class="col-lg-12 mt-0">
-                            <div class="single-input">
-                                <label class="label fw_500 nw1-color mb-4" for="accountNumber">UTR / Tranasction Id</label>
-                                <input type="text" class="fs-seven" name="transaction_id" id="accountNumber"/>
-                                <span class="text-danger error" id="error_account_number"></span>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12 mt-0">
-                          <div class="single-input">
-                              <label class="label fw_500 nw1-color mb-4" for="accountNumber">Upload An Payment Screenshot</label>
-                              <input type="file" class="fs-seven" name="file" id="accountNumber"/>
-                              <span class="text-danger error" id="error_account_number"></span>
+                              <div class="single-input">
+                                  <label class="label fw_500 nw1-color mb-4" for="transaction_id">UTR / Transaction ID</label>
+                                  <input type="text" class="fs-seven" name="transaction_id" id="transaction_id"/>
+                                  <span class="text-danger error" id="error_transaction_id"></span>
+                              </div>
+                          </div>
+              
+                          <!-- Upload Payment Screenshot -->
+                          <div class="col-lg-12 mt-0">
+                              <div class="single-input">
+                                  <label class="label fw_500 nw1-color mb-4" for="file">Upload Payment Screenshot</label>
+                                  <input type="file" class="fs-seven" name="image" id="file"/>
+                                  <span class="text-danger error" id="error_image"></span>
+                              </div>
                           </div>
                       </div>
-                          
-                      </div>
                   </div>
+              
                   <span id="msg"></span>
-                  <button type="submit" id="submit_wallet" class="cmn-btn py-3 px-5 px-lg-6 mt-8 mt-lg-10 d-flex ms-auto" id="submit">
-                      Submit<i class="bi bi-arrow-up-right"></i>
+                  <button type="submit" id="submitWallet" class="cmn-btn py-3 px-5 px-lg-6 mt-8 mt-lg-10 d-flex ms-auto">
+                      Submit <i class="bi bi-arrow-up-right"></i>
                   </button>
               </form>
+              
               
               </div>
             </div>
@@ -897,6 +906,57 @@ submitButton.prop("disabled", true).text("Updating...");
 });
 
   </script>
+
+
+
+  <script>
+  $(document).ready(function () {
+    $("#walletForm").on("submit", function (e) {
+        e.preventDefault();
+        
+        let formData = new FormData(this);
+        $("#submitWallet").prop("disabled", true).text("Processing...");
+
+        $.ajax({
+            url: "{{ route('wallet.store') }}",  // Make sure this is the correct route
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                // Check if the response is success
+                if (response.status == "success") {
+                    Swal.fire("Success!", response.message, "success").then(() => {
+                        // Reload the page after successful transaction
+                        location.reload();
+                    });
+                } else {
+                    // Handle other statuses if needed
+                    Swal.fire("Error!", "Something went wrong. Please try again.", "error");
+                }
+
+                // Reset the form and UI elements
+                $("#walletForm")[0].reset();
+                $(".error").html(""); 
+                $("#submitWallet").prop("disabled", false).text("Submit");
+            },
+            error: function (xhr) {
+                let errors = xhr.responseJSON.errors;
+                $(".error").html(""); 
+
+              
+
+                // Display validation errors next to the form fields
+                $.each(errors, function (key, value) {
+                    $("#error_" + key).html(value[0]);
+                });
+
+                $("#submitWallet").prop("disabled", false).text("Submit");
+            },
+        });
+    });
+});
+</script>
   
   
 

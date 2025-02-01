@@ -17,6 +17,7 @@ class Customerpayment extends Model
         'amount',
         'payment_mode',
         'payment_date',
+        'screenshot',
         'status',
         'utr'
     ];

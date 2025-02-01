@@ -3934,7 +3934,7 @@ iframe {
 /*# sourceMappingURL=style.min.css.map */
 .custom_droupdown li {
   border-bottom: 1px dotted rgba(var(--p1), 1);
-  padding: 13px 0 !important;
+  /* padding: 13px 0 !important; */
 }
 .custom_droupdown li:last-child {
   border-bottom: none;
@@ -4097,4 +4097,20 @@ iframe {
 .qrcodebox{
   display: flex;
     justify-content: center;
+}
+
+.walletbox svg{
+  width: 20px;
+}
+
+.walletbox{
+  background-color: #ffffff;
+  color: #000 !important;
+  padding: 4px 15px !important;
+  height: max-content;
+  border-radius: 5px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }

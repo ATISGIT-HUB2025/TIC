@@ -99,7 +99,12 @@
                     <span class="after">/ Month</span>
                   </div>
                   <!-- Button -->
+
+                  @if (Auth::check())
+                  <a class="price-button" href="{{ route('investnow',['investtype' => 'normel','id' => '0']) }}">Get Started</a>
+                  @else
                   <a class="price-button" href="/sign-in">Get Started</a>
+                  @endif
                 </div>
               </div>
               

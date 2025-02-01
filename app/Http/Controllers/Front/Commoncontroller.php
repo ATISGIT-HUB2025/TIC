@@ -14,6 +14,7 @@ use App\Models\Blogmodel;
 use App\Models\Videos;
 use App\Models\Blogcomments;
 use App\Models\Comment;
+use App\Models\CRM\Customerpayment;
 use App\Models\Contact;
 use App\Models\Gallery;
 use App\Models\Studentszone;
@@ -38,6 +39,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+
 
 
 class Commoncontroller extends Controller
@@ -76,7 +79,7 @@ class Commoncontroller extends Controller
         $team = Team::where('status', 'Y')->get();
         $blog = Blogmodel::with('get_Category')->where('status', 'Y')->get();
         $category = DB::table('category')->where('type', 'project')->where('status', 'Y')->get(['id', 'title']);
-        $projects = Project::where('status', 'Y')->get();
+        // $projects = Project::where('status', 'Y')->get();
         $data = DB::table('webinfo')->where('id', 5)->select(['image', 'favicon', 'info_one'])->first();
         $row = json_decode($data->info_one);
         $h_banner = Banners::where('status','Y')->orderBy('id', 'desc')->get();
@@ -104,7 +107,7 @@ class Commoncontroller extends Controller
         ->take(3)
         ->get();
         return view('front.index', compact('pakeges','home','home_banner','people','people_trust','trad','platform',
-        'recentBlogs','row_a','data_a','clients','gallery','blogs','teams','bestservice','service','counters','row1233','h_banner','row','data','aboutus', 'testimonial', 'workinssdata',   'workinss', 'Banners', 'info_one', 'team', 'blog', 'homeserve1_data', 'homeserve2_data', 'homeserve3_data', 'category', 'projects', 'welcomeBox1', 'welcomeBox2', 'welcomeBox3'));
+        'recentBlogs','row_a','data_a','clients','gallery','blogs','teams','bestservice','service','counters','row1233','h_banner','row','data','aboutus', 'testimonial', 'workinssdata',   'workinss', 'Banners', 'info_one', 'team', 'blog', 'homeserve1_data', 'homeserve2_data', 'homeserve3_data', 'category', 'welcomeBox1', 'welcomeBox2', 'welcomeBox3'));
     }
 
 
@@ -414,6 +417,44 @@ class Commoncontroller extends Controller
     public function dashboard(){
         return view('front.dashboard');
     }
+
+
+    public function walletstore(Request $request){
+        $request->validate([
+            'amount' => 'required|numeric|min:1',
+            'transaction_id' => 'required|regex:/^[A-Za-z0-9]{12}$/|unique:customer_payment,utr',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ],[
+            'image.required' => 'Upload Payment Screenshot and Amount Details.'
+        ]);
+
+        // Upload file to Cloudinary
+        $imageUrl = null;
+    
+    if ($request->hasFile('image') && $request->file('image')->isValid()) {
+        
+        try {
+            $uploadedFile = Cloudinary::upload($request->file('image')->getRealPath(), [
+                'folder' => 'wallet_payments',
+            ]);
+            $imageUrl = $uploadedFile->getSecurePath();
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Cloudinary upload failed: ' . $e->getMessage()], 500);
+        }
+    }
+
+        // Save transaction
+        Customerpayment::create([
+            'customer_id' => Auth::id(),
+            'amount' => $request->amount,
+            'utr' => $request->transaction_id,
+            'screenshot' => $imageUrl,
+            'status' => 'pending',
+        ]);
+
+        return response()->json(['status' =>'success','message' => 'Your Request Submitted Successfully! Admin will verify.']);
+    }
+
 
     public function comment(Request $request)
     {
