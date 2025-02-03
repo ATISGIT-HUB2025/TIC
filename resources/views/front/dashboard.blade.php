@@ -368,39 +368,168 @@
               <div class="comments-form cus-rounded-1 nb3-bg">
                 <div class="container">
                   <div class="row">
-                    <!-- Purple Table -->
-                    <div class="col-md-6 bg-dark p-4">
-                      <div class="pricing-table purple">
-                        <!-- Table Head -->
-                        <div class="pricing-label">Starter Package</div>
-                        <h2>Features:</h2>
 
-                        <!-- Features -->
-                        <div class="pricing-features">
-                          <div class="feature">
-                            All Starter Package Features
-                          </div>
-                          <div class="feature">
-                            Basic Risk Management Tools
-                          </div>
-                          <div class="feature">
-                            Quarterly Portfolio Review
-                          </div>
-                          <div class="feature">24/7 Customer Support</div>
-                          <div class="feature">Monthly Portfolio Review</div>
-                        </div>
-                        <!-- Price -->
-                        <div class="price-tag">
-                          <span class="symbol">$</span>
-                          <span class="amount">99.99</span>
-                          <span class="after">/month</span>
-                        </div>
-                        <!-- Button -->
+                    @php
+                        $mywinning = 0;
+                        $daily_earningT = 0;
+                        $earning_amountT = 0;
+                        $total_new_amountT = 0;
+                    @endphp
+                   
+                    
+                    
+                    @php
+                      
+                      $Mypackages = App\Models\Invest::with('package')->where('userid',Auth::user()->id)->where('completestatus','pending')->get();
+
+                    
+
+                    @endphp
+
+
+                 @foreach ($Mypackages as $val)
+                 <div class="col-md-6 bg-dark p-4">
+                     @if($val->type == "normel")
+                     <div class="pricing-table purple">
+                      <!-- Table Head -->
+                      {{-- <div class="pricing-label">Star</div> --}}
+                  
+                      <h2>Features:</h2>
+                  
+                      @php
+                        
+                        $purchased_amount = $val->amount;
+                        $purchased_date = $val->created_at;
+                        $interest_percent = $val->interest;
+                  
+                  
+                        // Calculate days passed
+                  $days_passed = \Carbon\Carbon::parse($purchased_date)->diffInDays(now());
+                  
+                  $daily_earning = ($interest_percent / 100) * $purchased_amount;
+                  
+                  
+                  
+                  
+                  // Calculate earning amount
+                  $earning_amount = ($interest_percent / 100) * $purchased_amount * $days_passed;
+                  
+                  // Calculate new amount
+                  $new_amount = $purchased_amount + $earning_amount;
+                  
+                      @endphp
+                  
+                  @php
+                      $daily_earningT += $daily_earning;
+                      $earning_amountT += $earning_amount;
+                      $total_new_amountT += $new_amount;
+                  @endphp
+                  
+                  <div class="earningampunt">Invest Date: {{ \Carbon\Carbon::parse($val->created_at)->format('d-m-Y') }}</div>
+                  
+                      <div class="earningampunt">Daily Earning: {{ number_format($daily_earning, 2) }}</div>
+                      <div class="earningampunt">Earning Amount: {{ number_format($earning_amount, 2) }}</div>
+                      <div class="earningampunt">New Amount: {{ number_format($new_amount, 2) }}</div>
+                  
+                      <!-- Features -->
+                      <div class="pricing-features">
+                  
+                        <div class="feature">Interest : 6 - 7%</div>
+                        <div class="feature">All Starter Package Features</div>
+                        <div class="feature">Basic Risk Management Tools</div>
+                        <div class="feature">Quarterly Portfolio Review</div>
+                        <div class="feature">24/7 Customer Support</div>
+                        <div class="feature">Monthly Portfolio Review</div>
+                  
                       </div>
+                      <!-- Price -->
+                      <div class="price-tag">
+                        <span class="symbol">₹</span>
+                        <span class="amount" style="font-size: 20px;">1000 - 9999</span>
+                        <span class="after">/ Month</span>
+                      </div>
+                      <!-- Button -->
+                  
+                      @if (Auth::check())
+                      @else
+                      <a class="price-button" href="/sign-in">Get Started</a>
+                      @endif
                     </div>
+                     @else
+                     <div class="pricing-table purple">
+                      <!-- Table Head -->
+                      {{-- <div class="pricing-label"><?= getCategoryTitle($val->category) ?></div> --}}
+                  
+                      <h2>Features:</h2>
+                      <!-- Features -->
+                  
+                      
+                      @php
+                        
+                        $purchased_amount = $val->amount;
+                        $purchased_date = $val->created_at;
+                        $interest_percent = $val->interest;
+                  
+                  
+                        // Calculate days passed
+                  $days_passed = \Carbon\Carbon::parse($purchased_date)->diffInDays(now());
+                  
+                  $daily_earning = ($interest_percent / 100) * $purchased_amount;
+
+                  
+                      
+                  
+                  
+                  // Calculate earning amount
+                  $earning_amount = ($interest_percent / 100) * $purchased_amount * $days_passed;
+                  
+                  // Calculate new amount
+                  $new_amount = $purchased_amount + $earning_amount;
+
+                  $daily_earningT += $daily_earning;
+                  $earning_amountT += $earning_amount;
+                  $total_new_amountT += $new_amount;
+                  
+                      @endphp
+                  
+                  <div class="earningampunt">Invest Date: {{ \Carbon\Carbon::parse($val->created_at)->format('d-m-Y') }}</div>
+                  
+                      <div class="earningampunt">Daily Earning: {{ number_format($daily_earning, 2) }}</div>
+                      <div class="earningampunt">Earning Amount: {{ number_format($earning_amount, 2) }}</div>
+                      <div class="earningampunt">New Amount: {{ number_format($new_amount, 2) }}</div>
+                     
+                      <div class="pricing-features">
+                          <div class="feature mb-0">Interest : <?= $val->package->interest_rate ?? ""?> %</div>
+                        <div class="feature mt-0"><?= $val->package->deac ?? ""?></div>
+                      </div>
+                      <!-- Price -->
+                      <div class="price-tag">
+                        <span class="symbol"><?=$val->package->currency ?? "" ?></span>
+                        <span class="amount"><?=$val->package->ammount ?? "" ?></span>
+                        <span class="after">/<?=$val->package->formate ?? "" ?></span>
+                      </div>
+                      <!-- Button -->
+                      @if (Auth::check())
+                      @else
+                      <a class="price-button" href="/sign-in">Get Started</a>
+                      @endif
+                    </div>
+                     @endif
+                 </div>
+             @endforeach
+
+               <!-- Purple Table -->
+               <div class="col-12" style="order:-1;">
+              
+                <div class="totalearningbox">
+                  <p>Total Daily Earning : {{ number_format($daily_earningT, 2) }}</p>
+                  <p>Total Earning Amount : {{ number_format($earning_amountT, 2) }}</p>
+                  <p>Total New Amount : {{ number_format($total_new_amountT, 2) }}</p>
+                </div>
+              </div>
+              
                     <div class="col-md-6">
                       <!-- Button trigger modal -->
-
                       <button
                         class="cmn-btn alt-xxl-bg fs-five nb4-xxl-bg gap-2 mt-4 gap-lg-3 align-items-center py-2 px-5 py-lg-3 px-lg-6"
                         style="--top: 47.8125px; --left: 146px"

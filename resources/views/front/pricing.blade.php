@@ -95,7 +95,7 @@
                   <!-- Price -->
                   <div class="price-tag">
                     <span class="symbol">₹</span>
-                    <span class="amount" style="font-size: 20px;">Rs.1000 - Rs.9999</span>
+                    <span class="amount" style="font-size: 20px;">1000 - 9999</span>
                     <span class="after">/ Month</span>
                   </div>
                   <!-- Button -->
@@ -122,7 +122,9 @@
         
                     <!-- Features -->
                     <div class="pricing-features">
-                      <div class="feature"><?= $val->deac?></div>
+                    <div class="feature mb-0">Interest : <?= $val->interest_rate ?? ""?> %</div>
+
+                      <div class="feature mt-0"><?= $val->deac?></div>
                     </div>
                     <!-- Price -->
                     <div class="price-tag">
@@ -131,7 +133,11 @@
                       <span class="after">/<?=$val->formate ?></span>
                     </div>
                     <!-- Button -->
+                    @if (Auth::check())
+                    <a class="price-button" href="{{ route('investnow',['investtype' => 'business','id' => $val->id]) }}">Get Started</a>
+                    @else
                     <a class="price-button" href="/sign-in">Get Started</a>
+                    @endif
                   </div>
                 </div>
                 

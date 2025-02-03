@@ -4114,3 +4114,24 @@ iframe {
   align-items: center;
   gap: 6px;
 }
+
+.earningampunt{
+  background-color: #fff;
+  color: #000;
+  padding: 7px;
+  border-radius: 6px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.totalearningbox{
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 15px;
+  text-align: center;
+}
+
+.totalearningbox p{
+  color: #000;
+}

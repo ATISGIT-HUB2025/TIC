@@ -422,7 +422,7 @@ class Commoncontroller extends Controller
     public function walletstore(Request $request){
         $request->validate([
             'amount' => 'required|numeric|min:1',
-            'transaction_id' => 'required|regex:/^[A-Za-z0-9]{12}$/|unique:customer_payment,utr',
+            'transaction_id' => 'required|alpha_num|size:12|unique:customer_payment,utr',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ],[
             'image.required' => 'Upload Payment Screenshot and Amount Details.'

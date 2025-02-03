@@ -41,6 +41,7 @@ Route::post('/profile-update', [Commoncontroller::class, 'profileupdate'])->name
 Route::post('/update-bank', [Commoncontroller::class, 'updatebank'])->name('update.bank');
 Route::post('/wallet-store', [Commoncontroller::class, 'walletstore'])->name('wallet.store');
 Route::post('/buy-normel-package', [Investcontroller::class, 'buynormelpackage'])->name('buy.normel.package');
+Route::post('/buy-business-package', [Investcontroller::class, 'buybusinesspackage'])->name('buy.business.package');
 Route::get('/investnow/{investtype}/{id}', [Investcontroller::class, 'investnow'])->name('investnow');
 });
 

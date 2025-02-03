@@ -7,7 +7,7 @@
     <div class="container mt-10 mt-lg-0 pt-15 pt-lg-20 pb-5 pb-lg-0">
       <div class="row">
         <div class="col-12 breadcrumb-area">
-          <h2 class="mb-4">Invest Now / Normel</h2>
+          <h2 class="mb-4">Invest Now / Business</h2>
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-0">
               <li class="breadcrumb-item"><a href="/">Home</a></li>
@@ -44,7 +44,8 @@
                                 <h5>"Maximize your potential—invest today and secure a brighter future!"</h5>
                             <div class="single-input mt-3">
                                 <label class="label fw_500 nw1-color mb-4" for="amount">Amount</label>
-                                <input type="number" class="fs-seven" name="amount" id="amount" placeholder="Enter Amount"  />
+                                <input type="number" class="fs-seven" name="amount" id="amount" value="{{ $package->ammount }}" placeholder="Enter Amount"  />
+                                <input type="number" class="fs-seven" name="package_id" hidden value="{{ $packageid }}" id="amount" placeholder="Enter Amount"  />
                                 <span class="text-danger error" id="error_amount"></span>
                             </div>
                         </div>
@@ -85,7 +86,7 @@
             submitBtn.html('Processing...').prop('disabled', true);
 
             $.ajax({
-                url: "{{ route('buy.normel.package') }}",
+                url: "{{ route('buy.business.package') }}",
                 type: "POST",
                 data: formData,
                 processData: false,
@@ -109,8 +110,6 @@
                 error: function(response) {
                     submitBtn.html('Update <i class="bi bi-arrow-up-right"></i>').prop('disabled', false);
                     
-                    console.log(response.status);
-
                     if (response.status === 422) {
                         let errors = response.responseJSON.errors;
                         for (let key in errors) {
