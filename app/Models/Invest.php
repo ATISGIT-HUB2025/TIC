@@ -14,6 +14,7 @@ class Invest extends Model
         'userid',
         'package_id',
         'amount',
+        'firstminus',
         'time',
         'interest',
         'completestatus',

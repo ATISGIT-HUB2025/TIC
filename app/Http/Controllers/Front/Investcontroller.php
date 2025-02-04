@@ -6,12 +6,43 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Invest;
+use App\Models\Withdraw;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 
 class Investcontroller extends Controller
 {
+
+    public function withdrawRequest(Request $request, $investid)
+{
+    $invest = Invest::findOrFail($investid);
+    
+    // Create a new withdraw request
+    
+    $request->validate([
+        'amount' => 'required|numeric',
+    ], [
+        'amount.required' => 'The amount field is required.',
+        'amount.numeric'  => 'The amount must be a number.',
+    ]);
+
+
+    if ($request->amount > total_earn_by_invest($investid)) {
+        return redirect()->back()->with('error', 'Insufficient Earning Balance. You can withdraw only Rs.' . total_earn_by_invest($investid));
+    }
+    
+    $new = new Withdraw();
+    $new->userid = $invest->userid;
+    $new->invest_id = $invest->id;
+    $new->package_id = $invest->package_id;
+    $new->amount = $request->amount; // Make sure to validate this in the request
+    $new->reason = $request->reason; // Optional reason for withdrawal
+    $new->status = 'pending'; // Default status
+    $new->save();
+    return redirect()->back()->with('success','Withdraw request submitted successfully');
+}
+
     public function investnow(Request $request,$investType,$id){
         if ($investType == "normel") {
             return view('front/invest/normel');

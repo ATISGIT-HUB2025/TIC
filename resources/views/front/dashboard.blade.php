@@ -422,7 +422,12 @@
                   @php
                       $daily_earningT += $daily_earning;
                       $earning_amountT += $earning_amount;
-                      $total_new_amountT += $new_amount;
+                      if($val->firstminus == "Y"){
+                        $total_new_amountT += $earning_amount;
+                      }else{
+                        $total_new_amountT += $new_amount;
+                      }
+                   
                   @endphp
                   
                   <div class="earningampunt">Invest Date: {{ \Carbon\Carbon::parse($val->created_at)->format('d-m-Y') }}</div>
@@ -455,6 +460,9 @@
                       <a class="price-button" href="/sign-in">Get Started</a>
                       @endif
                     </div>
+
+                      @include('front.partials.normel',['val' => $val])
+
                      @else
                      <div class="pricing-table purple">
                       <!-- Table Head -->
@@ -488,12 +496,17 @@
 
                   $daily_earningT += $daily_earning;
                   $earning_amountT += $earning_amount;
-                  $total_new_amountT += $new_amount;
+                  // $total_new_amountT += $new_amount;
+
+                  if($val->firstminus == "Y"){
+                        $total_new_amountT += $earning_amount;
+                      }else{
+                        $total_new_amountT += $new_amount;
+                      }
                   
                       @endphp
                   
                   <div class="earningampunt">Invest Date: {{ \Carbon\Carbon::parse($val->created_at)->format('d-m-Y') }}</div>
-                  
                       <div class="earningampunt">Daily Earning: {{ number_format($daily_earning, 2) }}</div>
                       <div class="earningampunt">Earning Amount: {{ number_format($earning_amount, 2) }}</div>
                       <div class="earningampunt">New Amount: {{ number_format($new_amount, 2) }}</div>
@@ -509,6 +522,7 @@
                         <span class="after">/<?=$val->package->formate ?? "" ?></span>
                       </div>
                       <!-- Button -->
+                      @include('front.partials.normel',['val' => $val])
                       @if (Auth::check())
                       @else
                       <a class="price-button" href="/sign-in">Get Started</a>
@@ -520,6 +534,8 @@
 
                <!-- Purple Table -->
                <div class="col-12" style="order:-1;">
+
+                {{ usertotalearning(Auth::user()->id) }}
               
                 <div class="totalearningbox">
                   <p>Total Daily Earning : {{ number_format($daily_earningT, 2) }}</p>
@@ -528,199 +544,7 @@
                 </div>
               </div>
               
-                    <div class="col-md-6">
-                      <!-- Button trigger modal -->
-                      <button
-                        class="cmn-btn alt-xxl-bg fs-five nb4-xxl-bg gap-2 mt-4 gap-lg-3 align-items-center py-2 px-5 py-lg-3 px-lg-6"
-                        style="--top: 47.8125px; --left: 146px"
-                        data-bs-toggle="modal"
-                        data-bs-target="#exampleModal"
-                      >
-                        Withdrawal Amount <i class="ti ti-trending-up"></i>
-                      </button>
-                      <!-- Modal -->
-                      <div
-                        class="modal fade"
-                        id="exampleModal"
-                        tabindex="-1"
-                        aria-labelledby="exampleModalLabel"
-                        aria-hidden="true"
-                      >
-                        <div class="modal-dialog">
-                          <div class="modal-content nb3-bg">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">
-                                Withdrawal Form
-                              </h5>
-                              <button
-                                type="button"
-                                class="btn-close"
-                                data-bs-dismiss="modal"
-                                aria-label="Close"
-                              ></button>
-                            </div>
-                            <div class="modal-body">
-                              <form
-                                method="POST"
-                                autocomplete="off"
-                                id="frmContactus"
-                                class="message__form p-4 p-lg-8"
-                              >
-                                <div
-                                  class="d-flex gap-7 gap-lg-8 flex-column"
-                                >
-                                  <div class="row gy-4">
-                                    <!-- Name -->
-                                    <div class="col-lg-6">
-                                      <div class="single-input">
-                                        <label
-                                          class="label fw_500 nw1-color mb-4"
-                                          for="name"
-                                        >
-                                          Name
-                                        </label>
-                                        <input
-                                          type="text"
-                                          class="fs-seven"
-                                          name="name"
-                                          id="name"
-                                          placeholder="Enter your full name"
-                                          required
-                                        />
-                                      </div>
-                                    </div>
-                                    <!-- Date of Birth -->
-                                    <div class="col-lg-6">
-                                      <div class="single-input">
-                                        <label
-                                          class="label fw_500 nw1-color mb-4"
-                                          for="dob"
-                                        >
-                                          Date of Birth
-                                        </label>
-                                        <input
-                                          type="date"
-                                          class="fs-seven"
-                                          name="dob"
-                                          id="dob"
-                                          placeholder="Select your date of birth"
-                                          required
-                                        />
-                                      </div>
-                                    </div>
-                                    <!-- Contact Number -->
-                                    <div class="col-lg-6">
-                                      <div class="single-input">
-                                        <label
-                                          class="label fw_500 nw1-color mb-4"
-                                          for="contactNumber"
-                                        >
-                                          Contact Number
-                                        </label>
-                                        <input
-                                          type="tel"
-                                          class="fs-seven"
-                                          name="contactNumber"
-                                          id="contactNumber"
-                                          placeholder="Enter your contact number"
-                                          required
-                                        />
-                                      </div>
-                                    </div>
-                                    <!-- Email Address -->
-                                    <div class="col-lg-6">
-                                      <div class="single-input">
-                                        <label
-                                          class="label fw_500 nw1-color mb-4"
-                                          for="email"
-                                        >
-                                          Email Address
-                                        </label>
-                                        <input
-                                          type="email"
-                                          class="fs-seven"
-                                          name="email"
-                                          id="email"
-                                          placeholder="Enter your email address"
-                                          required
-                                        />
-                                      </div>
-                                    </div>
-                                    <!-- Date of Withdrawals -->
-                                    <div class="col-lg-6">
-                                      <div class="single-input">
-                                        <label
-                                          class="label fw_500 nw1-color mb-4"
-                                          for="withdrawalDate"
-                                        >
-                                          Date of Withdrawals
-                                        </label>
-                                        <input
-                                          type="date"
-                                          class="fs-seven"
-                                          name="withdrawalDate"
-                                          id="withdrawalDate"
-                                          placeholder="Select withdrawal date"
-                                          required
-                                        />
-                                      </div>
-                                    </div>
-                                    <!-- Reason of Withdrawals -->
-                                    <div class="col-lg-6">
-                                      <div class="single-input">
-                                        <label
-                                          class="label fw_500 nw1-color mb-4"
-                                          for="withdrawalReason"
-                                        >
-                                          Reason of Withdrawals
-                                        </label>
-                                        <input
-                                          type="text"
-                                          class="fs-seven"
-                                          name="withdrawalReason"
-                                          id="withdrawalReason"
-                                          placeholder="Enter the reason for withdrawal"
-                                          required
-                                        />
-                                      </div>
-                                    </div>
-
-                                    <!-- Amount -->
-                                    <div class="col-lg-12">
-                                      <div class="single-input">
-                                        <label
-                                          class="label fw_500 nw1-color mb-4"
-                                          for="amount"
-                                        >
-                                          Amount
-                                        </label>
-                                        <input
-                                          type="number"
-                                          class="fs-seven"
-                                          name="amount"
-                                          id="amount"
-                                          placeholder="Enter the amount"
-                                          required
-                                        />
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                                <span id="msg"></span>
-                                <button
-                                  type="submit"
-                                  class="cmn-btn py-3 px-5 px-lg-6 mt-8 mt-lg-10 d-flex ms-auto"
-                                  name="submit"
-                                  id="submit"
-                                >
-                                  Submit<i class="bi bi-arrow-up-right"></i>
-                                </button>
-                              </form>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    
                   </div>
                 </div>
               </div>
@@ -750,7 +574,7 @@
                         >
                           Name
                         </th>
-                        <th
+                        {{-- <th
                           scope="col"
                           style="text-wrap: nowrap; font-size: 12px"
                         >
@@ -761,13 +585,13 @@
                           style="text-wrap: nowrap; font-size: 12px"
                         >
                           Contact Number
-                        </th>
-                        <th
+                        </th> --}}
+                        {{-- <th
                           scope="col"
                           style="text-wrap: nowrap; font-size: 12px"
                         >
                           Email Address
-                        </th>
+                        </th> --}}
                         <th
                           scope="col"
                           style="text-wrap: nowrap; font-size: 12px"
@@ -786,9 +610,18 @@
                         >
                           Amount
                         </th>
+                        <th
+                          scope="col"
+                          style="text-wrap: nowrap; font-size: 12px"
+                        >
+                         Status
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
+                      @foreach ($mywithdraw as $value)
+                          
+                      
                       <tr>
                         <th
                           scope="row"
@@ -797,117 +630,36 @@
                           1
                         </th>
                         <td style="text-wrap: nowrap; font-size: 12px">
-                          Mark Doe
+                          {{ Auth::user()->name }}
                         </td>
-                        <td style="text-wrap: nowrap; font-size: 12px">
+                        {{-- <td style="text-wrap: nowrap; font-size: 12px">
                           02 Aug 1995
-                        </td>
-                        <td style="text-wrap: nowrap; font-size: 12px">
+                        </td> --}}
+                        {{-- <td style="text-wrap: nowrap; font-size: 12px">
                           +91 9090909090
                         </td>
                         <td style="text-wrap: nowrap; font-size: 12px">
                           mark@gmail.com
+                        </td> --}}
+                        <td style="text-wrap: nowrap; font-size: 12px">
+                          {{ $value->created_at->format('d-M-Y') }}
                         </td>
                         <td style="text-wrap: nowrap; font-size: 12px">
-                          16-Jan-2025
+                          {{ $value->reason }}
                         </td>
                         <td style="text-wrap: nowrap; font-size: 12px">
-                          Lorem ipsum dolor sit amet.
+                          Rs.{{ $value->amount }}
                         </td>
-                        <td style="text-wrap: nowrap; font-size: 12px">
-                          $.20.00
+                        <td>
+                          @if ($value->status == "pending")
+                          <span class="badge bg-warning">Pending</span>
+                          @else
+                          <span class="badge bg-success">Success</span>
+                          @endif
                         </td>
                       </tr>
 
-                      <tr>
-                        <th
-                          scope="row"
-                          style="text-wrap: nowrap; font-size: 12px"
-                        >
-                          1
-                        </th>
-                        <td style="text-wrap: nowrap; font-size: 12px">
-                          Mark Doe
-                        </td>
-                        <td style="text-wrap: nowrap; font-size: 12px">
-                          02 Aug 1995
-                        </td>
-                        <td style="text-wrap: nowrap; font-size: 12px">
-                          +91 9090909090
-                        </td>
-                        <td style="text-wrap: nowrap; font-size: 12px">
-                          mark@gmail.com
-                        </td>
-                        <td style="text-wrap: nowrap; font-size: 12px">
-                          16-Jan-2025
-                        </td>
-                        <td style="text-wrap: nowrap; font-size: 12px">
-                          Lorem ipsum dolor sit amet.
-                        </td>
-                        <td style="text-wrap: nowrap; font-size: 12px">
-                          $.20.00
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <th
-                          scope="row"
-                          style="text-wrap: nowrap; font-size: 12px"
-                        >
-                          1
-                        </th>
-                        <td style="text-wrap: nowrap; font-size: 12px">
-                          Mark Doe
-                        </td>
-                        <td style="text-wrap: nowrap; font-size: 12px">
-                          02 Aug 1995
-                        </td>
-                        <td style="text-wrap: nowrap; font-size: 12px">
-                          +91 9090909090
-                        </td>
-                        <td style="text-wrap: nowrap; font-size: 12px">
-                          mark@gmail.com
-                        </td>
-                        <td style="text-wrap: nowrap; font-size: 12px">
-                          16-Jan-2025
-                        </td>
-                        <td style="text-wrap: nowrap; font-size: 12px">
-                          Lorem ipsum dolor sit amet.
-                        </td>
-                        <td style="text-wrap: nowrap; font-size: 12px">
-                          $.20.00
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <th
-                          scope="row"
-                          style="text-wrap: nowrap; font-size: 12px"
-                        >
-                          1
-                        </th>
-                        <td style="text-wrap: nowrap; font-size: 12px">
-                          Mark Doe
-                        </td>
-                        <td style="text-wrap: nowrap; font-size: 12px">
-                          02 Aug 1995
-                        </td>
-                        <td style="text-wrap: nowrap; font-size: 12px">
-                          +91 9090909090
-                        </td>
-                        <td style="text-wrap: nowrap; font-size: 12px">
-                          mark@gmail.com
-                        </td>
-                        <td style="text-wrap: nowrap; font-size: 12px">
-                          16-Jan-2025
-                        </td>
-                        <td style="text-wrap: nowrap; font-size: 12px">
-                          Lorem ipsum dolor sit amet.
-                        </td>
-                        <td style="text-wrap: nowrap; font-size: 12px">
-                          $.20.00
-                        </td>
-                      </tr>
+                      @endforeach
                     </tbody>
                   </table>
                 </div>

@@ -16,6 +16,7 @@ use App\Models\Blogcomments;
 use App\Models\Comment;
 use App\Models\CRM\Customerpayment;
 use App\Models\Contact;
+use App\Models\Withdraw;
 use App\Models\Gallery;
 use App\Models\Studentszone;
 use App\Models\Reels;
@@ -415,7 +416,8 @@ class Commoncontroller extends Controller
         }
 
     public function dashboard(){
-        return view('front.dashboard');
+        $data['mywithdraw'] = Withdraw::where('userid',Auth::user()->id)->latest()->get();
+        return view('front.dashboard',$data);
     }
 
 

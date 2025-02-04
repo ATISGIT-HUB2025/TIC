@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Usertype;
+use App\Models\Withdraw;
 use App\Models\Projects;
+use App\Models\Invest;
 use App\Models\CRM\Customerpayment;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
@@ -34,11 +36,51 @@ class AdminpanelController extends Controller
         $payment->save();
         return redirect()->back()->with('success', 'Transaction Updated Successfully!');
     }
+ 
+ 
+    public function updatewithdraw(Request $request)
+    {
+        // Validate request inputs
+        $request->validate([
+            'transaction_id' => 'required|exists:withdraw,id', 
+            'status' => 'required|in:pending,complete,reject', 
+        ]);
+
+        $payment = Withdraw::findOrFail($request->transaction_id);
+
+        $invest = Invest::findOrFail($payment->invest_id);
+
+        // Update the created_at field to the current date and time
+        $invest->created_at = now();
+        $invest->firstminus = 'Y';
+        
+        // Save the changes to the database
+        
+        $invest->save();
+
+        // $user = User::findOrFail($payment->customer_id); 
+        // if ($request->status == "complete") {
+        //     $user->wallet += $payment->amount;
+        //     $user->save();
+        // }
+        
+        $payment->status = $request->status;
+        
+        $payment->save();
+        
+        return redirect()->back()->with('success', 'Withdraw Updated Successfully!');
+    }
     
 
     public function gettransaction($modelid){
         $row  = Customerpayment::findorfail($modelid);
         return view('admin/transaction/edit',compact('row'));
+        
+    }
+
+    public function getwithdraw($modelid){
+        $row  = Withdraw::findorfail($modelid);
+        return view('admin/transaction/getwithdraw',compact('row'));
         
     }
 
@@ -96,6 +138,66 @@ class AdminpanelController extends Controller
         }
         
      return view('admin/transaction/index',$data);   
+    }
+    public function withdraw(Request $request)
+    {
+        $searchkey = $request->query('type');  // Use $request->query() to safely retrieve the 'type' parameter
+    
+        if ($request->ajax()) {
+            // Fetch the data with relationships
+            $query = Withdraw::with(['user', 'invest']);
+    
+            // If there is a date filter, add it to the query
+            if ($request->has('start_date') && $request->has('end_date')) {
+                $startDate = $request->start_date;
+                $endDate = $request->end_date;
+                $query->whereBetween('created_at', [$startDate, $endDate]);
+            }
+    
+            if ($request->has('status')) {
+                $query->where('status', $request->status);
+            }
+    
+            // Return the response formatted for DataTables
+            return DataTables::eloquent($query)
+                ->addIndexColumn()
+                ->addColumn('user_name', function ($withdraw) {
+                    return $withdraw->user ? $withdraw->user->name : 'N/A';
+                })
+                ->addColumn('invest_name', function ($withdraw) {
+                    return $withdraw->invest ? $withdraw->invest->name : 'N/A'; // Assuming 'name' is a field in the 'invests' table
+                })
+                ->addColumn('package_name', function ($withdraw) {
+                    return $withdraw->package ? $withdraw->package->name : 'N/A'; // Assuming 'name' is a field in the 'packages' table
+                })
+                ->editColumn('action', function ($withdraw) {
+                    return $withdraw->id ?
+                        '<a href="javascript:void(0)" onclick="openmodel(' . $withdraw->id . ')" target="_blank" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</a>' :
+                        'No Action';
+                })
+
+                ->editColumn('created_at', function ($withdraw) {
+                    return $withdraw->created_at ? $withdraw->created_at->format('d F Y h:i A') : 'N/A';
+                })
+
+                ->editColumn('status', function ($withdraw) {
+                    // Check the status and return corresponding button
+                    if ($withdraw->status == 'pending') {
+                        return '<button class="badge border-0 bg-warning">Pending</button>';
+                    } elseif ($withdraw->status == 'complete') {
+                        return '<button class="badge border-0 bg-success">Complete</button>';
+                    } elseif ($withdraw->status == 'reject') {
+                        return '<button class="badge border-0 bg-danger">Reject</button>';
+                    } else {
+                        return 'Unknown Status';
+                    }
+                })
+                ->setRowId('id') // Optional: You can set a custom row ID here
+                ->rawColumns(['action','created_at','status', 'user_name', 'invest_name', 'package_name']) // Allow HTML in these columns
+                ->make(true);
+        }
+    
+        return view('admin/transaction/withdraw');
     }
 
     public function maintenance(){

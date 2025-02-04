@@ -78,9 +78,8 @@
                                 <thead>
                                     <tr>
                                         <th>S.N</th>
+                                        <th>Username</th>
                                         <th>Amount</th>
-                                        <th>Utr / Transaction Id</th>
-                                        <th>Screenshot</th>
                                         <th>Created At</th>
                                         <th>Status</th>
                                         <th>Action</th>
@@ -105,7 +104,6 @@
 </div>
 
 @section('footer')
-
 
     <!-- Datatables js -->
     <script src="{{ url('admin') }}/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
@@ -146,7 +144,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: '{{ route('transactions') }}',  // Update with your route
+                    url: '{{ route('withdrawadmin') }}',  // Update with your route
                     data: function (d) {
                         d.start_date = $('#start_date').val();
                         d.end_date = $('#end_date').val();
@@ -161,9 +159,8 @@
                         orderable: false,      // Disable ordering for this column
                         searchable: false      // Disable search for this column
                     },
+                    { data: 'user_name', name: 'user_name' },
                     { data: 'amount', name: 'amount' },
-                    { data: 'utr', name: 'utr' },
-                    { data: 'screenshot', name: 'screenshot' },  // Column for screenshot link
                     { data: 'created_at', name: 'created_at' },
                     { data: 'status', name: 'status' },
                     { data: 'action', name: 'action', orderable: false, searchable: false }  // Optional: For actions column
@@ -178,11 +175,11 @@
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <form action="/admin/updatetransaction" method="post">
+        <form action="/admin/updatewithdraw" method="post">
         @csrf
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Update Deposit Status</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Update Withdrow Status</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body" id="bodycontent">
@@ -203,7 +200,7 @@
    function openmodel(modelid) {
     console.log(modelid);
     $.ajax({
-        url: '/admin/gettransaction/' + modelid, // Update with your Laravel route
+        url: '/admin/getwithdraw/' + modelid, // Update with your Laravel route
         method: 'get',
         success: function(response) {
             // Update the modal body content with the response

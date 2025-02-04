@@ -39,6 +39,7 @@ Route::middleware([Team::class])->group(function () {
 Route::get('/dashboard', [Commoncontroller::class, 'dashboard'])->name('dashboard');
 Route::post('/profile-update', [Commoncontroller::class, 'profileupdate'])->name('profile.update');
 Route::post('/update-bank', [Commoncontroller::class, 'updatebank'])->name('update.bank');
+Route::post('/withdraw/{investid}', [Investcontroller::class, 'withdrawrequest'])->name('withdrawrequest');
 Route::post('/wallet-store', [Commoncontroller::class, 'walletstore'])->name('wallet.store');
 Route::post('/buy-normel-package', [Investcontroller::class, 'buynormelpackage'])->name('buy.normel.package');
 Route::post('/buy-business-package', [Investcontroller::class, 'buybusinesspackage'])->name('buy.business.package');
@@ -72,6 +73,9 @@ Route::middleware([Superadmin::class])->prefix('admin')->group(function () {
     Route::match(['get', 'post'], '/dashboard', [AdminpanelController::class, 'dashboard'])->name('dashboard');
     Route::match(['get', 'post'], '/profile', [AdminpanelController::class, 'profile'])->name('profile');
     Route::match(['get', 'post'], '/transactions', [AdminpanelController::class, 'transactions'])->name('transactions');
+    Route::match(['get', 'post'], '/withdraw', [AdminpanelController::class, 'withdraw'])->name('withdrawadmin');
+    Route::match(['get', 'post'], '/getwithdraw/{id}', [AdminpanelController::class, 'getwithdraw'])->name('getwithdraw');
+    Route::match(['post'], '/updatewithdraw', [AdminpanelController::class, 'updatewithdraw'])->name('updatewithdraw');
     Route::match(['get', 'post'], '/gettransaction/{id}', [AdminpanelController::class, 'gettransaction'])->name('gettransaction');
     Route::match(['post'], '/updatetransaction', [AdminpanelController::class, 'updatetransaction'])->name('updatetransaction');
     Route::post('/change-password', [AdminpanelController::class, 'change_password'])->name('change_password');
