@@ -71,8 +71,8 @@
           >
             <div class="sign__content ms-md-5 ms-xxl-0 pt-120 pb-120">
               <div class="head_part">
-                <a href="index.html">
-                  <img src="{{url('website')}}/assets/images/logo.png" alt="Logo"
+                <a href="/">
+                  <img width="150" src="{{url('uploads')}}/{{ weblogo() ?? "" }}" alt="Logo"
                 /></a>
                 <h5 class="mt-5 mt-lg-6">Login to Your Account</h5>
               </div>
@@ -101,7 +101,7 @@
                         </span>
                         Remember me
                     </label>
-                    <a href="forgot-pass.html" class="nw1-color">Forgot Password?</a>
+                    {{-- <a href="forgot-pass.html" class="nw1-color">Forgot Password?</a> --}}
                 </div>
                 <div class="mt-7 mt-lg-8">
                     <button type="submit" class="cmn-btn py-3 px-5 px-lg-6 mt-7 mt-lg-8 w-100 d-center" name="submit" id="submit">

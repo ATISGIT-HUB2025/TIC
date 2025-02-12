@@ -73,7 +73,8 @@ Route::middleware([Superadmin::class])->prefix('admin')->group(function () {
     Route::match(['get', 'post'], '/dashboard', [AdminpanelController::class, 'dashboard'])->name('dashboard');
     Route::match(['get', 'post'], '/profile', [AdminpanelController::class, 'profile'])->name('profile');
     Route::match(['get', 'post'], '/transactions', [AdminpanelController::class, 'transactions'])->name('transactions');
-    Route::match(['get', 'post'], '/withdraw', [AdminpanelController::class, 'withdraw'])->name('withdrawadmin');
+    Route::match(['get', 'post'], '/withdraw', [AdminpanelController::class, 'withdraw'])->name('sdflhksgd');
+    Route::match(['get', 'post'], '/withdrawadmin', [AdminpanelController::class, 'withdrawadmin'])->name('withdrawadmin');
     Route::match(['get', 'post'], '/getwithdraw/{id}', [AdminpanelController::class, 'getwithdraw'])->name('getwithdraw');
     Route::match(['post'], '/updatewithdraw', [AdminpanelController::class, 'updatewithdraw'])->name('updatewithdraw');
     Route::match(['get', 'post'], '/gettransaction/{id}', [AdminpanelController::class, 'gettransaction'])->name('gettransaction');

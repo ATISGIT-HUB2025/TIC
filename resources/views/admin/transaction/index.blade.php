@@ -41,8 +41,6 @@
                 </div>
             @endif
 
-
-
             <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
 
 
@@ -73,15 +71,79 @@
                         </div>
 
                         <div class="card-body">
+
+
+                            <div class="">
+                                <div class="filter-card bg-light p-3">
+                                    <h4 class="text-center mb-3">Search Filter</h4>
+                                    <form id="filterForm" class="row">
+                                        <!-- Request No -->
+                                        <div class="mb-3 col-6 col-sm-3 col-lg-2">
+                                            <label for="requestNo" class="form-label">Request No.</label>
+                                            <input type="text" class="form-control" id="requestNo" name="request_no" placeholder="Enter Request No.">
+                                        </div>
+                            
+                                        <!-- Request Status -->
+                                        <div class="mb-3 col-6 col-sm-3 col-lg-2">
+                                            <label for="requestStatus" class="form-label">Request Status</label>
+                                            <select class="form-select" id="requestStatus" name="status">
+                                                <option value="">Select Status</option>
+                                                <option value="pending">Pending</option>
+                                                <option value="complete">Complete</option>
+                                                <option value="reject">Rejected</option>
+                                            </select>
+                                        </div>
+                            
+                                        <!-- Request Date / Verified Date -->
+                                        <div class="mb-3 col-sm-3 col-md-3">
+                                            <label class="form-label">Filter By</label>
+                                            <div class="d-flex">
+                                                <div class="form-check me-3">
+                                                    <input class="form-check-input" type="radio" name="dateFilter" id="requestDate" value="request" checked>
+                                                    <label class="form-check-label" for="requestDate">Request Date</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="dateFilter" id="verifiedDate" value="verified">
+                                                    <label class="form-check-label" for="verifiedDate">Verified Date</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                            
+                                        <!-- Date Range -->
+                                        <div class="mb-3 col-sm-4 col-md-5">
+                                            <label class="form-label" id="dateLabel">Request Date Range</label>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <label>From</label>
+                                                    <input type="date" class="form-control" id="fromDate" name="from_date">
+                                                </div>
+                                                <div class="col">
+                                                    <label>To</label>
+                                                    <input type="date" class="form-control" id="toDate" name="to_date">
+                                                </div>
+                                            </div>
+                                        </div>
+                            
+                                        <!-- Submit Buttons -->
+                                        <div class="col-12">
+                                            <button type="submit" class="btn btn-success">Search</button>
+                                            <button type="reset" class="btn btn-danger" id="resetFilter">Reset</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
                             <table id="example"
                                 class="table table-striped dt-responsive nowrap table-striped w-100">
                                 <thead>
                                     <tr>
                                         <th>S.N</th>
+                                        <th>Request Id</th>
                                         <th>Amount</th>
                                         <th>Utr / Transaction Id</th>
                                         <th>Screenshot</th>
                                         <th>Created At</th>
+                                        <th>Verified At</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -141,37 +203,58 @@
 
     <script>
         $(document).ready(function() {
-            // Initialize the DataTable
-            $('#example').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: '{{ route('transactions') }}',  // Update with your route
-                    data: function (d) {
-                        d.start_date = $('#start_date').val();
-                        d.end_date = $('#end_date').val();
-                        d.status = '<?= $_GET['type'] ?>';
-                    }
-                },
-                order: [], // Disable ordering
-                columns: [
-                    { 
-                        data: 'DT_RowIndex',  // Automatically generated serial number
-                        name: 'DT_RowIndex',  // Use DT_RowIndex for serial number
-                        orderable: false,      // Disable ordering for this column
-                        searchable: false      // Disable search for this column
+            function loadDataTable() {
+                $('#example').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    destroy: true,  // Destroy previous instance before reloading
+                    ajax: {
+                        url: "{{ route('transactions') }}",  // Laravel Route
+                        data: function(d) {
+                            d.request_no = $('#requestNo').val();
+                            d.status = $('#requestStatus').val();
+                            d.date_filter = $("input[name='dateFilter']:checked").val();
+                            d.from_date = $('#fromDate').val();
+                            d.to_date = $('#toDate').val();
+                        }
                     },
-                    { data: 'amount', name: 'amount' },
-                    { data: 'utr', name: 'utr' },
-                    { data: 'screenshot', name: 'screenshot' },  // Column for screenshot link
-                    { data: 'created_at', name: 'created_at' },
-                    { data: 'status', name: 'status' },
-                    { data: 'action', name: 'action', orderable: false, searchable: false }  // Optional: For actions column
-                ]
+                    order: [], // Disable default ordering
+                    columns: [
+                        { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
+                        { data: 'id', name: 'id' },
+                        { data: 'amount', name: 'amount' },
+                        { data: 'utr', name: 'utr' },
+                        { data: 'screenshot', name: 'screenshot', orderable: false, searchable: false },
+                        { data: 'created_at', name: 'created_at' },
+                        { data: 'updated_at', name: 'updated_at' },
+                        { data: 'status', name: 'status' },
+                        { data: 'action', name: 'action', orderable: false, searchable: false }
+                    ]
+                });
+            }
+    
+            // Load DataTable initially
+            loadDataTable();
+    
+            // Submit Search Form
+            $('#filterForm').on('submit', function(e) {
+                e.preventDefault();
+                loadDataTable();
+            });
+    
+            // Reset Filter
+            $('#resetFilter').on('click', function() {
+                $('#filterForm')[0].reset();
+                loadDataTable();
+            });
+    
+            // Change label dynamically
+            $("input[name='dateFilter']").change(function(){
+                let selected = $("input[name='dateFilter']:checked").val();
+                $("#dateLabel").text(selected === "request" ? "Request Date Range" : "Verified Date Range");
             });
         });
     </script>
-    
 
 
     

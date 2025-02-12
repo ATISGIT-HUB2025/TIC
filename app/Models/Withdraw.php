@@ -14,6 +14,7 @@ class Withdraw extends Model
         'userid',
         'invest_id',
         'package_id',
+        'amount_cut',
         'amount',
         'reason',
         'status'

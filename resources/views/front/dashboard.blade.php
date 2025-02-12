@@ -79,7 +79,7 @@
             </button>
             <hr />
             <div class="text-center">
-              <a href="signin.html" class="nav-link"> Logout </a>
+              <a href="/userlogout" class="nav-link"> Logout </a>
             </div>
           </div>
         </div>
@@ -382,12 +382,14 @@
                       
                       $Mypackages = App\Models\Invest::with('package')->where('userid',Auth::user()->id)->where('completestatus','pending')->get();
 
-                    
-
-                    @endphp
-
+    @endphp
 
                  @foreach ($Mypackages as $val)
+
+                 @php
+                   $mywithdrawal = App\Models\Withdraw::where('invest_id',$val->id)->where('userid',Auth::user()->id)->where('amount_cut','Y')->sum('amount');
+                 @endphp
+
                  <div class="col-md-6 bg-dark p-4">
                      @if($val->type == "normel")
                      <div class="pricing-table purple">
@@ -422,19 +424,20 @@
                   @php
                       $daily_earningT += $daily_earning;
                       $earning_amountT += $earning_amount;
-                      if($val->firstminus == "Y"){
-                        $total_new_amountT += $earning_amount;
-                      }else{
-                        $total_new_amountT += $new_amount;
-                      }
-                   
+              
+
+                        $new_amounteg = $new_amount-$mywithdrawal; 
+           
+                  $total_new_amountT += $new_amounteg;
+
+
                   @endphp
                   
                   <div class="earningampunt">Invest Date: {{ \Carbon\Carbon::parse($val->created_at)->format('d-m-Y') }}</div>
                   
                       <div class="earningampunt">Daily Earning: {{ number_format($daily_earning, 2) }}</div>
                       <div class="earningampunt">Earning Amount: {{ number_format($earning_amount, 2) }}</div>
-                      <div class="earningampunt">New Amount: {{ number_format($new_amount, 2) }}</div>
+                      <div class="earningampunt">New Amount: {{ number_format($new_amounteg, 2) }}</div>
                   
                       <!-- Features -->
                       <div class="pricing-features">
@@ -496,20 +499,26 @@
 
                   $daily_earningT += $daily_earning;
                   $earning_amountT += $earning_amount;
-                  // $total_new_amountT += $new_amount;
+                  $new_amounteg = $new_amount-$mywithdrawal; 
 
-                  if($val->firstminus == "Y"){
-                        $total_new_amountT += $earning_amount;
-                      }else{
-                        $total_new_amountT += $new_amount;
-                      }
+
+
+                 $total_new_amountT += $new_amounteg; 
+               
+                   // $total_new_amountT += $new_amount;
+
+                  // if($val->firstminus == "Y"){
+                  //       $total_new_amountT += $earning_amount;
+                  //     }else{
+                  //       $total_new_amountT += $new_amount;
+                  //     }
                   
                       @endphp
                   
                   <div class="earningampunt">Invest Date: {{ \Carbon\Carbon::parse($val->created_at)->format('d-m-Y') }}</div>
                       <div class="earningampunt">Daily Earning: {{ number_format($daily_earning, 2) }}</div>
                       <div class="earningampunt">Earning Amount: {{ number_format($earning_amount, 2) }}</div>
-                      <div class="earningampunt">New Amount: {{ number_format($new_amount, 2) }}</div>
+                      <div class="earningampunt">New Amount: {{ number_format($new_amounteg, 2) }}</div>
                      
                       <div class="pricing-features">
                           <div class="feature mb-0">Interest : <?= $val->package->interest_rate ?? ""?> %</div>
@@ -530,12 +539,19 @@
                     </div>
                      @endif
                  </div>
+
+
+                
+
+
              @endforeach
 
                <!-- Purple Table -->
                <div class="col-12" style="order:-1;">
 
-                {{ usertotalearning(Auth::user()->id) }}
+                {{-- {{ usertotalearning(Auth::user()->id) }} --}}
+
+              
               
                 <div class="totalearningbox">
                   <p>Total Daily Earning : {{ number_format($daily_earningT, 2) }}</p>
@@ -653,8 +669,10 @@
                         <td>
                           @if ($value->status == "pending")
                           <span class="badge bg-warning">Pending</span>
-                          @else
-                          <span class="badge bg-success">Success</span>
+                          @elseif($value->status == "reject")
+                          <span class="badge bg-danger">Reject</span>
+                          @else 
+                          <span class="badge bg-sucess">Success</span>
                           @endif
                         </td>
                       </tr>

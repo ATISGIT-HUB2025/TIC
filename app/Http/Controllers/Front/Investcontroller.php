@@ -27,19 +27,27 @@ class Investcontroller extends Controller
         'amount.numeric'  => 'The amount must be a number.',
     ]);
 
+     $totalwithdraw = Withdraw::where('invest_id',$investid)->where('userid',Auth::user()->id)->where('amount_cut','Y')->sum('amount');
 
-    if ($request->amount > total_earn_by_invest($investid)) {
-        return redirect()->back()->with('error', 'Insufficient Earning Balance. You can withdraw only Rs.' . total_earn_by_invest($investid));
+     $availble =  total_earn_by_invest($investid) - $totalwithdraw ;
+     
+
+    if ($request->amount > $availble) {
+        return redirect()->back()->with('error', 'Insufficient Earning Balance. You can withdraw only Rs.' . $availble);
     }
+
+    $invest->firstminus == "Y";
     
     $new = new Withdraw();
     $new->userid = $invest->userid;
     $new->invest_id = $invest->id;
+    $new->amount_cut = 'Y';
     $new->package_id = $invest->package_id;
     $new->amount = $request->amount; // Make sure to validate this in the request
     $new->reason = $request->reason; // Optional reason for withdrawal
     $new->status = 'pending'; // Default status
     $new->save();
+    $invest->save();
     return redirect()->back()->with('success','Withdraw request submitted successfully');
 }
 

@@ -15,6 +15,8 @@ use App\Models\CRM\Customerpayment;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
+use Carbon\Carbon;
+
 
 
 class AdminpanelController extends Controller
@@ -48,15 +50,15 @@ class AdminpanelController extends Controller
 
         $payment = Withdraw::findOrFail($request->transaction_id);
 
-        $invest = Invest::findOrFail($payment->invest_id);
+        // $invest = Invest::findOrFail($payment->invest_id);
 
-        // Update the created_at field to the current date and time
-        $invest->created_at = now();
-        $invest->firstminus = 'Y';
+        // // Update the created_at field to the current date and time
+        // $invest->created_at = now();
+        // $invest->firstminus = 'Y';
         
-        // Save the changes to the database
+        // // Save the changes to the database
         
-        $invest->save();
+        // $invest->save();
 
         // $user = User::findOrFail($payment->customer_id); 
         // if ($request->status == "complete") {
@@ -64,10 +66,13 @@ class AdminpanelController extends Controller
         //     $user->save();
         // }
         
+        if($request->status == "reject"){
+            $payment->amount_cut = 'N';
+        }else{
+            $payment->amount_cut = 'Y';
+        }
         $payment->status = $request->status;
-        
         $payment->save();
-        
         return redirect()->back()->with('success', 'Withdraw Updated Successfully!');
     }
     
@@ -91,35 +96,36 @@ class AdminpanelController extends Controller
         $searchkey = $request->query('type');  // Use $request->query() to safely retrieve the 'type' parameter
 
         if ($request->ajax()) {
-            // Fetch the data
-            $query = CustomerPayment::query();
+            $query = CustomerPayment::query()->latest();
     
-            // If there is a date filter, add it to the query
-            if ($request->has('start_date') && $request->has('end_date')) {
-                $startDate = $request->start_date;
-                $endDate = $request->end_date;
-                $query->whereBetween('created_at', [$startDate, $endDate]);
+            // Filter by Request No
+            if ($request->has('request_no') && !empty($request->request_no)) {
+                $query->where('id', 'like', "%{$request->request_no}%");
             }
-       
-            if ($request->has('status')) {
+    
+            // Filter by Status
+            if ($request->has('status') && !empty($request->status)) {
                 $query->where('status', $request->status);
             }
     
-            // Return the response formatted for DataTables
+            // Filter by Date Range
+            if ($request->has('from_date') && $request->has('to_date') && !empty($request->from_date) && !empty($request->to_date)) {
+                $dateColumn = $request->date_filter === 'request' ? 'created_at' : 'updated_at';
+                $query->whereBetween($dateColumn, [$request->from_date, $request->to_date]);
+            }
+    
             return DataTables::eloquent($query)
                 ->addIndexColumn()
                 ->editColumn('screenshot', function($payment) {
                     return $payment->screenshot ? 
                         '<a href="' . $payment->screenshot . '" target="_blank">
-                            <img src="' . $payment->screenshot . '" alt="Screenshot" class="img-thumbnail" width="50" height="50">
-                        </a>' : 
-                        'No Screenshot';
+                            <img src="' . $payment->screenshot . '" alt="Screenshot" class="img-thumbnail" width="50">
+                        </a>' : 'No Screenshot';
                 })
                 ->editColumn('action', function($payment) {
-                    return $payment->id ? 
-                        '<a href="javascript:void(0)" onclick="openmodel('.$payment->id.')" target="_blank" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</a>' : 
-                        'No Action';
+                    return '<a href="javascript:void(0)" onclick="openmodel('.$payment->id.')" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</a>';
                 })
+
                 ->editColumn('status', function($payment) {
                     // Check the status and return corresponding button
                     if ($payment->status == 'pending') {
@@ -132,8 +138,15 @@ class AdminpanelController extends Controller
                         return 'Unknown Status';
                     }
                 })
-                ->setRowId('id') // Optional: You can set a custom row ID here
-                ->rawColumns(['action', 'screenshot', 'status']) // Allow HTML in action, screenshot, and status columns
+                
+                ->editColumn('created_at', function($payment) {
+                    return Carbon::parse($payment->created_at)->format('d/m/Y h:iA'); // 20/02/2025 09:10PM
+                })
+                ->editColumn('updated_at', function($payment) {
+                    return Carbon::parse($payment->updated_at)->format('d/m/Y h:iA'); // 20/02/2025 09:10PM
+                })
+                
+                ->rawColumns(['action', 'screenshot','status','created_at','updated_at'])
                 ->make(true);
         }
         
@@ -145,7 +158,7 @@ class AdminpanelController extends Controller
     
         if ($request->ajax()) {
             // Fetch the data with relationships
-            $query = Withdraw::with(['user', 'invest']);
+            $query = Withdraw::latest()->with(['user', 'invest']);
     
             // If there is a date filter, add it to the query
             if ($request->has('start_date') && $request->has('end_date')) {
@@ -199,6 +212,76 @@ class AdminpanelController extends Controller
     
         return view('admin/transaction/withdraw');
     }
+
+
+
+
+    public function withdrawadmin(Request $request)
+{
+    $query = Withdraw::with(['user', 'invest'])->latest();
+
+    // Filter by Request No
+    if ($request->filled('request_no')) {
+        $query->where('id', $request->request_no);
+    }
+
+    // Filter by Status
+    if ($request->filled('status')) {
+        $query->where('status', $request->status);
+    }
+
+    // Handle Date Filtering
+    if ($request->filled('from_date') && $request->filled('to_date')) {
+        $startDate = Carbon::parse($request->from_date)->startOfDay();
+        $endDate = Carbon::parse($request->to_date)->endOfDay();
+
+        if ($request->date_filter === 'request') {
+            $query->whereBetween('created_at', [$startDate, $endDate]);
+        } elseif ($request->date_filter === 'verified') {
+            $query->whereBetween('updated_at', [$startDate, $endDate]);
+        }
+    }
+
+    return DataTables::eloquent($query)
+        ->addIndexColumn()
+        ->addColumn('user_name', function ($withdraw) {
+            return $withdraw->user ? $withdraw->user->name : 'N/A';
+        })
+        ->editColumn('created_at', function ($withdraw) {
+            return $withdraw->created_at ? $withdraw->created_at->format('d/m/Y h:i A') : 'N/A';
+        })
+        ->editColumn('updated_at', function ($withdraw) {
+            return $withdraw->updated_at ? $withdraw->updated_at->format('d/m/Y h:i A') : 'N/A';
+        })
+        ->editColumn('status', function ($withdraw) {
+            $statusClasses = [
+                'pending' => 'bg-warning',
+                'complete' => 'bg-success',
+                'reject' => 'bg-danger'
+            ];
+            $class = $statusClasses[$withdraw->status] ?? 'bg-secondary';
+            return '<button class="badge border-0 ' . $class . '">' . ucfirst($withdraw->status) . '</button>';
+        })
+
+        ->editColumn('action', function ($withdraw) {
+            if ($withdraw->status == "pending") {
+                return $withdraw->id ?
+                '<a href="javascript:void(0)" onclick="openmodel(' . $withdraw->id . ')" target="_blank" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</a>' :
+                'No Action';    
+            }else{
+                return 
+                'No Action';
+            }
+            
+        })
+        
+        
+        ->setRowId('id')
+        ->rawColumns(['status','action'])
+        ->make(true);
+}
+
+
 
     public function maintenance(){
         return view('maintenance');

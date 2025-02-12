@@ -71,8 +71,8 @@
           >
             <div class="sign__content ms-md-5 ms-xxl-0 pt-120 pb-120">
               <div class="head_part">
-                <a href="index.html">
-                  <img src="{{url('website')}}/assets/images/logo.png" alt="Logo"
+                <a href="/">
+                  <img width="150" src="{{url('uploads')}}/{{ weblogo() ?? "" }}" alt="Logo"
                 /></a>
                 <h5 class="mt-5 mt-lg-6">Sign up to Your Account</h5>
               </div>

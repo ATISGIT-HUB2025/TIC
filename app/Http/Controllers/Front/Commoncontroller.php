@@ -30,7 +30,7 @@ use App\Models\Service;
 use App\Models\Team;
 use App\Models\Work;
 use App\Models\Process;
-use App\Models\pakeges;
+use App\Models\Pakeges;
 use App\Models\Bestourservice;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
