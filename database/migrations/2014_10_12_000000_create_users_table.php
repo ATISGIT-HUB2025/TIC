@@ -27,9 +27,12 @@ return new class extends Migration
             $table->text('codeid')->nullable();
             $table->text('team_type')->nullable();
             $table->text('job_title')->nullable();
+            $table->string('referral_code')->unique()->nullable();
+            $table->string('referred_by')->nullable();            
             $table->text('customer_type_id')->nullable();
             $table->enum('is_block', ['N','Y']);
             $table->enum('role', ['user','hrms','crm','team','superadmin']);
+            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->timestamps();
              $table->rememberToken();
         });

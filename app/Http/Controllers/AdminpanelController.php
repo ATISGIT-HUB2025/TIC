@@ -152,6 +152,77 @@ class AdminpanelController extends Controller
         
      return view('admin/transaction/index',$data);   
     }
+    
+    
+    public function kycrequests(Request $request)
+    {
+        $data['users'] = User::where('kyc_status', 'apply')->latest()->get();
+    
+        if ($request->ajax()) {
+            $query = User::query()->where('kyc_status', '!=', 'pending')->latest();
+           // Filter by Request No (User ID)
+            if ($request->has('request_no') && !empty($request->request_no)) {
+                $query->where('id', 'like', "%{$request->request_no}%");
+            }
+    
+            // Filter by KYC Status
+            if ($request->has('status') && !empty($request->status)) {
+                $query->where('kyc_status', $request->status);
+            }
+    
+            // Filter by Date Range
+            if ($request->has('from_date') && $request->has('to_date') && !empty($request->from_date) && !empty($request->to_date)) {
+                $query->whereBetween('kyc_date', [$request->from_date, $request->to_date]);
+            }
+    
+            return DataTables::eloquent($query)
+                ->addIndexColumn()
+                ->editColumn('username', function ($user) {
+                    return $user->name; // Assuming 'name' is the username field
+                })
+                ->editColumn('mobile', function ($user) {
+                    return $user->mobile ?? 'N/A';
+                })
+                ->editColumn('email', function ($user) {
+                    return $user->email ?? 'N/A';
+                })
+                ->editColumn('kyc_status', function ($user) {
+                    // Display status as a badge
+                    if ($user->kyc_status == 'apply') {
+                        return '<button class="badge border-0 bg-warning">Pending</button>';
+                    } elseif ($user->kyc_status == 'complete') {
+                        return '<button class="badge border-0 bg-success">complete</button>';
+                    } elseif ($user->kyc_status == 'reject') {
+                        return '<button class="badge border-0 bg-danger">Rejected</button>';
+                    } else {
+                        return 'Unknown';
+                    }
+                })
+                ->editColumn('kyc_date', function ($user) {
+                    return $user->kyc_date ? Carbon::parse($user->kyc_date)->format('d/m/Y h:i A') : 'N/A';
+                })
+                ->editColumn('action', function($payment) {
+                    return '<a href="javascript:void(0)" onclick="openmodel('.$payment->id.')" data-bs-toggle="modal" data-bs-target="#exampleModal">View & Update
+                    </a>';
+                })
+
+                ->rawColumns(['action', 'kyc_status'])
+                ->make(true);
+        }
+    
+        return view('admin/transaction/kyc', $data);
+    }
+    
+    public function viewkyc(Request $request,$id) {
+        $row = User::findorfail($id);
+        if($request->method() == "POST"){
+            $row->kyc_status = $request->kyc_status;
+            $row->save();
+            return redirect()->back()->with('success','Updated Successfully');
+        }
+        return view('admin/transaction/viewkyc',compact('row'));
+    }
+
     public function withdraw(Request $request)
     {
         $searchkey = $request->query('type');  // Use $request->query() to safely retrieve the 'type' parameter

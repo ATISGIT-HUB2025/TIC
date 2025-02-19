@@ -67,6 +67,8 @@ Route::get('/sign-in', [Commoncontroller::class, 'signin'])->name('signin');
 Route::get('/sign-up', [Commoncontroller::class, 'signup'])->name('signup');
 Route::get('/userlogout', [Commoncontroller::class, 'userlogout'])->name('userlogout');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/register', [AuthController::class, 'register']);
+// Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
 
 
 Route::middleware([Superadmin::class])->prefix('admin')->group(function () {
@@ -74,6 +76,8 @@ Route::middleware([Superadmin::class])->prefix('admin')->group(function () {
     Route::match(['get', 'post'], '/profile', [AdminpanelController::class, 'profile'])->name('profile');
     Route::match(['get', 'post'], '/transactions', [AdminpanelController::class, 'transactions'])->name('transactions');
     Route::match(['get', 'post'], '/withdraw', [AdminpanelController::class, 'withdraw'])->name('sdflhksgd');
+    Route::match(['get', 'post'], '/kyc', [AdminpanelController::class, 'kycrequests'])->name('kycadmin');
+    Route::match(['get', 'post'], '/viewkyc/{id}', [AdminpanelController::class, 'viewkyc'])->name('viewkyc');
     Route::match(['get', 'post'], '/withdrawadmin', [AdminpanelController::class, 'withdrawadmin'])->name('withdrawadmin');
     Route::match(['get', 'post'], '/getwithdraw/{id}', [AdminpanelController::class, 'getwithdraw'])->name('getwithdraw');
     Route::match(['post'], '/updatewithdraw', [AdminpanelController::class, 'updatewithdraw'])->name('updatewithdraw');
@@ -94,6 +98,11 @@ Route::middleware([Superadmin::class])->prefix('admin')->group(function () {
     Route::match(['get', 'post'], '/new-access', [Pagecontroller::class, 'newaccess'])->name('newaccess');
     Route::match(['get', 'post'], '/access-management', [Pagecontroller::class, 'accessmanagement'])->name('accessmanagement');
     Route::match(['get', 'post'], '/edit-accessm-anagement/{id}', [Pagecontroller::class, 'editaccessmanagement'])->name('editaccessmanagement');
+   // user--register--data
+   Route::get('/users', [AuthController::class, 'usersindex'])->name('admin.users.index');
+   Route::get('/users-delete/{id}', [AuthController::class, 'usersdelete'])->name('users.delete');
+   Route::put('/admin/users/{id}/status', [AuthController::class, 'updateStatus'])->name('updateStatus');
+
 
     // skillsadd
     Route::match(['get', 'post'], '/homeadd', [Pagecontroller::class, 'homeadd'])->name('homeadd');

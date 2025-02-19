@@ -126,6 +126,15 @@
                       <input type="email" class="fs-six-up bg_transparent" name="email" id="email" placeholder="Email Address" required />
                       <small class="text-danger error" id="error_email"></small>
                   </div>
+
+                  <div class="single-input">
+                    <label class="mb-2 nw1-color" for="referral_code">Referral Code</label>
+                    <input type="text" class="fs-six-up bg_transparent" name="referral_code" id="referral_code" 
+                        placeholder="Referral Code (Optional)" value="{{ request()->get('ref') ?? "" }}  " />
+                    <small class="text-danger error" id="error_referral_code"></small>
+                </div>
+                
+                
               </div>
               <label class="checkbox-single d-flex align-items-center nw1-color mt-3">
                   <span class="checkbox-area d-center">
@@ -191,7 +200,7 @@ $(document).ready(function () {
         submitButton.prop("disabled", true).text("Registering...");
 
         $.ajax({
-            url: "{{ route('register') }}",
+            url: "/register",
             type: "POST",
             data: formData,
             success: function (response) {
@@ -232,6 +241,25 @@ $(document).ready(function () {
 
 </script>
 
+
+{{-- refreal --}}
+
+
+<script>
+  $(document).ready(function () {
+    function getQueryParam(param) {
+        let urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
+    // Check and set referral code from URL
+    let refCode = getQueryParam('ref');
+    if (refCode) {
+        $("#referral_code").val(refCode);
+    }
+});
+
+</script>
 
 
   </body>

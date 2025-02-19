@@ -7,6 +7,7 @@ use App\Models\Banners;
 use Illuminate\Http\Request;
 use App\Models\Enquiry;
 use App\Models\Info;
+use App\Models\User;
 use App\Models\Testimonials;
 use App\Models\ProjectModel;
 use App\Models\Franchise;
@@ -302,60 +303,91 @@ class Commoncontroller extends Controller
         return view('front.clients',compact('clients'));
     }
 
-    public function profileupdate(Request $request){
-            // Validate form data
-            $validator = Validator::make($request->all(), [
-                'first_name' => 'required|string|max:255',
-                'last_name' => 'required|string|max:255',
-                'email' => 'required|email|unique:users,email,' . Auth::id(),
-                'password' => 'nullable|string|min:6', // Old password (optional)
-                'new_password' => 'nullable|string|min:6|confirmed', // New password (optional)
-            ]);
+    public function profileupdate(Request $request)
+    {
+        // Validate form data
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . Auth::id(),
+            'password' => 'nullable|string|min:6',
+            'new_password' => 'nullable|string|min:6|confirmed',
+            'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048' // Validate image
+        ]);
     
-            if ($validator->fails()) {
-                return response()->json(['errors' => $validator->errors()], 422);
-            }
-    
-            // Get the authenticated user
-            $user = Auth::user();
-    
-            // If current password is provided, verify and update
-            if ($request->filled('password')) {
-                if (!Hash::check($request->password, $user->password)) {
-                    return response()->json(['errors' => ['password' => ['Incorrect current password.']]], 422);
-                }
-    
-                if ($request->filled('new_password')) {
-                    $user->password = Hash::make($request->new_password);
-                }
-            }
-    
-            // Update profile fields
-            $user->first_name = $request->first_name;
-            $user->last_name = $request->last_name;
-            $user->email = $request->email;
-            $user->save();
-    
-            return response()->json(['success' => 'Profile updated successfully.'], 200);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
         }
+    
+        $user = Auth::user();
+    
+        // Update password if provided
+        if ($request->filled('password')) {
+            if (!Hash::check($request->password, $user->password)) {
+                return response()->json(['errors' => ['password' => ['Incorrect current password.']]], 422);
+            }
+            if ($request->filled('new_password')) {
+                $user->password = Hash::make($request->new_password);
+            }
+        }
+    
+        // Update profile fields
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->email = $request->email;
+        $user->nominee_contact = $request->nominee_contact;
+        $user->nominee_age = $request->nominee_age;
+        $user->nominee_relation = $request->nominee_relation;
+        $user->nominee_name = $request->nominee_name;
+    
+        // Handle profile photo upload
+        if ($request->profile_photo) {
+            $file = $request->profile_photo;
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads/profile_photos'), $filename);
+    
+            // Delete old profile photo if exists
+            if ($user->image && file_exists(public_path('uploads/profile_photos/' . $user->image))) {
+                unlink(public_path('uploads/profile_photos/' . $user->image));
+            }
+            $user->image = $filename; // Save new profile photo
+        }
+    
+        $user->save();
+    
+        return response()->json(['success' => 'Profile updated successfully.'], 200);
+    }
+    
 
 
         public function updatebank(Request $request){
                // Validation Rules
+
+               if($request->type == "updatebank"){
         $validator = Validator::make($request->all(), [
             'account_holder_name' => 'required|string|max:255',
             'account_number' => 'required|numeric|digits_between:6,20',
             'ifsc_code' => 'required|string|max:20',
             'branch_name' => 'required|string|max:255',
-            'aadhar_card_number' => 'required|numeric|digits:12',
-            'aadhar_card' => 'nullable|mimes:jpg,jpeg,png,pdf|max:2048',
-            'pan_number' => 'required|string|size:10',
-            'pan_card' => 'nullable|mimes:jpg,jpeg,png,pdf|max:2048',
+          
         ]);
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
+        
+     }else{
+        $validator = Validator::make($request->all(), [
+            'aadhar_card_number' => 'required|numeric|digits:12',
+            'aadhar_card' => 'required|mimes:jpg,jpeg,png,pdf|max:2048',
+            'pan_number' => 'required|string|size:10',
+            'pan_card' => 'required|mimes:jpg,jpeg,png,pdf|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+    }
 
         // Get Authenticated User
         $user = auth()->user();
@@ -383,6 +415,35 @@ class Commoncontroller extends Controller
     } else {
         $aadharPath = $user->aadhar_card;
     }
+    
+
+
+// Handle Aadhar Card Back Upload
+if ($request->hasFile('aadhar_card_back')) {
+    if ($user->aadhar_card_back && file_exists(public_path($user->aadhar_card_back))) {
+        unlink(public_path($user->aadhar_card_back));
+    }
+    $aadharBackFile = $request->file('aadhar_card_back');
+    $aadharBackFileName = time() . '_aadhar_back.' . $aadharBackFile->getClientOriginalExtension();
+    $aadharBackFile->move($uploadDir, $aadharBackFileName);
+    $aadharBackPath = 'uploads/kyc/' . $aadharBackFileName;
+} else {
+    $aadharBackPath = $user->aadhar_card_back;
+}
+// Handle Canceled Cheque Upload
+if ($request->hasFile('cancel_chaque')) {
+    if ($user->cancel_chaque && file_exists(public_path($user->cancel_chaque))) {
+        unlink(public_path($user->cancel_chaque));
+    }
+    $chequeFile = $request->file('cancel_chaque'); // Corrected variable name
+    $chequeFileName = time() . '_cancel_cheque.' . $chequeFile->getClientOriginalExtension();
+    $chequeFile->move($uploadDir, $chequeFileName);
+    $cancelChequePath = 'uploads/kyc/' . $chequeFileName;
+} else {
+    $cancelChequePath = $user->cancel_chaque; // Corrected variable name
+}
+
+
 
     // Handle PAN Card Upload
     if ($request->hasFile('pan_card')) {
@@ -400,24 +461,39 @@ class Commoncontroller extends Controller
         $panPath = $user->pan_card;
     }
 
+
+        if($request->type == "updatebank"){
+
         // Update User Data
         $user->update([
             'account_holder_name' => $request->account_holder_name,
             'account_number' => $request->account_number,
             'ifsc_code' => $request->ifsc_code,
             'branch_name' => $request->branch_name,
-            'aadhar_card_number' => $request->aadhar_card_number,
-            'aadhar_card' => $aadharPath,
+            
+        ]);
+        }else{
+            $user->update([
+               'aadhar_card_number' => $request->aadhar_card_number,
+            'aadhar_card' => $aadharPath ?? "",
+            'aadhar_card_back' => $aadharBackPath ?? "",
+            'cancel_chaque' => $cancelChequePath ?? "",
             'pan_number' => $request->pan_number,
             'pan_card' => $panPath,
-        ]);
-
-        return response()->json(['success' => 'Bank details updated successfully!']);
+            'kyc_status' => 'apply',
+            'kyc_time' => today(),
+            ]);
         }
+        return response()->json(['success' => 'Updated successfully!']);
+    }
 
     public function dashboard(){
         $data['mywithdraw'] = Withdraw::where('userid',Auth::user()->id)->latest()->get();
-        return view('front.dashboard',$data);
+        $withdraw = Withdraw::where('userid', Auth::id())->sum('amount');
+        $DepositedAmount = Auth::user()->wallet;
+       $pnl_amount = Auth::user()->amount; // Agar column ka naam 'pnl_amount' hai
+       
+        return view('front.dashboard',$data,compact('DepositedAmount','withdraw','pnl_amount'));
     }
 
 

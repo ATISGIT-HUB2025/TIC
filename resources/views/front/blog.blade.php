@@ -78,67 +78,67 @@ s
     
         @endforeach
       </div>
-      <div class="row">
-        <div class="col-12">
-          <nav
-            aria-label="Page navigation"
-            class="d-flex justify-content-center mt-10 mt-lg-15"
-          >
-            <ul
-              class="pagination gap-2 nb3-bg px-4 px-lg-5 py-3 cus-rounded-1"
-            >
-              <li class="page-item">
-                <a
-                  class="page-link d-center border-none cus-rounded-1 gap-1 prev w-100 ps-1 pe-2"
-                  href="javascript:void(0)"
-                  aria-label="Previous"
-                >
-                  <i class="ti ti-chevron-left"></i>
-                  <span class="d-none d-md-block">Prev</span></a
-                >
-              </li>
-              <li class="page-item">
-                <a
-                  class="page-link d-center border-none cus-rounded-1"
-                  href="javascript:void(0)"
-                  >1</a
-                >
-              </li>
-              <li class="page-item">
-                <a
-                  class="page-link d-center border-none cus-rounded-1 active"
-                  href="javascript:void(0)"
-                  >2</a
-                >
-              </li>
-              <li class="page-item">
-                <a
-                  class="page-link d-center border-none cus-rounded-1 align-items-end"
-                  href="javascript:void(0)"
-                  ><i class="ti ti-dots"></i
-                ></a>
-              </li>
-              <li class="page-item">
-                <a
-                  class="page-link d-center border-none cus-rounded-1"
-                  href="javascript:void(0)"
-                  >5</a
-                >
-              </li>
-              <li class="page-item">
-                <a
-                  class="page-link d-center border-none cus-rounded-1 gap-1 next w-100 ps-2 pe-1 active"
-                  href="javascript:void(0)"
-                  aria-label="Next"
-                >
-                  <span class="d-none d-md-block">Next</span>
-                  <i class="ti ti-chevron-right"></i
-                ></a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </div>
+      <!--<div class="row">-->
+      <!--  <div class="col-12">-->
+      <!--    <nav-->
+      <!--      aria-label="Page navigation"-->
+      <!--      class="d-flex justify-content-center mt-10 mt-lg-15"-->
+      <!--    >-->
+      <!--      <ul-->
+      <!--        class="pagination gap-2 nb3-bg px-4 px-lg-5 py-3 cus-rounded-1"-->
+      <!--      >-->
+      <!--        <li class="page-item">-->
+      <!--          <a-->
+      <!--            class="page-link d-center border-none cus-rounded-1 gap-1 prev w-100 ps-1 pe-2"-->
+      <!--            href="javascript:void(0)"-->
+      <!--            aria-label="Previous"-->
+      <!--          >-->
+      <!--            <i class="ti ti-chevron-left"></i>-->
+      <!--            <span class="d-none d-md-block">Prev</span></a-->
+      <!--          >-->
+      <!--        </li>-->
+      <!--        <li class="page-item">-->
+      <!--          <a-->
+      <!--            class="page-link d-center border-none cus-rounded-1"-->
+      <!--            href="javascript:void(0)"-->
+      <!--            >1</a-->
+      <!--          >-->
+      <!--        </li>-->
+      <!--        <li class="page-item">-->
+      <!--          <a-->
+      <!--            class="page-link d-center border-none cus-rounded-1 active"-->
+      <!--            href="javascript:void(0)"-->
+      <!--            >2</a-->
+      <!--          >-->
+      <!--        </li>-->
+      <!--        <li class="page-item">-->
+      <!--          <a-->
+      <!--            class="page-link d-center border-none cus-rounded-1 align-items-end"-->
+      <!--            href="javascript:void(0)"-->
+      <!--            ><i class="ti ti-dots"></i-->
+      <!--          ></a>-->
+      <!--        </li>-->
+      <!--        <li class="page-item">-->
+      <!--          <a-->
+      <!--            class="page-link d-center border-none cus-rounded-1"-->
+      <!--            href="javascript:void(0)"-->
+      <!--            >5</a-->
+      <!--          >-->
+      <!--        </li>-->
+      <!--        <li class="page-item">-->
+      <!--          <a-->
+      <!--            class="page-link d-center border-none cus-rounded-1 gap-1 next w-100 ps-2 pe-1 active"-->
+      <!--            href="javascript:void(0)"-->
+      <!--            aria-label="Next"-->
+      <!--          >-->
+      <!--            <span class="d-none d-md-block">Next</span>-->
+      <!--            <i class="ti ti-chevron-right"></i-->
+      <!--          ></a>-->
+      <!--        </li>-->
+      <!--      </ul>-->
+      <!--    </nav>-->
+      <!--  </div>-->
+      <!--</div>-->
     </div>
   </section>
   <!-- blog_news end -->

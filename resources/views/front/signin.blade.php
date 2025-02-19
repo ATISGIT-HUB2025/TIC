@@ -78,6 +78,15 @@
               </div>
               <form method="POST" autocomplete="off" id="loginForm" class="contact__form mt-8 mt-lg-10 text-start">
                 @csrf
+
+
+                @if (session()->has('success'))
+                <div class="alert alert-primary mt-3">
+                    {{ session()->get('success') }}
+                </div>
+            @endif
+
+            
                 <div class="d-flex flex-column gap-5 gap-lg-6">
                     <div class="single-input">
                         <label class="mb-2 nw1-color" for="uname">User Name</label>
@@ -125,6 +134,9 @@
               <div class="mt-8 mt-lg-10">
                 <p>
                   Don’t have an account? <a href="/sign-up">Register Here</a>
+                </p>
+                <p>
+                  <a href="/forgot-password">Forgot Password </a>
                 </p>
               </div>
             </div>

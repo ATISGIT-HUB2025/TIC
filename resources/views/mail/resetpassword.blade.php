@@ -225,7 +225,7 @@
                                                                 <div
                                                                     style="color:#555555;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:30px;line-height:120%;text-align:center;mso-line-height-alt:36px;">
 
-                                                                    <h4>SP Cotton</h4>
+                                                                    <h4>Tic The India Capital</h4>
                                                                     <p style="margin: 0; word-break: break-word;"><span
                                                                             style="color:#2b303a;"><strong>Dear
                                                                                 {{ $user->name }} Forgot Your

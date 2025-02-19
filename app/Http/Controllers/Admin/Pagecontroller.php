@@ -689,6 +689,7 @@ class Pagecontroller extends Controller
                 'favicon' => ['mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
                 'meta_title' => ['required'],
                 'meta_tags' => ['required'],
+                'refer_amount' => ['required'],
                 'meta_description' => ['required'],
             ]);
 
@@ -699,6 +700,7 @@ class Pagecontroller extends Controller
                 'location' => $request->location,
                 'location_iframe' => $request->location_iframe,
                 'meta_title' => $request->meta_title,
+                'refer_amount' => $request->refer_amount,
                 'meta_tags' => $request->meta_tags,
                 'meta_description' => $request->meta_description,
                 'twitter' => $request->twitter,

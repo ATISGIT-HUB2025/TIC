@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -22,6 +23,13 @@ class User extends Authenticatable
     protected $table = 'users';
     protected $fillable = [
         'name',
+        'referral_code',
+        'cancel_chaque',
+        'nominee_contact',
+        'nominee_age',
+        'nominee_relation',
+        'nominee_name',
+        'referred_by',
         'email',
         'destination',
         'password',
@@ -31,6 +39,7 @@ class User extends Authenticatable
         'image',
         'company_name',
         'team_type',
+        'refer_by',
         'job_title',
         'company_address',
         'gstin',
@@ -49,9 +58,16 @@ class User extends Authenticatable
         'wallet',
         'aadhar_card_number',
         'aadhar_card',
+        'aadhar_card_back',
         'pan_number',
         'pan_card',
+        'status',
+        'kyc_status',
+        'reason',
+        'kyc_time',
     ];
+
+    
 
     /**
      * The attributes that should be hidden for serialization.

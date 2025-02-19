@@ -30,7 +30,6 @@ if (!function_exists('getCategoryTitle')) {
 
 
 function usertotalearning($userid){
-
     $mywinning = 0;
     $daily_earningT = 0;
     $earning_amountT = 0;
@@ -393,6 +392,18 @@ function phone()
         return $mdata->phone;
     } else {
         return "";
+    }
+}
+
+
+function refer_amount()
+{
+    $data = Info::where('id', 5)->first();
+    $mdata = json_decode($data->info_one);
+    if ($mdata) {
+        return $mdata->refer_amount;
+    } else {
+        return 0;
     }
 }
 

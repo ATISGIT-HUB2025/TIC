@@ -2,8 +2,6 @@
 $data = DB::table('webinfo')->where('id', 5)->select(['image', 'favicon', 'info_one'])->first();
 $row = json_decode($data->info_one);
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -30,6 +28,13 @@ $row = json_decode($data->info_one);
       href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.36.0/tabler-icons.min.css"/>
     <link rel="stylesheet" href="{{url('website')}}/assets/css/style.min.css" />
   </head>
+  
+  <style>
+      img.d-none.d-sm-flex.rotate.time_dur.ms-auto.ms-lg-0.me-md-5 {
+    display: none !important;
+}
+  </style>
+  
 
   <body>
     <!--  Preloader  -->
@@ -81,7 +86,7 @@ $row = json_decode($data->info_one);
             <div
               class="right-area position-relative ms-0 d-center gap-1 gap-xl-4 d-lg-none"
             >
-            @if (Auth::check() && Auth::user())
+            @if (Auth::check() && Auth::user() && Auth::user()->status == "approved")
               
            
               <div class="single-item">
@@ -89,7 +94,25 @@ $row = json_decode($data->info_one);
                   href="/dashboard"
                   class="rotate_eff flex-nowrap py-1 px-2 px-xl-3 d-center gap-1 fw-bold nw1-color"
                 >
-                  Profile <i class="ti ti-arrow-right fs-six-up"></i
+                <div class="show_profile">
+                  <div class="d-flex justify-content-center align-items-center">
+  <div class="profile-card text-center">
+    @if (Auth::user()->image)
+    <img src="{{ url('uploads/profile_photos') }}/{{ Auth::user()->image }}" id="profile-pic" class="profile-img" alt="Profile Picture">
+   
+   @if (Auth::user()->kyc_status == "complete")
+   <img src="{{ url('') }}/admin/tick-mark.png" class="png_verified" alt="">
+   @endif 
+    @else
+    <img src="{{ url('uploads/profile_photos') }}/profile.png" id="profile-pic" class="profile-img" alt="Profile Picture">
+    @if (Auth::user()->kyc_status == "complete")
+    <img src="{{ url('') }}/admin/tick-mark.png" class="png_verified" alt="">
+    @endif       @endif
+     
+    
+  </div>
+</div>
+                </div> <i class="ti ti-arrow-right fs-six-up"></i
                 ></a>
               </div>
                 @else
@@ -163,12 +186,13 @@ $row = json_decode($data->info_one);
             class="right-area position-relative ms-0 d-center gap-1 gap-xl-4 d-none d-lg-flex"
           >
 
-          @if (Auth::check() && Auth::user())
+          @if (Auth::check() && Auth::user() && Auth::user()->status == "approved")
             <div class="single-item">
               <ul
-                class="navbar-nav custom_droupdown gap-2 gap-lg-3 gap-xxl-8 d-flex align-self-center mx-auto mt-4 mt-lg-0" 
+                class="navbar-nav custom_droupdown gap-2 gap-lg-3 gap-xxl-8 d-flex align-items-center mx-auto mt-4 mt-lg-0" 
               >
-              <li class="walletbox"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M22.0049 5.99979H15.0049C11.6912 5.99979 9.00488 8.68608 9.00488 11.9998C9.00488 15.3135 11.6912 17.9998 15.0049 17.9998H22.0049V19.9998C22.0049 20.5521 21.5572 20.9998 21.0049 20.9998H3.00488C2.4526 20.9998 2.00488 20.5521 2.00488 19.9998V3.99979C2.00488 3.4475 2.4526 2.99979 3.00488 2.99979H21.0049C21.5572 2.99979 22.0049 3.4475 22.0049 3.99979V5.99979ZM15.0049 7.99979H23.0049V15.9998H15.0049C12.7957 15.9998 11.0049 14.2089 11.0049 11.9998C11.0049 9.79065 12.7957 7.99979 15.0049 7.99979ZM15.0049 10.9998V12.9998H18.0049V10.9998H15.0049Z"></path></svg>
+              <li class="walletbox">
+                Holding Balance -
                 Rs.{{ Auth::user()->wallet ?? 0 }}</li>
                 <li class="dropdown show-dropdown">
                   <button
@@ -176,7 +200,25 @@ $row = json_decode($data->info_one);
                     aria-label="Navbar Dropdown Button"
                     class="dropdown-toggle dropdown-nav"
                   >
-                    Profile
+                  <div class="show_profile">
+                    <div class="d-flex justify-content-center align-items-center">
+    <div class="profile-card text-center">
+      @if (Auth::user()->image)
+      <img src="{{ url('uploads/profile_photos') }}/{{ Auth::user()->image }}" id="profile-pic" class="profile-img" alt="Profile Picture">
+     
+     @if (Auth::user()->kyc_status == "complete")
+     <img src="{{ url('') }}/admin/tick-mark.png" class="png_verified" alt="">
+     @endif 
+      @else
+      <img src="{{ url('uploads/profile_photos') }}/profile.png" id="profile-pic" class="profile-img" alt="Profile Picture">
+      @if (Auth::user()->kyc_status == "complete")
+      <img src="{{ url('') }}/admin/tick-mark.png" class="png_verified" alt="">
+      @endif       @endif
+       
+      
+    </div>
+</div>
+                  </div>
                   </button>
                   <ul class="dropdown-menu">
                     <li>

@@ -34,6 +34,28 @@
                                 <form method="post" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
+
+                                        <div class="col-12">
+                                            <h5>Refer Setting</h5>
+
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    
+                                                    <label for="simpleinput" class="form-label">Refer & Earn <span class="text-warning">( percentages  {{ refer_amount() }} % )</span></label>
+                                                    <small>Earn rewards when you invest this amount.</small>
+                                                    <input type="number" placeholder="" id="simpleinput"
+                                                        name="refer_amount" value="{{ $row->refer_amount ?? "" }}" class="form-control">
+                                                    @error('refer_amount')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+                                        <hr>
+
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label for="simpleinput" class="form-label">Phone</label>

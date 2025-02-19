@@ -18,10 +18,10 @@ class Team
     {
 
         if (Auth::check() && Auth::user()->role == "user") {
-            if (Auth::user()->is_block == "N") {
+            if (Auth::user()->is_block == "N" && Auth::user()->status == "approved") {
                 return $next($request);
             }else{
-                return redirect()->back()->with('error','You have been Blocked by admin !');
+                return redirect()->back()->with('error','Account Not Activated');
             }
         }else{
             return redirect('/sign-in');

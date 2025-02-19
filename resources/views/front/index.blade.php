@@ -385,78 +385,91 @@
       </div>
 
       <div class="row">
-        @foreach ($pakeges as $val)
-            
-        <div class="col-md-4">
-          <div class="pricing-table purple">
-            <!-- Table Head -->
-            <div class="pricing-label">Starter Package</div>
-            {{-- <h2>Features:</h2> --}}
 
-            <!-- Features -->
-            <div class="pricing-features">
-              <div class="feature"><?= $val->deac?></div>
+        <div class="tabs_packages">
+          <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Normal</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Business</button>
+            </li>
+          </ul>
+          <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+            
+              <div class="col-md-4">
+                <div class="pricing-table purple">
+                  <!-- Table Head -->
+                  <div class="pricing-label">Star</div>
+      
+                  <h2>Features:</h2>
+      
+                  <!-- Features -->
+                  <div class="pricing-features">
+
+                    <div class="feature">Interest : 6 - 7%</div>
+                    <div class="feature">All Starter Package Features</div>
+                    <div class="feature">Basic Risk Management Tools</div>
+                    <div class="feature">Quarterly Portfolio Review</div>
+                    <div class="feature">24/7 Customer Support</div>
+                    <div class="feature">Monthly Portfolio Review</div>
+
+                  </div>
+                  <!-- Price -->
+                  <div class="price-tag">
+                    <span class="symbol">₹</span>
+                    <span class="amount" style="font-size: 20px;">1000 - 9999</span>
+                    <span class="after">/ Month</span>
+                  </div>
+                  <!-- Button -->
+
+                  @if (Auth::check())
+                  <a class="price-button" href="{{ route('investnow',['investtype' => 'normel','id' => '0']) }}">Get Started</a>
+                  @else
+                  <a class="price-button" href="/sign-in">Get Started</a>
+                  @endif
+                </div>
+              </div>
+              
             </div>
-            <!-- Price -->
-            <div class="price-tag">
-              <span class="symbol"><?=$val->currency ?></span>
-              <span class="amount"><?=$val->ammount ?></span>
-              <span class="after">/<?=$val->formate ?></span>
-            </div>
-            <!-- Button -->
-            <a class="price-button" href="/sign-in">Get Started</a>
-          </div>
-        </div>
+            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+              <div class="row">
+                @foreach ($pakeges as $val)
+            
+                <div class="col-md-4">
+                  <div class="pricing-table purple">
+                    <!-- Table Head -->
+                    <div class="pricing-label"><?= getCategoryTitle($val->category) ?></div>
         
-        @endforeach
-        <!-- Turquoise Table -->
-        {{-- <div class="col-md-4">
-          <div class="pricing-table turquoise">
-            <!-- Table Head -->
-            <div class="pricing-label">Growth Package</div>
-            <h2>Features:</h2>
-            <!-- Features -->
-            <div class="pricing-features">
-              <div class="feature">All Starter Package Features</div>
-              <div class="feature">Basic Risk Management Tools</div>
-              <div class="feature">Quarterly Portfolio Review</div>
-              <div class="feature">24/7 Customer Support</div>
-              <div class="feature">Monthly Portfolio Review</div>
+                    {{-- <h2>Features:</h2> --}}
+        
+                    <!-- Features -->
+                    <div class="pricing-features">
+                    <div class="feature mb-0">Interest : <?= $val->interest_rate ?? ""?> %</div>
+
+                      <div class="feature mt-0"><?= $val->deac?></div>
+                    </div>
+                    <!-- Price -->
+                    <div class="price-tag">
+                      <span class="symbol"><?=$val->currency ?></span>
+                      <span class="amount"><?=$val->ammount ?></span>
+                      <span class="after">/<?=$val->formate ?></span>
+                    </div>
+                    <!-- Button -->
+                    @if (Auth::check())
+                    <a class="price-button" href="{{ route('investnow',['investtype' => 'business','id' => $val->id]) }}">Get Started</a>
+                    @else
+                    <a class="price-button" href="/sign-in">Get Started</a>
+                    @endif
+                  </div>
+                </div>
+                
+                @endforeach
+              </div>
             </div>
-            <!-- Price -->
-            <div class="price-tag">
-              <span class="symbol">$</span>
-              <span class="amount">199.99</span>
-              <span class="after">/month</span>
-            </div>
-            <!-- Button -->
-            <a class="price-button" href="signin.html">Get Started</a>
           </div>
         </div>
-        <!-- Red Table -->
-        <div class="col-md-4">
-          <div class="pricing-table red">
-            <!-- Table Head -->
-            <div class="pricing-label">Premium Package</div>
-            <h2>Features:</h2>
-            <!-- Features -->
-            <div class="pricing-features">
-              <div class="feature">All Starter Package Features</div>
-              <div class="feature">Basic Risk Management Tools</div>
-              <div class="feature">Quarterly Portfolio Review</div>
-              <div class="feature">24/7 Customer Support</div>
-              <div class="feature">Monthly Portfolio Review</div>
-            </div>
-            <!-- Price -->
-            <div class="price-tag">
-              <span class="symbol">$</span>
-              <span class="amount">200.99</span>
-              <span class="after">/month</span>
-            </div>
-            <!-- Button -->
-            <a class="price-button" href="signin.html">Get Started</a>
-          </div>
-        </div> --}}
       </div>
     </div>
   </section>
