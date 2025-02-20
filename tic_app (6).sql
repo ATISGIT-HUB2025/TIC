@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 30, 2025 at 05:36 AM
+-- Generation Time: Feb 20, 2025 at 01:38 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -155,10 +155,9 @@ INSERT INTO `category` (`id`, `title`, `status`, `created_at`, `updated_at`, `ty
 (24, 'services', 'Y', '2025-01-24 11:54:10', '2025-01-24 11:54:10', 'service'),
 (25, 'stock market', 'N', '2025-01-24 11:54:33', '2025-01-24 12:18:32', 'service'),
 (26, 'Technical Analysis', 'Y', '2025-01-25 09:24:54', '2025-01-25 09:24:54', 'blogs'),
-(27, 'Technical Analysis', 'Y', '2025-01-27 05:21:03', '2025-01-27 05:21:03', 'blogs'),
+(27, 'Technical Analysis', 'N', '2025-01-27 05:21:03', '2025-02-14 20:40:02', 'blogs'),
 (28, 'Fundamental Analysis', 'Y', '2025-01-27 05:22:09', '2025-01-27 05:22:09', 'blogs'),
-(29, 'Risk Management', 'Y', '2025-01-27 05:22:20', '2025-01-27 05:22:20', 'blogs'),
-(30, 'Cryptocurrency Trading', 'N', '2025-01-27 05:22:31', '2025-01-27 06:19:30', 'blogs'),
+(30, 'Cryptocurrency Trading', 'Y', '2025-01-27 05:22:31', '2025-02-14 20:40:15', 'blogs'),
 (31, 'Starter Package', 'Y', '2025-01-27 10:19:39', '2025-01-27 10:20:08', 'pricing'),
 (32, 'Growth Package', 'Y', '2025-01-27 10:20:28', '2025-01-27 10:20:28', 'pricing'),
 (33, 'Premium Package', 'Y', '2025-01-27 10:20:42', '2025-01-27 10:20:42', 'pricing');
@@ -237,67 +236,6 @@ INSERT INTO `contactus` (`id`, `fname`, `lname`, `email`, `phone`, `message`, `c
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cusotmers`
---
-
-CREATE TABLE `cusotmers` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` text DEFAULT NULL,
-  `mobile` varchar(255) DEFAULT NULL,
-  `dob` date DEFAULT NULL,
-  `delivery_date` date DEFAULT NULL,
-  `bill_number` text DEFAULT NULL,
-  `order_date` date DEFAULT NULL,
-  `salesman_code` text DEFAULT NULL,
-  `gst` varchar(255) DEFAULT NULL,
-  `fabrics` varchar(255) DEFAULT NULL,
-  `quantity` varchar(255) DEFAULT NULL,
-  `amount` varchar(255) DEFAULT NULL,
-  `total_quantity` varchar(255) DEFAULT NULL,
-  `total_amount` varchar(255) DEFAULT NULL,
-  `discount` varchar(255) DEFAULT NULL,
-  `advance` varchar(255) DEFAULT NULL,
-  `advance_date` date DEFAULT NULL,
-  `balance` varchar(255) DEFAULT NULL,
-  `receive` varchar(255) DEFAULT NULL,
-  `receive_date` date DEFAULT NULL,
-  `top_data` longtext DEFAULT NULL,
-  `bottom_data` longtext DEFAULT NULL,
-  `fabric_image` longtext DEFAULT NULL,
-  `note` longtext DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `audioPlayer_input` text DEFAULT NULL,
-  `qunatity_work` varchar(200) DEFAULT NULL,
-  `work_status` enum('pending','complete') NOT NULL DEFAULT 'pending',
-  `workshop_status` enum('pending','complete') NOT NULL DEFAULT 'pending',
-  `febrics_detail` longtext DEFAULT NULL,
-  `allow_cutting_master` enum('N','Y') NOT NULL DEFAULT 'N',
-  `payment_confirm` enum('pending','complete','reject') NOT NULL DEFAULT 'pending',
-  `workshop_user` varchar(100) DEFAULT NULL,
-  `cutting_master_user` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `cusotmers`
---
-
-INSERT INTO `cusotmers` (`id`, `name`, `mobile`, `dob`, `delivery_date`, `bill_number`, `order_date`, `salesman_code`, `gst`, `fabrics`, `quantity`, `amount`, `total_quantity`, `total_amount`, `discount`, `advance`, `advance_date`, `balance`, `receive`, `receive_date`, `top_data`, `bottom_data`, `fabric_image`, `note`, `created_at`, `updated_at`, `audioPlayer_input`, `qunatity_work`, `work_status`, `workshop_status`, `febrics_detail`, `allow_cutting_master`, `payment_confirm`, `workshop_user`, `cutting_master_user`) VALUES
-(10008, 'vikashsaini007', '7957791943', '0000-00-00', '0000-00-00', '002', NULL, '2222', '27DNYPP0795M1ZR', 'Cotton', '200', '20000', '200', '10000', '10000', '2000', '0000-00-00', '7000', '2000', '0000-00-00', '[{\"type\":\"jacket\",\"arms\":{\"body_size\":\"20\",\"losing\":\"20\",\"remark\":\"20\"},\"hip\":{\"body_size\":\"20\",\"losing\":\"20\",\"remark\":\"20\"},\"length\":{\"body_size\":\"20\",\"losing\":\"20\",\"remark\":\"20\"},\"shoulder\":{\"body_size\":\"20\",\"losing\":\"20\",\"remark\":\"20\"},\"chest\":{\"body_size\":\"20\",\"losing\":\"20\",\"remark\":\"20\"},\"belly\":{\"body_size\":\"20\",\"losing\":\"20\",\"remark\":\"20\"},\"sleeve_length\":{\"body_size\":\"20\",\"losing\":\"20\",\"remark\":\"20\"},\"collor\":{\"body_size\":\"20\",\"losing\":\"20\",\"remark\":\"20\"},\"cuff\":{\"body_size\":\"20\",\"losing\":\"20\",\"remark\":\"20\"},\"three_foure\":{\"body_size\":\"20\",\"losing\":\"20\",\"remark\":\"20\"},\"style\":\"System\"}]', '[{\"type\":\"pant\",\"length\":{\"body_size\":\"30\",\"losing\":\"30\"},\"waist\":{\"body_size\":\"30\",\"losing\":\"30\"},\"hip\":{\"body_size\":\"30\",\"losing\":\"30\"},\"pockland\":{\"body_size\":\"30\",\"losing\":\"30\"},\"thigh\":{\"body_size\":\"30\",\"losing\":\"30\"},\"knee\":{\"body_size\":\"30\",\"losing\":\"30\"},\"potree\":{\"body_size\":\"30\",\"losing\":\"30\"},\"btm\":{\"body_size\":\"30\",\"losing\":\"30\"},\"hight\":{\"body_size\":\"30\",\"losing\":\"30\"},\"style\":\"Nice\"}]', '1733739962_Gobal Trading Company.png', 'test', '2024-12-09 02:24:00', '2024-12-09 10:26:02', 'https://res.cloudinary.com/dvtdyv4tu/video/upload/v1733739857/g32s9k2ko1oeoj9dqn1x.webm', NULL, 'pending', 'pending', NULL, 'N', 'pending', NULL, NULL),
-(10009, 'Suraj Kumar', '7357791943', '0000-00-00', '0000-00-00', '10009', NULL, '1234', '27DNYPP0795M1ZR', 'Cotton', '6', '100', '10', '10000', '10', '2000', '0000-00-00', '7000', '2000', '0000-00-00', '[{\"type\":\"shirt\",\"arms\":{\"body_size\":null,\"losing\":null,\"remark\":null},\"hip\":{\"body_size\":null,\"losing\":null,\"remark\":null},\"length\":{\"body_size\":null,\"losing\":null,\"remark\":null},\"shoulder\":{\"body_size\":null,\"losing\":null,\"remark\":null},\"chest\":{\"body_size\":null,\"losing\":null,\"remark\":null},\"belly\":{\"body_size\":null,\"losing\":null,\"remark\":null},\"sleeve_length\":{\"body_size\":null,\"losing\":null,\"remark\":null},\"collor\":{\"body_size\":null,\"losing\":null,\"remark\":null},\"cuff\":{\"body_size\":null,\"losing\":null,\"remark\":null},\"three_foure\":{\"body_size\":null,\"losing\":null,\"remark\":null},\"style\":null}]', '[{\"type\":\"trouser\",\"length\":{\"body_size\":null,\"losing\":null},\"waist\":{\"body_size\":null,\"losing\":null},\"hip\":{\"body_size\":null,\"losing\":null},\"pockland\":{\"body_size\":null,\"losing\":null},\"thigh\":{\"body_size\":null,\"losing\":null},\"knee\":{\"body_size\":null,\"losing\":null},\"potree\":{\"body_size\":null,\"losing\":null},\"btm\":{\"body_size\":null,\"losing\":null},\"hight\":{\"body_size\":null,\"losing\":null},\"style\":null}]', NULL, 'test', '2024-12-09 03:24:15', '2024-12-09 03:24:15', 'https://res.cloudinary.com/dvtdyv4tu/video/upload/v1733734395/sjlliaevcvntjwurxpvc.webm', NULL, 'pending', 'pending', NULL, 'N', 'pending', NULL, NULL),
-(10010, 'Parveen Kumawat', '7357791943', '0000-00-00', '0000-00-00', '10010', NULL, '1234', '27DNYPP0795M1ZR', 'Cotton', '100', '20000', '100', '10000', '1000', '5000', '0000-00-00', '7000', '5000', '0000-00-00', '[{\"type\":\"kurta\",\"arms\":{\"body_size\":\"v10\",\"losing\":\"10\",\"remark\":\"10\"},\"hip\":{\"body_size\":\"10\",\"losing\":\"10\",\"remark\":\"10\"},\"length\":{\"body_size\":\"10\",\"losing\":\"10\",\"remark\":\"10\"},\"shoulder\":{\"body_size\":\"10\",\"losing\":\"10\",\"remark\":\"10\"},\"chest\":{\"body_size\":\"10\",\"losing\":\"v10\",\"remark\":\"10\"},\"belly\":{\"body_size\":\"10\",\"losing\":\"10\",\"remark\":\"v10\"},\"sleeve_length\":{\"body_size\":\"10\",\"losing\":\"10\",\"remark\":\"v\"},\"collor\":{\"body_size\":\"10\",\"losing\":\"10\",\"remark\":\"10\"},\"cuff\":{\"body_size\":\"10\",\"losing\":\"10\",\"remark\":\"10\"},\"three_foure\":{\"body_size\":\"10\",\"losing\":\"10\",\"remark\":\"10\"},\"style\":\"10\"}]', '[{\"type\":\"pajama\",\"length\":{\"body_size\":\"20\",\"losing\":\"20\"},\"waist\":{\"body_size\":\"20\",\"losing\":\"20\"},\"hip\":{\"body_size\":\"20\",\"losing\":\"20\"},\"pockland\":{\"body_size\":\"20\",\"losing\":\"20\"},\"thigh\":{\"body_size\":\"20\",\"losing\":\"20\"},\"knee\":{\"body_size\":\"20\",\"losing\":\"20\"},\"potree\":{\"body_size\":\"20\",\"losing\":\"20\"},\"btm\":{\"body_size\":\"20\",\"losing\":\"20\"},\"hight\":{\"body_size\":\"20\",\"losing\":\"20\"},\"style\":\"No\"}]', '1733739241_Gobal Trading Company.png', NULL, '2024-12-09 10:14:02', '2024-12-27 14:07:57', 'https://res.cloudinary.com/dvtdyv4tu/video/upload/v1733739197/mhopdg8p0j07ziu1i7cr.webm', '70', 'pending', 'pending', NULL, 'N', 'pending', NULL, NULL),
-(10011, 'Saniya Kumari', '7357791943', '2024-12-24', '2024-12-24', '10011', '2024-12-24', '1234', '27DNYPP0795M1ZR', 'Cotton', '200', '120000', '200', '10000', '1000', '2000', '2024-12-24', '7000', '5000', '2024-12-24', '[{\"type\":\"shirt\",\"arms\":{\"body_size\":\"20\",\"losing\":\"20\",\"remark\":\"20\"},\"hip\":{\"body_size\":\"20\",\"losing\":\"20\",\"remark\":\"20\"},\"length\":{\"body_size\":\"20\",\"losing\":\"20\",\"remark\":\"20\"},\"shoulder\":{\"body_size\":\"20\",\"losing\":\"20\",\"remark\":\"20\"},\"chest\":{\"body_size\":\"20\",\"losing\":\"20\",\"remark\":\"20\"},\"belly\":{\"body_size\":\"20\",\"losing\":\"20\",\"remark\":\"20\"},\"sleeve_length\":{\"body_size\":\"20\",\"losing\":\"20\",\"remark\":\"20\"},\"collor\":{\"body_size\":\"20\",\"losing\":\"20\",\"remark\":\"20\"},\"cuff\":{\"body_size\":\"20\",\"losing\":\"20\",\"remark\":\"20\"},\"three_foure\":{\"body_size\":\"20\",\"losing\":\"20\",\"remark\":\"20\"},\"style\":\"No style i want only formel\"}]', '[{\"type\":\"pant\",\"length\":{\"body_size\":\"20\",\"losing\":\"20\"},\"waist\":{\"body_size\":\"20\",\"losing\":\"20\"},\"hip\":{\"body_size\":\"20\",\"losing\":\"20\"},\"pockland\":{\"body_size\":\"20\",\"losing\":\"20\"},\"thigh\":{\"body_size\":\"20\",\"losing\":\"20\"},\"knee\":{\"body_size\":\"20\",\"losing\":\"20\"},\"potree\":{\"body_size\":\"20\",\"losing\":\"20\"},\"btm\":{\"body_size\":\"20\",\"losing\":\"20\"},\"hight\":{\"body_size\":\"20\",\"losing\":\"20\"},\"style\":\"No style i want only formel\"},{\"type\":\"trouser\",\"length\":{\"body_size\":\"10\",\"losing\":null},\"waist\":{\"body_size\":\"10\",\"losing\":null},\"hip\":{\"body_size\":\"10\",\"losing\":null},\"pockland\":{\"body_size\":\"10\",\"losing\":null},\"thigh\":{\"body_size\":\"10\",\"losing\":null},\"knee\":{\"body_size\":\"10\",\"losing\":null},\"potree\":{\"body_size\":\"10\",\"losing\":null},\"btm\":{\"body_size\":\"10\",\"losing\":null},\"hight\":{\"body_size\":\"10\",\"losing\":null},\"style\":\"10\"}]', '1735031255_Screenshot (23).png', NULL, '2024-12-20 06:35:39', '2024-12-24 09:07:35', NULL, '200', 'complete', 'pending', NULL, 'N', 'pending', NULL, NULL),
-(10012, 'Sarita Kumari', '9588958110', '2002-12-27', '2024-12-26', '10012', '2024-12-25', '20', '27DNYPP0795M1ZR', NULL, '50', NULL, '100', '4000', '1000', '1000', '2024-12-25', '2000.00', '2000', '2024-12-26', '[{\"type\":\"shirt\",\"arms\":{\"body_size\":\"10\",\"losing\":null,\"remark\":null},\"hip\":{\"body_size\":\"10\",\"losing\":null,\"remark\":null},\"length\":{\"body_size\":\"10\",\"losing\":null,\"remark\":null},\"shoulder\":{\"body_size\":\"10\",\"losing\":null,\"remark\":null},\"chest\":{\"body_size\":\"10\",\"losing\":null,\"remark\":null},\"belly\":{\"body_size\":\"10\",\"losing\":null,\"remark\":null},\"sleeve_length\":{\"body_size\":\"10\",\"losing\":null,\"remark\":null},\"collor\":{\"body_size\":\"10\",\"losing\":null,\"remark\":null},\"cuff\":{\"body_size\":\"10\",\"losing\":null,\"remark\":null},\"three_foure\":{\"body_size\":\"10\",\"losing\":null,\"remark\":null},\"style\":\"No Style\"}]', '[{\"type\":\"trouser\",\"length\":{\"body_size\":\"20\",\"losing\":null},\"waist\":{\"body_size\":\"20\",\"losing\":null},\"hip\":{\"body_size\":\"20\",\"losing\":null},\"pockland\":{\"body_size\":\"20\",\"losing\":null},\"thigh\":{\"body_size\":\"20\",\"losing\":null},\"knee\":{\"body_size\":\"20\",\"losing\":null},\"potree\":{\"body_size\":\"20\",\"losing\":null},\"btm\":{\"body_size\":\"20\",\"losing\":null},\"hight\":{\"body_size\":\"20\",\"losing\":null},\"style\":\"No Style\"}]', '1735118395_Screenshot (23).png', 'I Want surity that my cloths are secure or not', '2024-12-25 09:19:58', '2024-12-27 14:36:24', NULL, '50', 'complete', 'pending', '[{\"fabrics\":\"Cotton Foure\",\"quantity\":\"20\",\"amount\":\"2000\"},{\"fabrics\":\"fice\",\"quantity\":\"30\",\"amount\":\"2000\"}]', 'N', 'pending', NULL, NULL),
-(10013, 'Suraj Kumar', '7357791943', '2024-12-28', '2025-01-03', '10013', '2024-12-28', '2222', '27DNYPP0795M1ZR', NULL, '50', NULL, '50', '20000', '1000', '5000', '2024-12-28', '14000.00', NULL, NULL, '[{\"type\":\"kurta\",\"arms\":{\"body_size\":\"10\",\"losing\":null,\"remark\":null},\"hip\":{\"body_size\":\"10\",\"losing\":null,\"remark\":null},\"length\":{\"body_size\":\"10\",\"losing\":null,\"remark\":null},\"shoulder\":{\"body_size\":\"10\",\"losing\":null,\"remark\":null},\"chest\":{\"body_size\":\"10\",\"losing\":null,\"remark\":null},\"belly\":{\"body_size\":\"10\",\"losing\":null,\"remark\":null},\"sleeve_length\":{\"body_size\":\"10\",\"losing\":null,\"remark\":null},\"collor\":{\"body_size\":\"10\",\"losing\":null,\"remark\":null},\"cuff\":{\"body_size\":\"10\",\"losing\":null,\"remark\":null},\"three_foure\":{\"body_size\":\"10\",\"losing\":null,\"remark\":null},\"style\":\"No Style\"}]', '[{\"type\":\"pajama\",\"length\":{\"body_size\":\"20\",\"losing\":null},\"waist\":{\"body_size\":\"20\",\"losing\":null},\"hip\":{\"body_size\":\"20\",\"losing\":null},\"pockland\":{\"body_size\":\"20\",\"losing\":null},\"thigh\":{\"body_size\":\"20\",\"losing\":null},\"knee\":{\"body_size\":\"20\",\"losing\":null},\"potree\":{\"body_size\":\"20\",\"losing\":null},\"btm\":{\"body_size\":\"20\",\"losing\":null},\"hight\":{\"body_size\":\"20\",\"losing\":null},\"style\":\"No Style\"}]', '1735358679_pexels-photo-358636.jpeg', 'no notes', '2024-12-28 04:04:41', '2024-12-28 14:35:32', 'https://res.cloudinary.com/dvtdyv4tu/video/upload/v1735358639/nykiju0iqolqaphgjqge.webm', NULL, 'pending', 'pending', '[{\"fabrics\":\"Cotton\",\"quantity\":\"20\",\"amount\":\"10000\"},{\"fabrics\":\"New Cotton\",\"quantity\":\"30\",\"amount\":\"10000\"}]', 'N', 'complete', NULL, NULL),
-(10014, 'CK ROY', '7615979149', '2024-12-29', '2024-12-29', '10014', '2024-12-29', '2222', '27DNYPP0795M1ZR', NULL, '599', NULL, '599', '4000', '300', '1000', '2024-12-29', '2700.00', NULL, NULL, '[{\"type\":\"shirt\",\"arms\":{\"body_size\":\"20\",\"losing\":null,\"remark\":null},\"hip\":{\"body_size\":\"20\",\"losing\":null,\"remark\":null},\"length\":{\"body_size\":\"20\",\"losing\":null,\"remark\":null},\"shoulder\":{\"body_size\":\"20\",\"losing\":null,\"remark\":null},\"chest\":{\"body_size\":\"20\",\"losing\":null,\"remark\":null},\"belly\":{\"body_size\":\"20\",\"losing\":null,\"remark\":null},\"sleeve_length\":{\"body_size\":\"20\",\"losing\":null,\"remark\":null},\"collor\":{\"body_size\":\"20\",\"losing\":null,\"remark\":null},\"cuff\":{\"body_size\":\"20\",\"losing\":null,\"remark\":null},\"three_foure\":{\"body_size\":\"20\",\"losing\":null,\"remark\":null},\"style\":\"No style\"}]', '[{\"type\":\"trouser\",\"length\":{\"body_size\":\"20\",\"losing\":null},\"waist\":{\"body_size\":\"20\",\"losing\":null},\"hip\":{\"body_size\":\"20\",\"losing\":null},\"pockland\":{\"body_size\":\"20\",\"losing\":null},\"thigh\":{\"body_size\":\"20\",\"losing\":null},\"knee\":{\"body_size\":\"20\",\"losing\":null},\"potree\":{\"body_size\":\"20\",\"losing\":null},\"btm\":{\"body_size\":\"20\",\"losing\":null},\"hight\":{\"body_size\":\"20\",\"losing\":null},\"style\":\"BB Style\"}]', '1735477844_hero_2_2.png', 'no notes', '2024-12-29 13:10:45', '2024-12-29 14:17:31', NULL, NULL, 'pending', 'pending', '[{\"fabrics\":\"new cotton one\",\"quantity\":\"200\",\"amount\":\"1000\"},{\"fabrics\":\"New cotton second\",\"quantity\":\"399\",\"amount\":\"3000\"}]', 'Y', 'complete', '21', '22'),
-(10015, 'Vishal Mishra', '8766749080', '2024-12-30', '2024-12-31', '10015', '2024-12-30', '1234', '27DNYPP0795M1ZR', NULL, '100', NULL, '100', '20000', '1000', '1000', '2024-12-30', '18000.00', NULL, NULL, '[{\"type\":\"shirt\",\"arms\":{\"body_size\":\"10\",\"losing\":null,\"remark\":null},\"hip\":{\"body_size\":\"10\",\"losing\":null,\"remark\":null},\"length\":{\"body_size\":\"10\",\"losing\":null,\"remark\":null},\"shoulder\":{\"body_size\":\"10\",\"losing\":null,\"remark\":null},\"chest\":{\"body_size\":\"10\",\"losing\":null,\"remark\":null},\"belly\":{\"body_size\":\"10\",\"losing\":null,\"remark\":null},\"sleeve_length\":{\"body_size\":\"10\",\"losing\":null,\"remark\":null},\"collor\":{\"body_size\":\"10\",\"losing\":null,\"remark\":null},\"cuff\":{\"body_size\":\"10\",\"losing\":null,\"remark\":null},\"three_foure\":{\"body_size\":\"10\",\"losing\":null,\"remark\":null},\"style\":\"No Style\"}]', '[{\"type\":\"pant\",\"length\":{\"body_size\":\"20\",\"losing\":null},\"waist\":{\"body_size\":\"20\",\"losing\":null},\"hip\":{\"body_size\":\"20\",\"losing\":null},\"pockland\":{\"body_size\":\"20\",\"losing\":null},\"thigh\":{\"body_size\":\"20\",\"losing\":null},\"knee\":{\"body_size\":\"20\",\"losing\":null},\"potree\":{\"body_size\":\"20\",\"losing\":null},\"btm\":{\"body_size\":\"20\",\"losing\":null},\"hight\":{\"body_size\":\"20\",\"losing\":null},\"style\":\"No Style Only Formel\"}]', '1735530775_pexels-photo-106399.jpeg', 'No notes go to according audio clip', '2024-12-30 03:52:57', '2024-12-30 04:06:33', 'https://res.cloudinary.com/dvtdyv4tu/video/upload/v1735530752/nzs8xlj2ah6dm6vckslm.webm', '20', 'pending', 'pending', '[{\"fabrics\":\"Cotton\",\"quantity\":\"100\",\"amount\":\"20000\"}]', 'Y', 'complete', '21', '22'),
-(10016, 'Suraj jamdade', '9284599055', '2024-12-31', '2024-12-30', '10016', '2024-12-31', '0023', '27DNYPP0795M1ZR', NULL, '3', NULL, '3', '6500', '500', '2000', '2024-12-31', '4000.00', NULL, NULL, '[{\"type\":\"shirt\",\"arms\":{\"body_size\":\"22\",\"losing\":null,\"remark\":null},\"hip\":{\"body_size\":\"22\",\"losing\":null,\"remark\":null},\"length\":{\"body_size\":\"12\",\"losing\":null,\"remark\":null},\"shoulder\":{\"body_size\":\"12\",\"losing\":null,\"remark\":null},\"chest\":{\"body_size\":\"22\",\"losing\":null,\"remark\":null},\"belly\":{\"body_size\":\"22\",\"losing\":null,\"remark\":null},\"sleeve_length\":{\"body_size\":\"22\",\"losing\":null,\"remark\":null},\"collor\":{\"body_size\":\"22\",\"losing\":null,\"remark\":null},\"cuff\":{\"body_size\":\"22\",\"losing\":null,\"remark\":null},\"three_foure\":{\"body_size\":\"22\",\"losing\":null,\"remark\":null},\"style\":\"new\"}]', '[{\"type\":\"pant\",\"length\":{\"body_size\":\"45\",\"losing\":null},\"waist\":{\"body_size\":\"45\",\"losing\":null},\"hip\":{\"body_size\":\"45\",\"losing\":null},\"pockland\":{\"body_size\":\"45\",\"losing\":null},\"thigh\":{\"body_size\":\"45\",\"losing\":null},\"knee\":{\"body_size\":\"45\",\"losing\":null},\"potree\":{\"body_size\":\"45\",\"losing\":null},\"btm\":{\"body_size\":\"45\",\"losing\":null},\"hight\":{\"body_size\":\"45\",\"losing\":null},\"style\":\"new\"},{\"type\":\"trouser\",\"length\":{\"body_size\":\"23\",\"losing\":null},\"waist\":{\"body_size\":\"34\",\"losing\":null},\"hip\":{\"body_size\":\"34\",\"losing\":null},\"pockland\":{\"body_size\":\"34\",\"losing\":null},\"thigh\":{\"body_size\":\"34\",\"losing\":null},\"knee\":{\"body_size\":\"34\",\"losing\":null},\"potree\":{\"body_size\":\"43\",\"losing\":null},\"btm\":{\"body_size\":\"43\",\"losing\":null},\"hight\":{\"body_size\":\"34\",\"losing\":null},\"style\":\"new\"}]', '1735618800_3.jpeg', 'suraj test', '2024-12-31 09:50:00', '2024-12-31 18:47:41', NULL, '3', 'complete', 'pending', '[{\"fabrics\":\"cotton\",\"quantity\":\"1\",\"amount\":\"2000\"},{\"fabrics\":\"wool\",\"quantity\":\"1\",\"amount\":\"1500\"},{\"fabrics\":\"Linen\",\"quantity\":\"1\",\"amount\":\"3000\"}]', 'Y', 'complete', '21', '22'),
-(10017, 'rajesh telap', '9222752008', '2002-02-08', '2025-12-01', '10017', '2024-12-31', 'sunil', '27DNYPP0795M1ZR', NULL, '2', NULL, '2', '3500', '200', '2000', '2025-12-12', '1300.00', NULL, NULL, '[{\"type\":\"jacket\",\"arms\":{\"body_size\":\"12\",\"losing\":\"14\",\"remark\":null},\"hip\":{\"body_size\":\"38\",\"losing\":null,\"remark\":null},\"length\":{\"body_size\":\"28\",\"losing\":null,\"remark\":null},\"shoulder\":{\"body_size\":\"18\",\"losing\":null,\"remark\":null},\"chest\":{\"body_size\":\"36\",\"losing\":null,\"remark\":null},\"belly\":{\"body_size\":\"35\",\"losing\":null,\"remark\":null},\"sleeve_length\":{\"body_size\":\"23\",\"losing\":null,\"remark\":null},\"collor\":{\"body_size\":\"16\",\"losing\":null,\"remark\":null},\"cuff\":{\"body_size\":\"9\",\"losing\":null,\"remark\":null},\"three_foure\":{\"body_size\":\"11\",\"losing\":\"12\",\"remark\":null},\"style\":\"apple\"},{\"type\":\"kurta\",\"arms\":{\"body_size\":\"12\",\"losing\":\"14\",\"remark\":null},\"hip\":{\"body_size\":\"38\",\"losing\":null,\"remark\":null},\"length\":{\"body_size\":\"36\",\"losing\":null,\"remark\":null},\"shoulder\":{\"body_size\":\"18\",\"losing\":null,\"remark\":null},\"chest\":{\"body_size\":\"36\",\"losing\":null,\"remark\":null},\"belly\":{\"body_size\":\"32\",\"losing\":null,\"remark\":null},\"sleeve_length\":{\"body_size\":\"24\",\"losing\":null,\"remark\":null},\"collor\":{\"body_size\":\"16\",\"losing\":null,\"remark\":null},\"cuff\":{\"body_size\":\"9\",\"losing\":null,\"remark\":null},\"three_foure\":{\"body_size\":\"11\",\"losing\":\"12\",\"remark\":null},\"style\":\"3\\/4 no matching patti\"}]', '[{\"type\":\"trouser\",\"length\":{\"body_size\":\"38\",\"losing\":null},\"waist\":{\"body_size\":\"36\",\"losing\":null},\"hip\":{\"body_size\":\"34\",\"losing\":null},\"pockland\":{\"body_size\":\"10\",\"losing\":null},\"thigh\":{\"body_size\":\"24\",\"losing\":null},\"knee\":{\"body_size\":\"17\",\"losing\":null},\"potree\":{\"body_size\":\"2\",\"losing\":null},\"btm\":{\"body_size\":\"12\",\"losing\":null},\"hight\":{\"body_size\":\"12\",\"losing\":null},\"style\":\"k 1back\"}]', '1735628288_IMG_20230325_201515 (1).jpg', NULL, '2024-12-31 12:28:08', '2024-12-31 13:42:15', NULL, NULL, 'pending', 'pending', '[{\"fabrics\":\"s\",\"quantity\":\"1\",\"amount\":\"1650\"},{\"fabrics\":\"p\",\"quantity\":\"1\",\"amount\":\"1850\"}]', 'N', 'pending', NULL, NULL),
-(10019, 'vishal', '8766749080', '2024-12-31', '2025-01-09', '10018', '2024-12-31', '12345', '27DNYPP0795M1ZR', NULL, '2', NULL, '2', '2000', '100', '1000', '2024-12-31', '900.00', NULL, NULL, '[{\"type\":\"kurta\",\"arms\":{\"body_size\":\"10\",\"losing\":null,\"remark\":null},\"hip\":{\"body_size\":\"20\",\"losing\":null,\"remark\":null},\"length\":{\"body_size\":\"20\",\"losing\":null,\"remark\":null},\"shoulder\":{\"body_size\":\"02\",\"losing\":null,\"remark\":null},\"chest\":{\"body_size\":\"20\",\"losing\":null,\"remark\":null},\"belly\":{\"body_size\":\"20\",\"losing\":null,\"remark\":null},\"sleeve_length\":{\"body_size\":\"20\",\"losing\":null,\"remark\":null},\"collor\":{\"body_size\":\"02\",\"losing\":null,\"remark\":null},\"cuff\":{\"body_size\":\"02\",\"losing\":null,\"remark\":null},\"three_foure\":{\"body_size\":\"02\",\"losing\":null,\"remark\":null},\"style\":\"02\"}]', '[{\"type\":\"trouser\",\"length\":{\"body_size\":\"20\",\"losing\":null},\"waist\":{\"body_size\":\"20\",\"losing\":null},\"hip\":{\"body_size\":\"20\",\"losing\":null},\"pockland\":{\"body_size\":\"20\",\"losing\":null},\"thigh\":{\"body_size\":\"20\",\"losing\":null},\"knee\":{\"body_size\":\"20\",\"losing\":null},\"potree\":{\"body_size\":\"20\",\"losing\":null},\"btm\":{\"body_size\":\"20\",\"losing\":null},\"hight\":{\"body_size\":\"20\",\"losing\":null},\"style\":\"20\"}]', '1735652719_WhatsApp Image 2024-12-30 at 3.34.01 AM (1).jpeg', 'hi', '2024-12-31 19:15:19', '2024-12-31 19:15:19', 'https://res.cloudinary.com/dvtdyv4tu/video/upload/v1735652713/hawfbknu7phoshcks8g7.webm', NULL, 'pending', 'pending', '[{\"fabrics\":\"COTTON\",\"quantity\":\"2\",\"amount\":\"2000\"}]', 'N', 'pending', NULL, NULL);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `customer_payment`
 --
 
@@ -308,49 +246,25 @@ CREATE TABLE `customer_payment` (
   `payment_mode` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `payment_date` date DEFAULT NULL
+  `payment_date` date DEFAULT NULL,
+  `utr` text DEFAULT NULL,
+  `status` enum('pending','complete','reject') NOT NULL DEFAULT 'pending',
+  `screenshot` longtext DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `customer_payment`
 --
 
-INSERT INTO `customer_payment` (`id`, `customer_id`, `amount`, `payment_mode`, `created_at`, `updated_at`, `payment_date`) VALUES
-(11, '10013', '1000', 'online', '2024-12-28 14:31:51', '2024-12-28 14:31:51', '2024-12-28'),
-(13, '10013', '13000', 'cash', '2024-12-28 14:53:17', '2024-12-28 14:53:17', '2024-12-28'),
-(14, '10014', '2700', 'online', '2024-12-29 14:15:58', '2024-12-29 14:15:58', '2024-12-29'),
-(17, '10015', '5000', 'online', '2024-12-30 06:03:48', '2024-12-30 06:03:48', '2024-12-30'),
-(18, '10015', '2000', 'cash', '2024-12-30 06:04:53', '2024-12-30 06:04:53', '2024-12-30'),
-(19, '10016', '4000', 'online', '2024-12-31 10:02:46', '2024-12-31 10:02:46', '2024-12-31'),
-(20, '10018', '3500', 'cash', '2024-12-31 18:40:12', '2024-12-31 18:40:12', '2024-12-31');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `cutting_qty`
---
-
-CREATE TABLE `cutting_qty` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `customer_id` varchar(255) DEFAULT NULL,
-  `user_id` varchar(255) DEFAULT NULL,
-  `category_type` text DEFAULT NULL,
-  `qty` text DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `work_status` enum('pending','complete') NOT NULL DEFAULT 'pending',
-  `qunatity_work` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `cutting_qty`
---
-
-INSERT INTO `cutting_qty` (`id`, `customer_id`, `user_id`, `category_type`, `qty`, `created_at`, `updated_at`, `work_status`, `qunatity_work`) VALUES
-(14, '10012', '22', '[\"kurta\",\"trouser\",\"shirt\"]', '50', '2024-12-27 13:56:18', '2024-12-27 14:37:03', 'pending', '58'),
-(15, '10010', '22', '[\"shirt\"]', '70', '2024-12-27 14:06:35', '2024-12-27 14:07:57', 'pending', NULL),
-(17, '10015', '22', '\"shirt\"', '20', '2024-12-30 04:06:33', '2024-12-30 04:06:33', 'pending', NULL),
-(18, '10016', '22', '[\"shirt\"]', '3', '2024-12-31 18:47:18', '2024-12-31 18:47:41', 'pending', NULL);
+INSERT INTO `customer_payment` (`id`, `customer_id`, `amount`, `payment_mode`, `created_at`, `updated_at`, `payment_date`, `utr`, `status`, `screenshot`) VALUES
+(25, '32', '2000', NULL, '2025-02-01 07:09:38', '2025-02-01 08:37:09', NULL, 'VIKDGA587410', 'complete', 'https://res.cloudinary.com/dgfvwnxhp/image/upload/v1738393776/wallet_payments/ihwhwn3rf38wshjfa1ok.png'),
+(26, '32', '500', NULL, '2025-02-01 09:28:38', '2025-02-01 09:29:18', NULL, 'VIKASH123456', 'reject', 'https://res.cloudinary.com/dgfvwnxhp/image/upload/v1738402116/wallet_payments/bqw5wkunpdpuzv8a3f65.png'),
+(27, '32', '5000', NULL, '2025-02-03 10:21:22', '2025-02-03 10:30:05', NULL, 'TRT123456JGT', 'complete', 'https://res.cloudinary.com/dgfvwnxhp/image/upload/v1738578081/wallet_payments/smne6tnpvgffqcrk8xcg.png'),
+(28, '33', '2000', NULL, '2025-02-10 05:40:16', '2025-02-14 20:39:36', NULL, 'VIEADH12345F', 'reject', 'https://res.cloudinary.com/dgfvwnxhp/image/upload/v1739166014/wallet_payments/abihsob61sqzf4qy3cbq.png'),
+(29, '34', '10000', NULL, '2025-02-11 05:46:55', '2025-02-11 05:50:30', NULL, 'BHS23HSI456O', 'complete', 'https://res.cloudinary.com/dgfvwnxhp/image/upload/v1739252812/wallet_payments/qoqzh5vdraz8jolbhtss.png'),
+(30, '46', '5000', NULL, '2025-02-14 06:03:16', '2025-02-14 06:03:44', NULL, '982345678923', 'complete', 'https://res.cloudinary.com/dgfvwnxhp/image/upload/v1739512993/wallet_payments/zih2l9obvfdbmcgkmudz.png'),
+(31, '49', '5000', NULL, '2025-02-15 11:25:43', '2025-02-15 11:26:31', NULL, '65837DYTJS76', 'complete', 'https://res.cloudinary.com/dgfvwnxhp/image/upload/v1739598942/wallet_payments/uwjpfq0mil6wquwditih.jpg'),
+(32, '50', '2000', NULL, '2025-02-15 11:40:18', '2025-02-15 11:41:13', NULL, '123456789321', 'complete', 'https://res.cloudinary.com/dgfvwnxhp/image/upload/v1739599818/wallet_payments/x4o4fg9wjhxzir3rtuxe.jpg');
 
 -- --------------------------------------------------------
 
@@ -376,38 +290,6 @@ CREATE TABLE `enquiry` (
 
 INSERT INTO `enquiry` (`id`, `name`, `email`, `phone`, `subject`, `message`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'vikashsaini007', 'vikashsainiji116@gmail.com', '7357791943', 'test', 'hello', 'Y', '2024-09-30 01:50:10', '2024-09-30 01:50:10');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `events`
---
-
-CREATE TABLE `events` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `title` text DEFAULT NULL,
-  `short_description` text DEFAULT NULL,
-  `image` text DEFAULT NULL,
-  `location` text DEFAULT NULL,
-  `date` text DEFAULT NULL,
-  `start_time` time DEFAULT NULL,
-  `end_time` time DEFAULT NULL,
-  `description` longtext DEFAULT NULL,
-  `meta_title` text DEFAULT NULL,
-  `meta_tags` text DEFAULT NULL,
-  `meta_description` text DEFAULT NULL,
-  `status` enum('Y','N') NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `slug` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `events`
---
-
-INSERT INTO `events` (`id`, `title`, `short_description`, `image`, `location`, `date`, `start_time`, `end_time`, `description`, `meta_title`, `meta_tags`, `meta_description`, `status`, `created_at`, `updated_at`, `slug`) VALUES
-(1, 'Tata Mumbai Marathon 2024 sets a new philanthropic record with over INR 58 crores raised before race day', 'Mumbai, January 16, 2024: The 19th edition of Asia’s most prestigious Marathon event, the Tata Mumbai Marathon (TMM) has witnessed an unprecedented achievement, as 267 NGOs collectively raised a record-breaking INR 58 crores, reaffirming its status as India\'s largest sporting platform for philanthropy. The success of this endeavour is attributed to the collaborative efforts with United Way Mumbai (UWM), the event\'s esteemed Philanthropy Partner.', '1731556804_e1.jfif', 'Arunachal', '2024-11-22', '10:00:00', '13:00:00', '<p style=\"padding: 0px; margin-right: 0px; margin-bottom: 15px; margin-left: 0px; color: rgb(35, 35, 35); line-height: 26px; font-family: &quot;Open Sans&quot;, sans-serif; text-align: justify;\">In its role as the Philanthropy Partner, UWM has played a pivotal role in building capacities of partnering non-profits to raise funds and awareness for their projects. UWM ensures a transparent, cause-neutral, level-playing field by providing a robust digital platform. UWM maximizes the fundraising opportunities of the limited running spots available at TMM and distributes them equitably between the NGOs.</p><p style=\"padding: 0px; margin-right: 0px; margin-bottom: 15px; margin-left: 0px; color: rgb(35, 35, 35); line-height: 26px; font-family: &quot;Open Sans&quot;, sans-serif; text-align: justify;\">The evolution of philanthropy at TMM is remarkable, progressing from a cumulative total of INR 43 Lacs by 12 NGOs in the inaugural edition, to surpassing INR 400 crores today, benefiting over 750 NGOs.</p><p style=\"padding: 0px; margin-right: 0px; margin-bottom: 15px; margin-left: 0px; color: rgb(35, 35, 35); line-height: 26px; font-family: &quot;Open Sans&quot;, sans-serif; text-align: justify;\">George Aikara, CEO, United Way Mumbai, said, “I would like to congratulate all the participating NGOs for the remarkable philanthropic success of the Tata Mumbai Marathon. We have been the Philanthropy Partner of the TMM since 2009 and have witnessed the marathon\'s evolution into a strong catalyst of social impact. The participation of 12,000 individuals this year and a record-breaking fundraising effort, highlights the marathon\'s unique ability to engage and inspire. The funds and awareness raised through TMM will allow our NGO partners to lend a helping hand and make a lasting impact.”</p><p style=\"padding: 0px; margin-right: 0px; margin-bottom: 15px; margin-left: 0px; color: rgb(35, 35, 35); line-height: 26px; font-family: &quot;Open Sans&quot;, sans-serif; text-align: justify;\">Manisha Khemlani, CEO, Central Chinmaya Mission Trust said, “The secret sauce of my success is my family, my team. My mission is my family and being the CEO of the organisation, I am fortunate enough to be participating in raising funds for the marathon. We work to raise funds for education, starving children and more. Swami Chinmaya Ji, the founder believed that a child spends a lot of time in school and the values that are given in school are very important. We have a four pillar system, we look at the physical, mental, intellectual and spiritual personality of the child. Interestingly, about 45% of our 82 schools are either in remote areas or in this two tier cities. Thanks to the support of the Tata Mumbai marathon and Procam who help us reach out to over 600 children with scholarships solely because of the awareness and the opportunity to raise funds. I\'m very grateful to Procam International, United Way of Mumbai for giving us this opportunity to combine fitness and fundraising.”</p><p style=\"padding: 0px; margin-right: 0px; margin-bottom: 15px; margin-left: 0px; color: rgb(35, 35, 35); line-height: 26px; font-family: &quot;Open Sans&quot;, sans-serif; text-align: justify;\">Mira Joshi, Cuddles Foundation Nayi Disha Resource Centre, Family Planning Association India, said \"Speaking on the occasion Mira Joshi said, When I was younger I saw my dad raising funds every single year. He used to tell me how he helped different people and the things that he had done. When I turn 12, I could qualify for the dream run. I decided that I too wanted to help people. My father was my inspiration.\"</p>', 'Tata Mumbai Marathon 2024 sets a new philanthropic record with over INR 58 crores raised before race day', 'Tata Mumbai Marathon 2024 sets a new philanthropic record with over INR 58 crores raised before race day', 'Tata Mumbai Marathon 2024 sets a new philanthropic record with over INR 58 crores raised before race day', 'Y', '2024-11-13 22:30:04', '2024-11-13 22:49:11', 'tata-mumbai-marathon-2024-sets-a-new-philanthropic-record-with-over-inr-58-crores-raised-before-race-day');
 
 -- --------------------------------------------------------
 
@@ -459,6 +341,43 @@ INSERT INTO `gallery` (`id`, `image`, `status`, `created_at`, `updated_at`) VALU
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `invested`
+--
+
+CREATE TABLE `invested` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `userid` bigint(20) UNSIGNED NOT NULL,
+  `package_id` int(11) DEFAULT NULL,
+  `amount` text DEFAULT NULL,
+  `time` text DEFAULT NULL,
+  `interest` double DEFAULT NULL,
+  `status` enum('Y','N') NOT NULL DEFAULT 'N',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `completestatus` enum('pending','complete') DEFAULT 'pending',
+  `type` text DEFAULT NULL,
+  `firstminus` enum('N','Y') DEFAULT 'N'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `invested`
+--
+
+INSERT INTO `invested` (`id`, `userid`, `package_id`, `amount`, `time`, `interest`, `status`, `created_at`, `updated_at`, `completestatus`, `type`, `firstminus`) VALUES
+(2, 32, 0, '2000', 'Months', 6, 'Y', '2025-02-09 07:11:42', '2025-02-10 07:11:42', 'pending', 'normal', 'Y'),
+(3, 32, 1, '1999', 'Months', 5, 'Y', '2025-02-01 03:31:03', '2025-02-03 10:31:03', 'pending', 'business', 'N'),
+(4, 34, 1, '1999', 'Months', 5, 'Y', '2025-02-05 05:51:16', '2025-02-11 05:51:16', 'pending', 'business', 'N'),
+(5, 35, 0, '1000', 'Months', 6, 'Y', '2025-02-13 07:42:50', '2025-02-13 07:42:50', 'pending', 'business', 'N'),
+(6, 35, 0, '2000', 'Months', 6, 'Y', '2025-02-13 07:49:16', '2025-02-13 07:49:16', 'pending', 'business', 'N'),
+(15, 50, 0, '2000', 'Months', 6, 'Y', '2025-02-15 11:41:56', '2025-02-15 11:41:56', 'pending', 'normal', 'N'),
+(16, 32, 1, '1999', 'Months', 5, 'Y', '2025-02-20 09:24:11', '2025-02-20 09:24:11', 'pending', 'business', 'N'),
+(17, 32, 1, '1999', 'Months', 5, 'Y', '2025-02-20 09:25:35', '2025-02-20 09:25:35', 'pending', 'business', 'N'),
+(18, 34, 1, '1999', 'Months', 5, 'Y', '2025-02-20 10:33:54', '2025-02-20 10:33:54', 'pending', 'business', 'N'),
+(19, 34, 0, '2500', 'Months', 6, 'Y', '2025-02-20 10:38:56', '2025-02-20 10:38:56', 'pending', 'normal', 'N');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `migrations`
 --
 
@@ -493,7 +412,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (22, '2025_01_04_175721_create_videos', 20),
 (23, '2025_01_22_185106_create_clients', 21),
 (26, '2024_11_16_020551_create_contactus', 23),
-(27, '2025_01_27_155408_create_pakeges', 24);
+(27, '2025_01_27_155408_create_pakeges', 24),
+(28, '2025_02_01_154729_investing', 25),
+(29, '2025_02_04_094546_withdraw', 26);
 
 -- --------------------------------------------------------
 
@@ -549,15 +470,22 @@ CREATE TABLE `pakeges` (
   `ammount` text DEFAULT NULL,
   `status` enum('Y','N') NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `interest_rate` text DEFAULT NULL,
+  `clint_criteria` text DEFAULT NULL,
+  `benefit` text DEFAULT NULL,
+  `ac_type` text DEFAULT NULL,
+  `type` text DEFAULT NULL,
+  `completestatus` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `pakeges`
 --
 
-INSERT INTO `pakeges` (`id`, `category`, `currency`, `formate`, `deac`, `ammount`, `status`, `created_at`, `updated_at`) VALUES
-(1, '31', '$', 'Months', '<h2 style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; line-height: 28.8px; font-size: 24px; font-family: var(--head-font); color: rgb(255, 255, 255); padding: 0px; transition: var(--transition);\">Features:</h2><div class=\"pricing-features\" style=\"margin-top: 2rem; text-align: center; color: rgb(182, 182, 182); font-family: Poppins, sans-serif; font-size: 16px;\"><div class=\"feature\" style=\"font-size: 14px; margin: 1.5rem 0px; color: rgb(255, 255, 255); border-bottom: 1px dotted rgba(242, 242, 242, 0.25); padding: 10px 0px;\">All Starter Package Features</div><div class=\"feature\" style=\"font-size: 14px; margin: 1.5rem 0px; color: rgb(255, 255, 255); border-bottom: 1px dotted rgba(242, 242, 242, 0.25); padding: 10px 0px;\">Basic Risk Management Tools</div><div class=\"feature\" style=\"font-size: 14px; margin: 1.5rem 0px; color: rgb(255, 255, 255); border-bottom: 1px dotted rgba(242, 242, 242, 0.25); padding: 10px 0px;\">Quarterly Portfolio Review</div><div class=\"feature\" style=\"font-size: 14px; margin: 1.5rem 0px; color: rgb(255, 255, 255); border-bottom: 1px dotted rgba(242, 242, 242, 0.25); padding: 10px 0px;\">24/7 Customer Support</div><div class=\"feature\" style=\"font-size: 14px; margin: 1.5rem 0px; color: rgb(255, 255, 255); border-bottom: 1px dotted rgba(242, 242, 242, 0.25); padding: 10px 0px;\">Monthly Portfolio Review</div></div>', '1999', 'Y', '2025-01-28 07:24:54', '2025-01-28 08:11:56');
+INSERT INTO `pakeges` (`id`, `category`, `currency`, `formate`, `deac`, `ammount`, `status`, `created_at`, `updated_at`, `interest_rate`, `clint_criteria`, `benefit`, `ac_type`, `type`, `completestatus`) VALUES
+(1, '31', '₹', 'Months', '<h2 style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; line-height: 28.8px; font-size: 24px; font-family: var(--head-font); color: rgb(255, 255, 255); padding: 0px; transition: var(--transition);\"><div class=\"feature\" style=\"font-size: 14px; margin: 1.5rem 0px; border-bottom: 1px dotted rgba(242, 242, 242, 0.25); padding: 10px 0px; font-family: Poppins, sans-serif; text-align: center; background-color: rgb(31, 31, 31);\">All Starter Package Features</div><div class=\"feature\" style=\"font-size: 14px; margin: 1.5rem 0px; border-bottom: 1px dotted rgba(242, 242, 242, 0.25); padding: 10px 0px; font-family: Poppins, sans-serif; text-align: center; background-color: rgb(31, 31, 31);\">Basic Risk Management Tools</div><div class=\"feature\" style=\"font-size: 14px; margin: 1.5rem 0px; border-bottom: 1px dotted rgba(242, 242, 242, 0.25); padding: 10px 0px; font-family: Poppins, sans-serif; text-align: center; background-color: rgb(31, 31, 31);\">Quarterly Portfolio Review</div><div class=\"feature\" style=\"font-size: 14px; margin: 1.5rem 0px; border-bottom: 1px dotted rgba(242, 242, 242, 0.25); padding: 10px 0px; font-family: Poppins, sans-serif; text-align: center; background-color: rgb(31, 31, 31);\">24/7 Customer Support</div><div class=\"feature\" style=\"font-size: 14px; margin: 1.5rem 0px; border-bottom: 1px dotted rgba(242, 242, 242, 0.25); padding: 10px 0px; font-family: Poppins, sans-serif; text-align: center; background-color: rgb(31, 31, 31);\">Monthly Portfolio Review\\</div></h2>', '1999', 'Y', '2025-01-28 07:24:54', '2025-02-17 06:44:14', '5', 'Just Test', '5% Profilt Complusory', 'Dimond', NULL, NULL),
+(2, '31', '₹', 'Years', '<div class=\"feature\" style=\"margin: 1.5rem 0px; color: rgb(255, 255, 255); border-bottom: 1px dotted rgba(242, 242, 242, 0.25); padding: 10px 0px; font-family: Poppins, sans-serif; text-align: center; background-color: rgb(31, 31, 31);\">All Starter Package Features</div><div class=\"feature\" style=\"margin: 1.5rem 0px; color: rgb(255, 255, 255); border-bottom: 1px dotted rgba(242, 242, 242, 0.25); padding: 10px 0px; font-family: Poppins, sans-serif; text-align: center; background-color: rgb(31, 31, 31);\">Basic Risk Management Tools</div><div class=\"feature\" style=\"margin: 1.5rem 0px; color: rgb(255, 255, 255); border-bottom: 1px dotted rgba(242, 242, 242, 0.25); padding: 10px 0px; font-family: Poppins, sans-serif; text-align: center; background-color: rgb(31, 31, 31);\">Quarterly Portfolio Review</div><div class=\"feature\" style=\"margin: 1.5rem 0px; color: rgb(255, 255, 255); border-bottom: 1px dotted rgba(242, 242, 242, 0.25); padding: 10px 0px; font-family: Poppins, sans-serif; text-align: center; background-color: rgb(31, 31, 31);\">24/7 Customer Support</div><div class=\"feature\" style=\"margin: 1.5rem 0px; color: rgb(255, 255, 255); border-bottom: 1px dotted rgba(242, 242, 242, 0.25); padding: 10px 0px; font-family: Poppins, sans-serif; text-align: center; background-color: rgb(31, 31, 31);\">Monthly Portfolio Review</div>', '9999', 'Y', '2025-01-30 08:10:21', '2025-02-17 06:44:21', '3', 'Just Test', '3% Profilt Complusory', 'Dimond', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -639,86 +567,6 @@ INSERT INTO `process` (`id`, `title`, `sub_title`, `icon`, `status`, `created_at
 -- --------------------------------------------------------
 
 --
--- Table structure for table `proje`
---
-
-CREATE TABLE `proje` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `projects`
---
-
-CREATE TABLE `projects` (
-  `id` int(11) NOT NULL,
-  `project_name` text DEFAULT NULL,
-  `slug` text DEFAULT NULL,
-  `date` text DEFAULT NULL,
-  `loction` text DEFAULT NULL,
-  `client` text DEFAULT NULL,
-  `duration` text DEFAULT NULL,
-  `category` text DEFAULT NULL,
-  `image` text DEFAULT NULL,
-  `image1` text DEFAULT NULL,
-  `s_description` text DEFAULT NULL,
-  `l_description` text DEFAULT NULL,
-  `s_description1` text DEFAULT NULL,
-  `l_description1` text DEFAULT NULL,
-  `s_description2` text DEFAULT NULL,
-  `l_description2` text DEFAULT NULL,
-  `meta_title` text DEFAULT NULL,
-  `curation` text DEFAULT NULL,
-  `meta_tags` text DEFAULT NULL,
-  `meta_description` text DEFAULT NULL,
-  `status` text DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `projects`
---
-
-INSERT INTO `projects` (`id`, `project_name`, `slug`, `date`, `loction`, `client`, `duration`, `category`, `image`, `image1`, `s_description`, `l_description`, `s_description1`, `l_description1`, `s_description2`, `l_description2`, `meta_title`, `curation`, `meta_tags`, `meta_description`, `status`, `created_at`, `updated_at`) VALUES
-(5, 'test one', 'test-one', '0033-03-31', 'jaipur', NULL, NULL, '11', '1731797030.jpg', NULL, 'If you use this site regularly and would like to help keep the site on the Internet, please consider donating a small sum to help pay for the hosting and bandwidth bill. There is no minimum donation, any sum is appreciated commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '<h4 class=\"bg-light p-3\" style=\"--bs-bg-opacity: 1;\"><font color=\"#4a5a6b\" face=\"Public Sans, sans-serif\">If you use this site regularly and would like to help keep the site on the Internet, please consider donating a small sum to help pay for the hosting and bandwidth bill. There is no minimum donation, any sum is appreciated commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</font></h4>', 'Project SummeryIf you use this site regularly and would like to help keep the site on the Internet, please consider donating a small sum to help pay for the hosting and bandwidth bill. There is no minimum donation, any sum is appreciated commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'If you use this site regularly and would like to help keep the site on the Internet, please consider donating a small sum to help pay for the hosting and bandwidth bill. There is no minimum donation, any sum is appreciated commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'If you use this site regularly and would like to help keep the site on the Internet, please consider donating a small sum to help pay for the hosting and bandwidth bill. There is no minimum donation, any sum is appreciated commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'If you use this site regularly and would like to help keep the site on the Internet, please consider donating a small sum to help pay for the hosting and bandwidth bill. There is no minimum donation, any sum is appreciated commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Project Summery', NULL, 'Project Summery', 'Project Summery', 'Y', '2024-11-17 10:43:50', '2024-11-23 12:25:54');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `property`
---
-
-CREATE TABLE `property` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `title` text DEFAULT NULL,
-  `location` text DEFAULT NULL,
-  `price` text DEFAULT NULL,
-  `gallery` text DEFAULT NULL,
-  `thumbnail` text DEFAULT NULL,
-  `bedrooms` text DEFAULT NULL,
-  `bathrooms` varchar(255) DEFAULT NULL,
-  `arrea` varchar(255) DEFAULT NULL,
-  `furnished_status` varchar(255) DEFAULT NULL,
-  `more_detail` varchar(255) DEFAULT NULL,
-  `construction_age` varchar(255) DEFAULT NULL,
-  `property_description` varchar(255) DEFAULT NULL,
-  `additional_description` varchar(255) DEFAULT NULL,
-  `meta_title` varchar(255) DEFAULT NULL,
-  `meta_tags` varchar(255) DEFAULT NULL,
-  `meta_description` varchar(255) DEFAULT NULL,
-  `user_id` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `services`
 --
 
@@ -745,8 +593,8 @@ CREATE TABLE `services` (
 --
 
 INSERT INTO `services` (`id`, `title`, `category`, `image`, `description`, `slug`, `long_description`, `baner_img`, `icon`, `meta_title`, `meta_tags`, `meta_description`, `status`, `created_at`, `updated_at`) VALUES
-(16, 'Client Centric Appraoch', NULL, '1737442741.jpg', 'A client-centric approach places the client at the core of all business activities, ensuring that products, services,', 'client-centric-appraoch', '<p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-size: 16px; line-height: 24px; font-family: Poppins, sans-serif; color: rgb(182, 182, 182); background-color: rgb(1, 3, 26);\">The Euro is down to 1.048, after ending yesterday at 1.0481. Overall, a 0.01% loss or 1 pips today.</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-size: 16px; line-height: 24px; font-family: Poppins, sans-serif; color: rgb(182, 182, 182); background-color: rgb(1, 3, 26);\">The MACD index is indicating that momentum is shifting from bullish to bearish following a negative crossover. When the MACD falls below the signal line, it is typically considered to be a bearish development favoring short positions. On the other hand, note that the Relative Strength Index has gone below 30, going into oversold conditions and allowing more gains. Euro-Dollar\'s lower Bollinger Band® is at 1.0476, indicating that the asset has overextended to the downside and could, therefore, bounce back as buyers look for bargains.</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-size: 16px; line-height: 24px; font-family: Poppins, sans-serif; color: rgb(182, 182, 182); background-color: rgb(1, 3, 26);\">Overall, looking at the technical analysis landscape, it seems that although indicators are mixed and some are pointing in different directions further drawbacks may be next for the Euro.</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-size: 16px; line-height: 24px; font-family: Poppins, sans-serif; color: rgb(182, 182, 182); background-color: rgb(1, 3, 26);\">Positive performances can be seen by looking at other currencies as GBP/NZD increases 0.19% to trade around 2.035. EUR/NZD increases 0.18% to trade around 1.764.</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-size: 16px; line-height: 24px; font-family: Poppins, sans-serif; color: rgb(182, 182, 182); background-color: rgb(1, 3, 26);\">n the meantime, USD/SGD trades close to 1.3734, with no major change</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-size: 16px; line-height: 24px; font-family: Poppins, sans-serif; color: rgb(182, 182, 182); background-color: rgb(1, 3, 26);\">The currency pair has been trending lower for about 2 months. The Euro has shed 78.55% over the past three months.</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-size: 16px; line-height: 24px; font-family: Poppins, sans-serif; color: rgb(182, 182, 182); background-color: rgb(1, 3, 26);\">This content was generated by AI</p>', '1737442741.jpg', '1737723765.svg', 'Stock Market', 'Stock Market', 'Stock Market', 'Y', '2025-01-21 06:59:01', '2025-01-25 09:23:35'),
-(17, 'Strategy Consulting', '23', '1737722387.png', 'transformed the trading landscape. Online trading platforms and mobile apps have made it easier than ever for individuals', 'strategy-consulting', '<p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-size: 16px; line-height: 24px; font-family: Poppins, sans-serif; color: rgb(182, 182, 182); background-color: rgb(1, 3, 26);\">The Euro is down to 1.048, after ending yesterday at 1.0481. Overall, a 0.01% loss or 1 pips today.</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-size: 16px; line-height: 24px; font-family: Poppins, sans-serif; color: rgb(182, 182, 182); background-color: rgb(1, 3, 26);\">The MACD index is indicating that momentum is shifting from bullish to bearish following a negative crossover. When the MACD falls below the signal line, it is typically considered to be a bearish development favoring short positions. On the other hand, note that the Relative Strength Index has gone below 30, going into oversold conditions and allowing more gains. Euro-Dollar\'s lower Bollinger Band® is at 1.0476, indicating that the asset has overextended to the downside and could, therefore, bounce back as buyers look for bargains.</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-size: 16px; line-height: 24px; font-family: Poppins, sans-serif; color: rgb(182, 182, 182); background-color: rgb(1, 3, 26);\">Overall, looking at the technical analysis landscape, it seems that although indicators are mixed and some are pointing in different directions further drawbacks may be next for the Euro.</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-size: 16px; line-height: 24px; font-family: Poppins, sans-serif; color: rgb(182, 182, 182); background-color: rgb(1, 3, 26);\">Positive performances can be seen by looking at other currencies as GBP/NZD increases 0.19% to trade around 2.035. EUR/NZD increases 0.18% to trade around 1.764.</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-size: 16px; line-height: 24px; font-family: Poppins, sans-serif; color: rgb(182, 182, 182); background-color: rgb(1, 3, 26);\">n the meantime, USD/SGD trades close to 1.3734, with no major change</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-size: 16px; line-height: 24px; font-family: Poppins, sans-serif; color: rgb(182, 182, 182); background-color: rgb(1, 3, 26);\">The currency pair has been trending lower for about 2 months. The Euro has shed 78.55% over the past three months.</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-size: 16px; line-height: 24px; font-family: Poppins, sans-serif; color: rgb(182, 182, 182); background-color: rgb(1, 3, 26);\">This content was generated by AI</p>', NULL, '1737722387.svg', 'Stock Market', 'Stock Market', 'Stock Market', 'Y', '2025-01-24 12:39:47', '2025-01-24 12:44:19');
+(16, 'Client Centric Appraoch', NULL, '1737442741.jpg', 'A client-centric approach places the client at the core of all business activities, ensuring that products, services,', 'client-centric-appraoch', '<p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-size: 16px; line-height: 24px; font-family: Poppins, sans-serif; color: rgb(182, 182, 182); background-color: rgb(1, 3, 26);\">The Euro is down to 1.048, after ending yesterday at 1.0481. Overall, a 0.01% loss or 1 pips today.</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-size: 16px; line-height: 24px; font-family: Poppins, sans-serif; color: rgb(182, 182, 182); background-color: rgb(1, 3, 26);\">The MACD index is indicating that momentum is shifting from bullish to bearish following a negative crossover. When the MACD falls below the signal line, it is typically considered to be a bearish development favoring short positions. On the other hand, note that the Relative Strength Index has gone below 30, going into oversold conditions and allowing more gains. Euro-Dollar\'s lower Bollinger Band? is at 1.0476, indicating that the asset has overextended to the downside and could, therefore, bounce back as buyers look for bargains.</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-size: 16px; line-height: 24px; font-family: Poppins, sans-serif; color: rgb(182, 182, 182); background-color: rgb(1, 3, 26);\">Overall, looking at the technical analysis landscape, it seems that although indicators are mixed and some are pointing in different directions further drawbacks may be next for the Euro.</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-size: 16px; line-height: 24px; font-family: Poppins, sans-serif; color: rgb(182, 182, 182); background-color: rgb(1, 3, 26);\">Positive performances can be seen by looking at other currencies as GBP/NZD increases 0.19% to trade around 2.035. EUR/NZD increases 0.18% to trade around 1.764.</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-size: 16px; line-height: 24px; font-family: Poppins, sans-serif; color: rgb(182, 182, 182); background-color: rgb(1, 3, 26);\">n the meantime, USD/SGD trades close to 1.3734, with no major change</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-size: 16px; line-height: 24px; font-family: Poppins, sans-serif; color: rgb(182, 182, 182); background-color: rgb(1, 3, 26);\">The currency pair has been trending lower for about 2 months. The Euro has shed 78.55% over the past three months.</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-size: 16px; line-height: 24px; font-family: Poppins, sans-serif; color: rgb(182, 182, 182); background-color: rgb(1, 3, 26);\">This content was generated by AI</p>', '1737442741.jpg', '1737723765.svg', 'Stock Market', 'Stock Market', 'Stock Market', 'Y', '2025-01-21 06:59:01', '2025-01-25 09:23:35'),
+(17, 'Strategy Consulting', '23', '1737722387.png', 'transformed the trading landscape. Online trading platforms and mobile apps have made it easier than ever for individuals', 'strategy-consulting', '<p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-size: 16px; line-height: 24px; font-family: Poppins, sans-serif; color: rgb(182, 182, 182); background-color: rgb(1, 3, 26);\">The Euro is down to 1.048, after ending yesterday at 1.0481. Overall, a 0.01% loss or 1 pips today.</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-size: 16px; line-height: 24px; font-family: Poppins, sans-serif; color: rgb(182, 182, 182); background-color: rgb(1, 3, 26);\">The MACD index is indicating that momentum is shifting from bullish to bearish following a negative crossover. When the MACD falls below the signal line, it is typically considered to be a bearish development favoring short positions. On the other hand, note that the Relative Strength Index has gone below 30, going into oversold conditions and allowing more gains. Euro-Dollar\'s lower Bollinger Band? is at 1.0476, indicating that the asset has overextended to the downside and could, therefore, bounce back as buyers look for bargains.</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-size: 16px; line-height: 24px; font-family: Poppins, sans-serif; color: rgb(182, 182, 182); background-color: rgb(1, 3, 26);\">Overall, looking at the technical analysis landscape, it seems that although indicators are mixed and some are pointing in different directions further drawbacks may be next for the Euro.</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-size: 16px; line-height: 24px; font-family: Poppins, sans-serif; color: rgb(182, 182, 182); background-color: rgb(1, 3, 26);\">Positive performances can be seen by looking at other currencies as GBP/NZD increases 0.19% to trade around 2.035. EUR/NZD increases 0.18% to trade around 1.764.</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-size: 16px; line-height: 24px; font-family: Poppins, sans-serif; color: rgb(182, 182, 182); background-color: rgb(1, 3, 26);\">n the meantime, USD/SGD trades close to 1.3734, with no major change</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-size: 16px; line-height: 24px; font-family: Poppins, sans-serif; color: rgb(182, 182, 182); background-color: rgb(1, 3, 26);\">The currency pair has been trending lower for about 2 months. The Euro has shed 78.55% over the past three months.</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-size: 16px; line-height: 24px; font-family: Poppins, sans-serif; color: rgb(182, 182, 182); background-color: rgb(1, 3, 26);\">This content was generated by AI</p>', NULL, '1737722387.svg', 'Stock Market', 'Stock Market', 'Stock Market', 'Y', '2025-01-24 12:39:47', '2025-01-24 12:44:19');
 
 -- --------------------------------------------------------
 
@@ -821,6 +669,7 @@ CREATE TABLE `users` (
   `customer_type_id` text DEFAULT NULL,
   `is_block` enum('N','Y') NOT NULL,
   `role` enum('user','hrms','crm','superadmin','team') NOT NULL,
+  `status` enum('pending','approved','rejected') NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `remember_token` text DEFAULT NULL,
@@ -837,19 +686,44 @@ CREATE TABLE `users` (
   `aadhar_card_number` text DEFAULT NULL,
   `pan_number` text DEFAULT NULL,
   `pan_card` text DEFAULT NULL,
-  `aadhar_card` text DEFAULT NULL
+  `aadhar_card` text DEFAULT NULL,
+  `aadhar_card_back` text DEFAULT NULL,
+  `wallet` bigint(20) DEFAULT NULL,
+  `referral_code` double DEFAULT NULL,
+  `referred_by` varchar(255) DEFAULT NULL,
+  `refer_by` text DEFAULT NULL,
+  `cancel_chaque` text DEFAULT NULL,
+  `nominee_name` text DEFAULT NULL,
+  `nominee_relation` text DEFAULT NULL,
+  `nominee_age` text DEFAULT NULL,
+  `nominee_contact` text DEFAULT NULL,
+  `kyc_status` set('pending','complete','reject','apply') DEFAULT NULL,
+  `kyc_time` date DEFAULT NULL,
+  `reason` longtext DEFAULT NULL,
+  `kyc_reason` longtext DEFAULT NULL,
+  `refer_wallet` bigint(20) DEFAULT NULL,
+  `refer_by_wallet` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `phone`, `address`, `image`, `company_name`, `company_address`, `gstin`, `domain`, `codeid`, `customer_type_id`, `is_block`, `role`, `created_at`, `updated_at`, `remember_token`, `job_title`, `role_type`, `destination`, `access_type`, `first_name`, `last_name`, `account_holder_name`, `account_number`, `ifsc_code`, `branch_name`, `aadhar_card_number`, `pan_number`, `pan_card`, `aadhar_card`) VALUES
-(1, 'Stock Market', 'ly0596232@gmail.com', '$2y$10$3DkZBRcIeQIP9stJ6F1lWOX1GU0dSDAMFtkJbz1bEcdSSRp9WP8Lm', '8769841472', NULL, NULL, NULL, NULL, NULL, NULL, 'rohit@123', NULL, 'N', 'superadmin', NULL, '2024-12-04 23:32:21', 'ZGIIfmKWyWFZIbXPJJgnIEuh0hIHRwDlQk1EHPl0OvGZUFdTwCy3zAk5cn3n', NULL, 'admin', 'Founder & CEO', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(19, 'Admin', 'targetvr43@gmail.com', '$2y$10$9/HxCNFu2COKjIWX9TrxbOOEiL/tqbr7YPimqLvNv5/qdXoZFYG16', '8888887499', NULL, NULL, NULL, NULL, NULL, NULL, '12345678', NULL, 'N', 'superadmin', '2024-10-02 01:28:51', '2024-11-11 02:39:14', 'MCikqRu5dusIhPf2VuKrmx1r9LWPFvlz1AfBl2K01B3kQDZBQtOa3xjJPvyZ', 'UI Designer', 'admin', 'Admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(31, 'vikashsaini007', 'vikashsainiji116@gmail.com', '$2y$10$.R4TipctSB7690knEIzxQe5L7Ea1WpE3wxBd39YQUs0ZCR7qDc1yO', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', 'user', '2025-01-29 13:06:38', '2025-01-29 13:06:38', NULL, NULL, NULL, NULL, NULL, 'Vikash', 'Saini', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(32, 'suraj007', 'suraj@gmail.com', '$2y$10$lPj2i.FsMCBC3Bfx2G9/deK9x8ucUVEX4WsrDkO4GScdctKp7vZtO', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', 'user', '2025-01-29 13:10:22', '2025-01-29 13:10:22', NULL, NULL, NULL, NULL, NULL, 'Suraj', 'Kumar', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(33, 'mahesh008', 'mahesh@gmail.com', '$2y$10$HsPaYZLLhfweZRsAQ1lCkuCLdCFQKPn8kwP5tYg3.l1NX7nD0p0K2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '12345678', NULL, 'N', 'user', '2025-01-29 13:24:13', '2025-01-29 15:43:49', NULL, NULL, NULL, NULL, NULL, 'Mahesh 00', 'Kumar', 'vikash saini', '911234567890', 'PYTM012345678', 'Paytm Noida', '123456789012', 'LTWPS0853J', 'uploads/kyc/1738165232_pan.jpeg', 'uploads/kyc/1738165079_aadhar.jpeg');
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `phone`, `address`, `image`, `company_name`, `company_address`, `gstin`, `domain`, `codeid`, `customer_type_id`, `is_block`, `role`, `status`, `created_at`, `updated_at`, `remember_token`, `job_title`, `role_type`, `destination`, `access_type`, `first_name`, `last_name`, `account_holder_name`, `account_number`, `ifsc_code`, `branch_name`, `aadhar_card_number`, `pan_number`, `pan_card`, `aadhar_card`, `aadhar_card_back`, `wallet`, `referral_code`, `referred_by`, `refer_by`, `cancel_chaque`, `nominee_name`, `nominee_relation`, `nominee_age`, `nominee_contact`, `kyc_status`, `kyc_time`, `reason`, `kyc_reason`, `refer_wallet`, `refer_by_wallet`) VALUES
+(19, 'Admin', 'targetvr43@gmail.com', '$2y$10$9/HxCNFu2COKjIWX9TrxbOOEiL/tqbr7YPimqLvNv5/qdXoZFYG16', '8888887499', NULL, NULL, NULL, NULL, NULL, NULL, '12345678', NULL, 'N', 'superadmin', 'approved', '2024-10-02 01:28:51', '2024-11-11 02:39:14', 'HdJK6iqfKCYgcNoLsijyCb39Q0VxnbPH4WXmMjbbhAC9gdC1C04RrXq914xx', 'UI Designer', 'admin', 'Admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'pending', NULL, NULL, NULL, NULL, NULL),
+(31, 'vikashsaini007', 'fdfdf\\vikashsainiji116@gmail.com', '$2y$10$zxhR/nAU4vcGALw9dsvRXeDqMpI9eMTaW6Dj2pu/xSGC71rTCJu2u', NULL, NULL, '1739967989.jpg', NULL, NULL, NULL, NULL, '112233445566', NULL, 'N', 'user', 'approved', '2025-01-29 13:06:38', '2025-02-19 12:26:57', 'QDeRWrAW9fpjREpErjJqfOFs5nwAPxheKokgEN5c', NULL, NULL, NULL, NULL, 'Vikash', 'Saini', 'vikash kumar saini', '917357791943', 'PYTM0123456', 'Noida', '275955884466', 'LFHTS0924U', 'uploads/kyc/1738228575_pan.jpeg', 'uploads/kyc/1738228575_aadhar.jpeg', NULL, NULL, NULL, NULL, '32', NULL, 'Umesh Kumar', 'Brother', '25', '7895458745', 'pending', NULL, NULL, NULL, NULL, NULL),
+(32, 'suraj007', 'vikashsainiji116@gmail.com', '$2y$10$lPj2i.FsMCBC3Bfx2G9/deK9x8ucUVEX4WsrDkO4GScdctKp7vZtO', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', 'user', 'approved', '2025-01-29 13:10:22', '2025-02-20 10:38:56', 'LiO56qDQgcsDnJMpSlA9UeDrgS27xIp1sJwE2S9v', NULL, NULL, NULL, NULL, 'Suraj', 'Kumar', 'Vikash Kumar Saini', '917357791943', 'PYT0123456', 'Paytm Noida', '245685459875', 'TOSPE3458J', 'uploads/kyc/1740035335_pan.jpg', 'uploads/kyc/1740035335_aadhar.jpg', 'uploads/kyc/1740035335_aadhar_back.jpg', 3046, NULL, NULL, '33', 'uploads/kyc/1740035335_cancel_cheque.jpg', 'Umesh Kumar', 'Brother', '25', '7357791943', 'complete', '2025-02-20', NULL, 'Kyc Complete', 45, NULL),
+(33, 'mahesh008', 'mahesh@gmail.com', '$2y$10$wYtGbhXbC5T6F4OHDaOVWufjNKecKOJ0hzO5dg/mXQT3NzbSvu12a', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '12345678', NULL, 'N', 'user', 'approved', '2025-01-29 13:24:13', '2025-02-20 09:25:35', NULL, NULL, NULL, NULL, NULL, 'Mahesh 00', 'Kumar', 'vikash saini', '911234567890', 'PYTM012345678', 'Paytm Noida', '123456789012', 'LTWPS0853J', 'uploads/kyc/1738165232_pan.jpeg', 'uploads/kyc/1738165079_aadhar.jpeg', NULL, 40, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'pending', NULL, NULL, NULL, 40, NULL),
+(34, 'subhash007', 'subhash@gmail.com', '$2y$10$1Uoyn.vyq0mpyeJaY77/5uZ5nMHNlGuEJdJFwg9ZDuVbaNAYeAmUS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '12345678', NULL, 'N', 'user', 'approved', '2025-02-11 05:45:31', '2025-02-20 10:55:19', NULL, NULL, NULL, NULL, NULL, 'subhhash', 'kumar', NULL, NULL, NULL, NULL, '856577889655', 'HTLOHDYEKJ', 'uploads/kyc/1740048868_pan.jpg', 'uploads/kyc/1740048868_aadhar.png', 'uploads/kyc/1740048868_aadhar_back.jpg', 3502, NULL, NULL, '32', 'uploads/kyc/1740048868_cancel_cheque.jpg', NULL, NULL, NULL, NULL, 'complete', '2025-02-20', NULL, 'Applied For Kyc. Please wait for admin verification.', NULL, 25),
+(35, 'yadav', 'ly0596232@gmail.com', '$2y$10$dMBLLc/2lOras2p69x9ltO763HF4FwUUDqZ6BSFSSGxgnQ.e8MoF6', NULL, NULL, '1739605920.jpg', NULL, NULL, NULL, NULL, 'lokesh@3344', NULL, 'N', 'user', 'approved', '2025-02-12 10:28:25', '2025-02-17 11:54:12', NULL, NULL, NULL, NULL, NULL, 'lokesh2', 'yadav', 'John Doe', '1234567890', 'SBIN0001234', 'Main Branch', '123456789012', 'ABCDE1234F', 'uploads/kyc/1739782298_pan.png', 'uploads/kyc/1739782298_aadhar.png', 'uploads/kyc/1739782298_aadhar_back.png', 8000, NULL, NULL, '32', 'uploads/kyc/1739782298_cancel_cheque.png', NULL, NULL, NULL, NULL, 'pending', NULL, NULL, NULL, NULL, NULL),
+(39, 'lokesh', 'lokesh@gmil.com', '$2y$10$prhvuhpCrLtC.KtiyblNV.2FfAHcwaQkXHkNBlDDQs6mf.hYLhhpu', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '12345678', NULL, 'N', 'user', 'pending', '2025-02-13 05:57:05', '2025-02-13 05:57:05', NULL, NULL, NULL, NULL, NULL, 'lokesh', 'yadav', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'pending', NULL, NULL, NULL, NULL, NULL),
+(40, 'yayay', 'yay@gmail.com', '$2y$10$glNdZk/NeqwhuIo/sBIXkunreoj8eBRexsHyjBvMpq2V/L55KQL5S', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '12345678', NULL, 'N', 'user', 'pending', '2025-02-13 06:00:46', '2025-02-13 06:00:46', NULL, NULL, NULL, NULL, NULL, 'yaya', 'yaya', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'pending', NULL, NULL, NULL, NULL, NULL),
+(47, 'vishalalekar123', 'VISHALALEKAR123@GMAIL.COM', '$2y$10$vvr7wqOk12GlmchyQ9tpMOCblwhKYggYEa/e4ElEDZOmqSZtaZw/y', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'VISHAL@123', NULL, 'N', 'user', 'pending', '2025-02-15 10:10:10', '2025-02-15 10:42:20', NULL, NULL, NULL, NULL, NULL, 'vishal', 'alekar', 'VISHAL ABC ALEKAR', '31221664598', 'SBIN0000295', 'SHRIGONDA', '978920735654', 'DGZPD2154P', 'uploads/kyc/1739596340_pan.jpg', 'uploads/kyc/1739596340_aadhar.jpg', 'uploads/kyc/1739596340_aadhar_back.jpg', NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, 'pending', NULL, NULL, NULL, NULL, NULL),
+(50, 'saniya12', 'saniyatest12@gmail.com', '$2y$10$RCBlEMgIMVWDaL5yUhHo1uZ4hmjE7Neg62f3NtFYAvOg4UhGe63hq', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '12345678', NULL, 'N', 'user', 'pending', '2025-02-15 11:38:03', '2025-02-19 12:10:06', '0Y0RflbAXimpiexrfMFYNiwjGiFDauwetw4t6TEG', NULL, NULL, NULL, NULL, 'Saniya', 'Kumari', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '49', NULL, NULL, NULL, NULL, NULL, 'pending', NULL, NULL, NULL, NULL, NULL),
+(51, 'suraj@gmail.com', 'suraj123@gmail.com', '$2y$10$4AGhvXLaeFD93AmS9DyG/O6Vmm2rmJhJygHMXLqchPSuo74GRgbsa', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '123456', NULL, 'N', 'user', 'pending', '2025-02-15 11:52:51', '2025-02-15 11:52:51', NULL, NULL, NULL, NULL, NULL, 'suraj', 'jamdade', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, 'pending', NULL, NULL, NULL, NULL, NULL),
+(52, 'tesing', 'tesing@gmail.com', '$2y$10$VfMjimC6XNYgOcW3Zu/qneeXbHVAp.s/YMw/myhM7QgCYVG7M/q36', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '12345678', NULL, 'N', 'user', 'approved', '2025-02-17 11:19:07', '2025-02-17 11:46:10', NULL, NULL, NULL, NULL, NULL, 'tetsre', 'tetsr', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, 'apply', NULL, NULL, NULL, NULL, NULL),
+(53, 'testone', 'testone@gmail.com', '$2y$10$jbE84MUU5/XIe5jJChAJJOzfB9JbHf8cYIiBBOfXtZiZtAUyOPKvu', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '12345678', NULL, 'N', 'user', 'rejected', '2025-02-19 06:54:33', '2025-02-19 10:02:56', NULL, NULL, NULL, NULL, NULL, 'testone', 'testone', NULL, NULL, NULL, NULL, '275900448633', 'LTWPS0986J', 'uploads/kyc/1739952680_pan.jpg', 'uploads/kyc/1739952680_aadhar.jpg', 'uploads/kyc/1739952680_aadhar_back.jpg', NULL, NULL, NULL, '', 'uploads/kyc/1739952680_cancel_cheque.jpg', NULL, NULL, NULL, NULL, 'complete', '2025-02-19', NULL, NULL, NULL, NULL),
+(54, 'wowkumar', 'wowkumar@gmail.com', '$2y$10$xz7SrGxaHk/8QkNqJfrDY.mRkJV8OabiJwVoTVX8Sz7OEtiHFGRLq', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '12345678', NULL, 'N', 'user', 'rejected', '2025-02-19 07:47:36', '2025-02-19 10:14:19', NULL, NULL, NULL, NULL, NULL, 'wo', 'kumar', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, 'pending', NULL, 'InactivitE', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -897,11 +771,11 @@ CREATE TABLE `webinfo` (
 --
 
 INSERT INTO `webinfo` (`id`, `info_one`, `info_two`, `info_three`, `image`, `banner`, `created_at`, `updated_at`, `favicon`, `image_2`) VALUES
-(1, '<div class=\"privacy-policy__part\" style=\"color: rgb(182, 182, 182); font-family: Poppins, sans-serif; font-size: 16px; background-color: rgb(31, 31, 31);\"><h5 class=\"mb-4\" style=\"font-weight: 700; line-height: 24px; font-size: 20px; font-family: var(--head-font); padding: 0px; margin-right: 0px; margin-left: 0px; transition: var(--transition); margin-bottom: 1rem !important;\">Agreement to Terms</h5><p class=\"mt-3\" style=\"margin-bottom: 0px; line-height: 24px; margin-right: 0px; margin-left: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); margin-top: 0.75rem !important;\">I apologize for any confusion, but as an AI language model, I don\'t have access specific gaming platforms, games, or online services can vary widely depending on the specific company and the jurisdiction they operate in.</p><p class=\"mt-3\" style=\"margin-bottom: 0px; line-height: 24px; margin-right: 0px; margin-left: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); margin-top: 0.75rem !important;\">f you\'re looking for the terms and conditions of a particular gaming platform or game recommend visiting the official website of the platform or contacting their customer support. The terms and conditions are usually provided on their website,</p><p class=\"mt-3\" style=\"margin-bottom: 0px; line-height: 24px; margin-right: 0px; margin-left: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); margin-top: 0.75rem !important;\">I\'d be happy to provide you with some general information about terms and conditions. terms and conditions of any particular service or organization. The terms and conditions specific company or service you are referring to.</p><p class=\"mt-3\" style=\"margin-bottom: 0px; line-height: 24px; margin-right: 0px; margin-left: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); margin-top: 0.75rem !important;\">I\'d be happy to provide you with some general information about terms and conditions. However, please note that I am AI language model, and I don\'t have access to specific terms and conditions of any particular service or organization.</p></div><div class=\"privacy-policy__part\" style=\"color: rgb(182, 182, 182); font-family: Poppins, sans-serif; font-size: 16px; background-color: rgb(31, 31, 31);\"><h5 class=\"mb-4\" style=\"font-weight: 700; line-height: 24px; font-size: 20px; font-family: var(--head-font); padding: 0px; margin-right: 0px; margin-left: 0px; transition: var(--transition); margin-bottom: 1rem !important;\">User Representations</h5><p class=\"mt-4 mb-5\" style=\"line-height: 24px; margin-right: 0px; margin-left: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); margin-top: 1rem !important; margin-bottom: 1.25rem !important;\">We use cookies and similar tracking technologies to enhance your experience on our platform and gather information about your interactions with our services.</p><ul class=\"ul-decimal mt-5 d-flex gap-3 flex-column\" style=\"padding: 0px; margin-bottom: 0px; margin-right: 0px; margin-left: 14px; list-style: none; margin-top: 1.25rem !important; gap: 0.75rem !important;\"><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">Acceptance: Users are typically required to agree to the terms and conditions before using a service. button or by simply using the service.</li><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">User rights and responsibilities: The terms and conditions specify the rights granted to users and the responsibilities they have while using the service.</li><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">your reviews should not contain offensive profanity, racist, offensive, or hate language;</li><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">Dispute resolution: Procedures for resolving disputes, such as arbitration or mediation, may be outlined in the terms and conditions.</li><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">Intellectual property: These sections outline the ownership and usage rights of intellectual property such as copyrights, trademarks, and patents associated with the service or content provided.</li></ul><p class=\"mt-5\" style=\"margin-bottom: 0px; line-height: 24px; margin-right: 0px; margin-left: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); margin-top: 1.25rem !important;\">Remember that it\'s important to read and understand the specific terms and conditions of any service or product you use. If you have any questions or concerns about a particular set of terms clarification.</p></div><div class=\"privacy-policy__part\" style=\"color: rgb(182, 182, 182); font-family: Poppins, sans-serif; font-size: 16px; background-color: rgb(31, 31, 31);\"><h5 class=\"mb-4\" style=\"font-weight: 700; line-height: 24px; font-size: 20px; font-family: var(--head-font); padding: 0px; margin-right: 0px; margin-left: 0px; transition: var(--transition); margin-bottom: 1rem !important;\">Guideline for Reviews</h5><ul class=\"ul-decimal mt-5 d-flex gap-3 flex-column\" style=\"padding: 0px; margin-bottom: 0px; margin-right: 0px; margin-left: 14px; list-style: none; margin-top: 1.25rem !important; gap: 0.75rem !important;\"><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">you should have firsthand experience with the object being reviewed;</li><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">your reviews should not contain offensive profanity offensive, or hate language;</li><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">your reviews should not contain discriminatory references based on religion, race, gender, national origin, age, marital status, sexual orientation, or disability;</li><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">your reviews should not contain references to illegal activity;</li><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">you may not organize encouraging others to post reviews, whether positive or negative.</li></ul><p class=\"mt-4\" style=\"margin-bottom: 0px; line-height: 24px; margin-right: 0px; margin-left: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); margin-top: 1rem !important;\">We may accept, reject, or remove reviews at our sole discretion. We have absolutely no obligation to screen reviews or to delete reviews, even if anyone considers reviews objectionable or inaccurate.</p></div><div class=\"privacy-policy__part\" style=\"color: rgb(182, 182, 182); font-family: Poppins, sans-serif; font-size: 16px; background-color: rgb(31, 31, 31);\"><h5 class=\"mb-4\" style=\"font-weight: 700; line-height: 24px; font-size: 20px; font-family: var(--head-font); padding: 0px; margin-right: 0px; margin-left: 0px; transition: var(--transition); margin-bottom: 1rem !important;\">Social Media</h5><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; line-height: 24px; font-family: var(--body-font); color: rgba(var(--nw2), 1);\">‍As part of the functionality of the Site, you may link your account with online accounts you either: providing your Third-Party Account login information through the Site allowing us each Third-Party Account.</p><p class=\"mt-3\" style=\"margin-bottom: 0px; line-height: 24px; margin-right: 0px; margin-left: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); margin-top: 0.75rem !important;\">You represent and warrant that you are entitled to disclose your Third-Party Account login you of any of the Terms and Conditions that govern your use of the applicable Third-Party Account, and without obligating us to pay any fees or making us subject to any usage service provider of the Third-Party Account.</p></div>', NULL, NULL, NULL, NULL, NULL, '2025-01-28 05:28:27', NULL, NULL),
-(2, '<div class=\"privacy-policy__part\" style=\"color: rgb(182, 182, 182); font-family: Poppins, sans-serif; font-size: 16px; background-color: rgb(31, 31, 31);\"><h5 class=\"mb-4\" style=\"font-weight: 700; line-height: 24px; font-size: 20px; font-family: var(--head-font); padding: 0px; margin-right: 0px; margin-left: 0px; transition: var(--transition); margin-bottom: 1rem !important;\">Agreement to Terms</h5><p class=\"mt-3\" style=\"margin-bottom: 0px; line-height: 24px; margin-right: 0px; margin-left: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); margin-top: 0.75rem !important;\">I apologize for any confusion, but as an AI language model, I don\'t have access specific gaming platforms, games, or online services can vary widely depending on the specific company and the jurisdiction they operate in.</p><p class=\"mt-3\" style=\"margin-bottom: 0px; line-height: 24px; margin-right: 0px; margin-left: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); margin-top: 0.75rem !important;\">f you\'re looking for the terms and conditions of a particular gaming platform or game recommend visiting the official website of the platform or contacting their customer support. The terms and conditions are usually provided on their website,</p><p class=\"mt-3\" style=\"margin-bottom: 0px; line-height: 24px; margin-right: 0px; margin-left: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); margin-top: 0.75rem !important;\">I\'d be happy to provide you with some general information about terms and conditions. terms and conditions of any particular service or organization. The terms and conditions specific company or service you are referring to.</p><p class=\"mt-3\" style=\"margin-bottom: 0px; line-height: 24px; margin-right: 0px; margin-left: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); margin-top: 0.75rem !important;\">I\'d be happy to provide you with some general information about terms and conditions. However, please note that I am AI language model, and I don\'t have access to specific terms and conditions of any particular service or organization.</p></div><div class=\"privacy-policy__part\" style=\"color: rgb(182, 182, 182); font-family: Poppins, sans-serif; font-size: 16px; background-color: rgb(31, 31, 31);\"><h5 class=\"mb-4\" style=\"font-weight: 700; line-height: 24px; font-size: 20px; font-family: var(--head-font); padding: 0px; margin-right: 0px; margin-left: 0px; transition: var(--transition); margin-bottom: 1rem !important;\">User Representations</h5><p class=\"mt-4 mb-5\" style=\"line-height: 24px; margin-right: 0px; margin-left: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); margin-top: 1rem !important; margin-bottom: 1.25rem !important;\">We use cookies and similar tracking technologies to enhance your experience on our platform and gather information about your interactions with our services.</p><ul class=\"ul-decimal mt-5 d-flex gap-3 flex-column\" style=\"padding: 0px; margin-bottom: 0px; margin-right: 0px; margin-left: 14px; list-style: none; margin-top: 1.25rem !important; gap: 0.75rem !important;\"><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">Acceptance: Users are typically required to agree to the terms and conditions before using a service. button or by simply using the service.</li><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">User rights and responsibilities: The terms and conditions specify the rights granted to users and the responsibilities they have while using the service.</li><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">your reviews should not contain offensive profanity, racist, offensive, or hate language;</li><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">Dispute resolution: Procedures for resolving disputes, such as arbitration or mediation, may be outlined in the terms and conditions.</li><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">Intellectual property: These sections outline the ownership and usage rights of intellectual property such as copyrights, trademarks, and patents associated with the service or content provided.</li></ul><p class=\"mt-5\" style=\"margin-bottom: 0px; line-height: 24px; margin-right: 0px; margin-left: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); margin-top: 1.25rem !important;\">Remember that it\'s important to read and understand the specific terms and conditions of any service or product you use. If you have any questions or concerns about a particular set of terms clarification.</p></div><div class=\"privacy-policy__part\" style=\"color: rgb(182, 182, 182); font-family: Poppins, sans-serif; font-size: 16px; background-color: rgb(31, 31, 31);\"><h5 class=\"mb-4\" style=\"font-weight: 700; line-height: 24px; font-size: 20px; font-family: var(--head-font); padding: 0px; margin-right: 0px; margin-left: 0px; transition: var(--transition); margin-bottom: 1rem !important;\">Guideline for Reviews</h5><ul class=\"ul-decimal mt-5 d-flex gap-3 flex-column\" style=\"padding: 0px; margin-bottom: 0px; margin-right: 0px; margin-left: 14px; list-style: none; margin-top: 1.25rem !important; gap: 0.75rem !important;\"><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">you should have firsthand experience with the object being reviewed;</li><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">your reviews should not contain offensive profanity offensive, or hate language;</li><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">your reviews should not contain discriminatory references based on religion, race, gender, national origin, age, marital status, sexual orientation, or disability;</li><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">your reviews should not contain references to illegal activity;</li><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">you may not organize encouraging others to post reviews, whether positive or negative.</li></ul><p class=\"mt-4\" style=\"margin-bottom: 0px; line-height: 24px; margin-right: 0px; margin-left: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); margin-top: 1rem !important;\">We may accept, reject, or remove reviews at our sole discretion. We have absolutely no obligation to screen reviews or to delete reviews, even if anyone considers reviews objectionable or inaccurate.</p></div><div class=\"privacy-policy__part\" style=\"color: rgb(182, 182, 182); font-family: Poppins, sans-serif; font-size: 16px; background-color: rgb(31, 31, 31);\"><h5 class=\"mb-4\" style=\"font-weight: 700; line-height: 24px; font-size: 20px; font-family: var(--head-font); padding: 0px; margin-right: 0px; margin-left: 0px; transition: var(--transition); margin-bottom: 1rem !important;\">Social Media</h5><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; line-height: 24px; font-family: var(--body-font); color: rgba(var(--nw2), 1);\">‍As part of the functionality of the Site, you may link your account with online accounts you either: providing your Third-Party Account login information through the Site allowing us each Third-Party Account.</p><p class=\"mt-3\" style=\"margin-bottom: 0px; line-height: 24px; margin-right: 0px; margin-left: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); margin-top: 0.75rem !important;\">You represent and warrant that you are entitled to disclose your Third-Party Account login you of any of the Terms and Conditions that govern your use of the applicable Third-Party Account, and without obligating us to pay any fees or making us subject to any usage service provider of the Third-Party Account.</p></div>', NULL, NULL, NULL, NULL, NULL, '2025-01-28 05:33:09', NULL, NULL),
+(1, '<div class=\"privacy-policy__part\" style=\"color: rgb(182, 182, 182); font-family: Poppins, sans-serif; font-size: 16px; background-color: rgb(31, 31, 31);\"><h5 class=\"mb-4\" style=\"font-weight: 700; line-height: 24px; font-size: 20px; font-family: var(--head-font); padding: 0px; margin-right: 0px; margin-left: 0px; transition: var(--transition); margin-bottom: 1rem !important;\">Agreement to Terms</h5><p class=\"mt-3\" style=\"margin-bottom: 0px; line-height: 24px; margin-right: 0px; margin-left: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); margin-top: 0.75rem !important;\">I apologize for any confusion, but as an AI language model, I don\'t have access specific gaming platforms, games, or online services can vary widely depending on the specific company and the jurisdiction they operate in.</p><p class=\"mt-3\" style=\"margin-bottom: 0px; line-height: 24px; margin-right: 0px; margin-left: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); margin-top: 0.75rem !important;\">f you\'re looking for the terms and conditions of a particular gaming platform or game recommend visiting the official website of the platform or contacting their customer support. The terms and conditions are usually provided on their website,</p><p class=\"mt-3\" style=\"margin-bottom: 0px; line-height: 24px; margin-right: 0px; margin-left: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); margin-top: 0.75rem !important;\">I\'d be happy to provide you with some general information about terms and conditions. terms and conditions of any particular service or organization. The terms and conditions specific company or service you are referring to.</p><p class=\"mt-3\" style=\"margin-bottom: 0px; line-height: 24px; margin-right: 0px; margin-left: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); margin-top: 0.75rem !important;\">I\'d be happy to provide you with some general information about terms and conditions. However, please note that I am AI language model, and I don\'t have access to specific terms and conditions of any particular service or organization.</p></div><div class=\"privacy-policy__part\" style=\"color: rgb(182, 182, 182); font-family: Poppins, sans-serif; font-size: 16px; background-color: rgb(31, 31, 31);\"><h5 class=\"mb-4\" style=\"font-weight: 700; line-height: 24px; font-size: 20px; font-family: var(--head-font); padding: 0px; margin-right: 0px; margin-left: 0px; transition: var(--transition); margin-bottom: 1rem !important;\">User Representations</h5><p class=\"mt-4 mb-5\" style=\"line-height: 24px; margin-right: 0px; margin-left: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); margin-top: 1rem !important; margin-bottom: 1.25rem !important;\">We use cookies and similar tracking technologies to enhance your experience on our platform and gather information about your interactions with our services.</p><ul class=\"ul-decimal mt-5 d-flex gap-3 flex-column\" style=\"padding: 0px; margin-bottom: 0px; margin-right: 0px; margin-left: 14px; list-style: none; margin-top: 1.25rem !important; gap: 0.75rem !important;\"><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">Acceptance: Users are typically required to agree to the terms and conditions before using a service. button or by simply using the service.</li><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">User rights and responsibilities: The terms and conditions specify the rights granted to users and the responsibilities they have while using the service.</li><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">your reviews should not contain offensive profanity, racist, offensive, or hate language;</li><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">Dispute resolution: Procedures for resolving disputes, such as arbitration or mediation, may be outlined in the terms and conditions.</li><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">Intellectual property: These sections outline the ownership and usage rights of intellectual property such as copyrights, trademarks, and patents associated with the service or content provided.</li></ul><p class=\"mt-5\" style=\"margin-bottom: 0px; line-height: 24px; margin-right: 0px; margin-left: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); margin-top: 1.25rem !important;\">Remember that it\'s important to read and understand the specific terms and conditions of any service or product you use. If you have any questions or concerns about a particular set of terms clarification.</p></div><div class=\"privacy-policy__part\" style=\"color: rgb(182, 182, 182); font-family: Poppins, sans-serif; font-size: 16px; background-color: rgb(31, 31, 31);\"><h5 class=\"mb-4\" style=\"font-weight: 700; line-height: 24px; font-size: 20px; font-family: var(--head-font); padding: 0px; margin-right: 0px; margin-left: 0px; transition: var(--transition); margin-bottom: 1rem !important;\">Guideline for Reviews</h5><ul class=\"ul-decimal mt-5 d-flex gap-3 flex-column\" style=\"padding: 0px; margin-bottom: 0px; margin-right: 0px; margin-left: 14px; list-style: none; margin-top: 1.25rem !important; gap: 0.75rem !important;\"><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">you should have firsthand experience with the object being reviewed;</li><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">your reviews should not contain offensive profanity offensive, or hate language;</li><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">your reviews should not contain discriminatory references based on religion, race, gender, national origin, age, marital status, sexual orientation, or disability;</li><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">your reviews should not contain references to illegal activity;</li><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">you may not organize encouraging others to post reviews, whether positive or negative.</li></ul><p class=\"mt-4\" style=\"margin-bottom: 0px; line-height: 24px; margin-right: 0px; margin-left: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); margin-top: 1rem !important;\">We may accept, reject, or remove reviews at our sole discretion. We have absolutely no obligation to screen reviews or to delete reviews, even if anyone considers reviews objectionable or inaccurate.</p></div><div class=\"privacy-policy__part\" style=\"color: rgb(182, 182, 182); font-family: Poppins, sans-serif; font-size: 16px; background-color: rgb(31, 31, 31);\"><h5 class=\"mb-4\" style=\"font-weight: 700; line-height: 24px; font-size: 20px; font-family: var(--head-font); padding: 0px; margin-right: 0px; margin-left: 0px; transition: var(--transition); margin-bottom: 1rem !important;\">Social Media</h5><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; line-height: 24px; font-family: var(--body-font); color: rgba(var(--nw2), 1);\">\nAs part of the functionality of the Site, you may link your account with online accounts you either: providing your Third-Party Account login information through the Site allowing us each Third-Party Account.</p><p class=\"mt-3\" style=\"margin-bottom: 0px; line-height: 24px; margin-right: 0px; margin-left: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); margin-top: 0.75rem !important;\">You represent and warrant that you are entitled to disclose your Third-Party Account login you of any of the Terms and Conditions that govern your use of the applicable Third-Party Account, and without obligating us to pay any fees or making us subject to any usage service provider of the Third-Party Account.</p></div>', NULL, NULL, NULL, NULL, NULL, '2025-01-28 05:28:27', NULL, NULL),
+(2, '<div class=\"privacy-policy__part\" style=\"color: rgb(182, 182, 182); font-family: Poppins, sans-serif; font-size: 16px; background-color: rgb(31, 31, 31);\"><h5 class=\"mb-4\" style=\"font-weight: 700; line-height: 24px; font-size: 20px; font-family: var(--head-font); padding: 0px; margin-right: 0px; margin-left: 0px; transition: var(--transition); margin-bottom: 1rem !important;\">Agreement to Terms</h5><p class=\"mt-3\" style=\"margin-bottom: 0px; line-height: 24px; margin-right: 0px; margin-left: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); margin-top: 0.75rem !important;\">I apologize for any confusion, but as an AI language model, I don\'t have access specific gaming platforms, games, or online services can vary widely depending on the specific company and the jurisdiction they operate in.</p><p class=\"mt-3\" style=\"margin-bottom: 0px; line-height: 24px; margin-right: 0px; margin-left: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); margin-top: 0.75rem !important;\">f you\'re looking for the terms and conditions of a particular gaming platform or game recommend visiting the official website of the platform or contacting their customer support. The terms and conditions are usually provided on their website,</p><p class=\"mt-3\" style=\"margin-bottom: 0px; line-height: 24px; margin-right: 0px; margin-left: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); margin-top: 0.75rem !important;\">I\'d be happy to provide you with some general information about terms and conditions. terms and conditions of any particular service or organization. The terms and conditions specific company or service you are referring to.</p><p class=\"mt-3\" style=\"margin-bottom: 0px; line-height: 24px; margin-right: 0px; margin-left: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); margin-top: 0.75rem !important;\">I\'d be happy to provide you with some general information about terms and conditions. However, please note that I am AI language model, and I don\'t have access to specific terms and conditions of any particular service or organization.</p></div><div class=\"privacy-policy__part\" style=\"color: rgb(182, 182, 182); font-family: Poppins, sans-serif; font-size: 16px; background-color: rgb(31, 31, 31);\"><h5 class=\"mb-4\" style=\"font-weight: 700; line-height: 24px; font-size: 20px; font-family: var(--head-font); padding: 0px; margin-right: 0px; margin-left: 0px; transition: var(--transition); margin-bottom: 1rem !important;\">User Representations</h5><p class=\"mt-4 mb-5\" style=\"line-height: 24px; margin-right: 0px; margin-left: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); margin-top: 1rem !important; margin-bottom: 1.25rem !important;\">We use cookies and similar tracking technologies to enhance your experience on our platform and gather information about your interactions with our services.</p><ul class=\"ul-decimal mt-5 d-flex gap-3 flex-column\" style=\"padding: 0px; margin-bottom: 0px; margin-right: 0px; margin-left: 14px; list-style: none; margin-top: 1.25rem !important; gap: 0.75rem !important;\"><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">Acceptance: Users are typically required to agree to the terms and conditions before using a service. button or by simply using the service.</li><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">User rights and responsibilities: The terms and conditions specify the rights granted to users and the responsibilities they have while using the service.</li><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">your reviews should not contain offensive profanity, racist, offensive, or hate language;</li><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">Dispute resolution: Procedures for resolving disputes, such as arbitration or mediation, may be outlined in the terms and conditions.</li><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">Intellectual property: These sections outline the ownership and usage rights of intellectual property such as copyrights, trademarks, and patents associated with the service or content provided.</li></ul><p class=\"mt-5\" style=\"margin-bottom: 0px; line-height: 24px; margin-right: 0px; margin-left: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); margin-top: 1.25rem !important;\">Remember that it\'s important to read and understand the specific terms and conditions of any service or product you use. If you have any questions or concerns about a particular set of terms clarification.</p></div><div class=\"privacy-policy__part\" style=\"color: rgb(182, 182, 182); font-family: Poppins, sans-serif; font-size: 16px; background-color: rgb(31, 31, 31);\"><h5 class=\"mb-4\" style=\"font-weight: 700; line-height: 24px; font-size: 20px; font-family: var(--head-font); padding: 0px; margin-right: 0px; margin-left: 0px; transition: var(--transition); margin-bottom: 1rem !important;\">Guideline for Reviews</h5><ul class=\"ul-decimal mt-5 d-flex gap-3 flex-column\" style=\"padding: 0px; margin-bottom: 0px; margin-right: 0px; margin-left: 14px; list-style: none; margin-top: 1.25rem !important; gap: 0.75rem !important;\"><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">you should have firsthand experience with the object being reviewed;</li><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">your reviews should not contain offensive profanity offensive, or hate language;</li><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">your reviews should not contain discriminatory references based on religion, race, gender, national origin, age, marital status, sexual orientation, or disability;</li><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">your reviews should not contain references to illegal activity;</li><li style=\"list-style: decimal; font-size: inherit; line-height: 24px; margin: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); font-weight: inherit;\">you may not organize encouraging others to post reviews, whether positive or negative.</li></ul><p class=\"mt-4\" style=\"margin-bottom: 0px; line-height: 24px; margin-right: 0px; margin-left: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); margin-top: 1rem !important;\">We may accept, reject, or remove reviews at our sole discretion. We have absolutely no obligation to screen reviews or to delete reviews, even if anyone considers reviews objectionable or inaccurate.</p></div><div class=\"privacy-policy__part\" style=\"color: rgb(182, 182, 182); font-family: Poppins, sans-serif; font-size: 16px; background-color: rgb(31, 31, 31);\"><h5 class=\"mb-4\" style=\"font-weight: 700; line-height: 24px; font-size: 20px; font-family: var(--head-font); padding: 0px; margin-right: 0px; margin-left: 0px; transition: var(--transition); margin-bottom: 1rem !important;\">Social Media</h5><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; line-height: 24px; font-family: var(--body-font); color: rgba(var(--nw2), 1);\">\nAs part of the functionality of the Site, you may link your account with online accounts you either: providing your Third-Party Account login information through the Site allowing us each Third-Party Account.</p><p class=\"mt-3\" style=\"margin-bottom: 0px; line-height: 24px; margin-right: 0px; margin-left: 0px; font-family: var(--body-font); color: rgba(var(--nw2), 1); margin-top: 0.75rem !important;\">You represent and warrant that you are entitled to disclose your Third-Party Account login you of any of the Terms and Conditions that govern your use of the applicable Third-Party Account, and without obligating us to pay any fees or making us subject to any usage service provider of the Third-Party Account.</p></div>', NULL, NULL, NULL, NULL, NULL, '2025-01-28 05:33:09', NULL, NULL),
 (3, '{\"title\":\"Unlocking Potential Through Quality Education\",\"short_description\":\"To comprehend Tron, you might think of any major entertainment conglomerate that creates content across a range of industries. Tron functions like a major studio, with multiple production facilities that are essential for creating content for film, TV, games, animation, design, digital applications, and more. Content creation is our core learning tool. We place our education in outstanding facilities with master instructors and mentors, and we regularly update and realign curriculum to be in lockstep with the most current industry standards. This is all to help students originate, produce, and exhibit their best possible creative and technical work.\\r\\n\\r\\nFrom an education perspective, we are unassailable. Our programs go deep and are immersive, efficient, and transformational. This is no acci-dent. We have an inspired education department expert at curriculum design and preparing industry specialists to be effective instructors. In this, we stand alone.\\r\\n\\r\\nBy developing a well-rounded curriculum of visual, media and performing arts, Tron has created an educational environment that encourages collaboration between its programs of study. With a faculty and advisory board that draws directly from the relevant industries, Tron provides its students with the foundation and mentorship necessary to launch a career. Many Tron gradu\\u0002ates are now successful, creative professionals with credits on major feature films, directorial positions, and successful freelance careers around the world.\",\"our_story\":\"<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur odio natus ab amet provident vel. Officiis pariatur similique, beatae quis quas doloremque iure sint. Esse voluptatibus autem maxime odit illo vitae molestias exercitationem fugiat error tenetur rerum ipsum, cum assumenda. Numquam accusantium quisquam id nobis sequi enim ducimus porro exercitationem iure, facere modi, omnis blanditiis sunt nesciunt? Repellendus numquam illo cum quo non blanditiis voluptas deserunt ab officiis quae obcaecati sapiente, voluptatibus quos ut atque repellat distinctio maiores provident quod ad, sed et neque a consectetur. iste, amet nobis deserunt? Et laborum, ad mollitia quos quae laudantium. Ipsum excepturi fugit,<br><\\/p>\",\"our_mission\":\"Our mission at Toads Academy is to cultivate a new generation of artists and innovators by providing world-class education in Animation, VFX, and Game design. We are committed to delivering hands-on, industry-relevant training, guided by experienced professionals, and infused with the latest technological advancements.\",\"vision\":\"<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis dolores perspiciatis veniam voluptate, aspernatur possimus. Tenetur adipisci odit a, corrupti explicabo aspernatur veniam, officiis nulla tempora qui placeat quasi est non.<br><\\/p>\",\"core_value\":\"<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed quasi corrupti rerum, soluta iste rem consequuntur itaque non sequi temporibus reiciendis consequatur quos quibusdam fugit ipsum perspiciatis! Explicabo, deserunt. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed quasi corrupti rerum, soluta iste rem consequuntur itaque non sequi temporibus reiciendis consequatur quos quibusdam fugit ipsum perspiciatis! Explicabo, deserunt.<br><\\/p>\",\"exp_title\":\"15 years experience of Animation industry.\",\"placed_students\":\"12\",\"award_winning\":\"90\",\"toatl_companies\":\"10\",\"exp_description\":\"Tron School Of Animation, Graphics And Artology is the media & entertainment education brand of Tron Education And Research Pvt. Ltd., a global learning solutions provider that commenced its education and training business in 2015. Tron operates through a network of centres worldwide, and has prepared thousands of students for jobs in the media & entertainment industry. The Academy provides quality education in Animation, Visual Effects, Gaming, Filmmaking, Multimedia, Web Design, Graphic Design, AR\\/VR, and more through job-ori\\u0002ented courses. Students at Tron get the opportunity to work in a studio-like environment, practice on industry-specific software, attend course-specific workshops and participate in studio visits.\",\"meta_title\":\"Toads - About\",\"meta_tags\":\"test\",\"meta_description\":\"test\"}', NULL, NULL, '1727779369_\'.jpg', NULL, NULL, '2024-10-05 02:52:44', NULL, NULL),
 (4, '{\"title\":\"BECOME A TOADS ANIMATION FRANCHISEE\",\"description\":\"<p>Toads Education and Research Pvt. Ltd. is a multi-domain, premium vocational ed-tech training academy and education solutions company which helps teenagers and youth to bring out their creativity so that they become highly paid experts and achieve peace of mind, financial freedom and a career for life.<\\/p><p>Toads Education and Research Pvt. Ltd. has over 7 years of experience and helped in empowering over 7000 students. The corporate office of the academy is in Pune With Focus on imparting education for skill development that enables individual to gain in-depth knowledge well aligned with the latest requirement of the industry. Also, instilling the power of Entrepreneurship in the minds of the young souls to be able to contribute to the development of individuals, society and the country we will in.<br><\\/p>\",\"total_franchise\":\"199\",\"total_staff\":\"100\",\"placed_student\":\"1000\",\"b_title\":\"Together We Build Dreams\",\"b_description\":\"The animation, visual effects, gaming and comics (AVGC) industry has witnessed unprecedented growth rates in recent times. It has seen the entry of many global majors who have tapped into India\\u2019s talent pool for offshore delivery of services\",\"meta_title\":\"1\",\"meta_tags\":\"2\",\"meta_description\":\"3\"}', NULL, NULL, '1728018334_11.jpg', NULL, NULL, '2024-10-05 03:36:27', NULL, NULL),
-(5, '{\"phone\":\"0123456789\",\"phone_2\":\"0123456789\",\"email\":\"ly0596232@gmail.com\",\"location\":\"india\",\"location_iframe\":\"<iframe src=\\\"https:\\/\\/www.google.com\\/maps\\/embed?pb=!1m18!1m12!1m3!1d242117.70906191418!2d73.69814813607152!3d18.524870616285536!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bf2e67461101%3A0x828d43bf9d9ee343!2sPune%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1735818891646!5m2!1sen!2sin\\\" width=\\\"600\\\" height=\\\"450\\\" style=\\\"border:0;\\\" allowfullscreen=\\\"\\\" loading=\\\"lazy\\\" referrerpolicy=\\\"no-referrer-when-downgrade\\\"><\\/iframe>\",\"meta_title\":\"Stock Market\",\"meta_tags\":\"Stock Market\",\"meta_description\":\"Stock Market\",\"twitter\":\"\\/\",\"facebook\":\"\\/\",\"linkedin\":\"\\/\",\"youtube\":null,\"instagram\":\"\\/\"}', NULL, NULL, '1738139775_logo.png', NULL, NULL, '2025-01-29 08:37:07', '1738139775_logo.png', NULL),
+(5, '{\"phone\":\"0123456789\",\"phone_2\":\"0123456789\",\"email\":\"ly0596232@gmail.com\",\"location\":\"india\",\"location_iframe\":\"<iframe src=\\\"https:\\/\\/www.google.com\\/maps\\/embed?pb=!1m18!1m12!1m3!1d242117.70906191418!2d73.69814813607152!3d18.524870616285536!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bf2e67461101%3A0x828d43bf9d9ee343!2sPune%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1735818891646!5m2!1sen!2sin\\\" width=\\\"600\\\" height=\\\"450\\\" style=\\\"border:0;\\\" allowfullscreen=\\\"\\\" loading=\\\"lazy\\\" referrerpolicy=\\\"no-referrer-when-downgrade\\\"><\\/iframe>\",\"meta_title\":\"Stock Market\",\"refer_amount\":\"1\",\"meta_tags\":\"Stock Market\",\"meta_description\":\"Stock Market\",\"twitter\":\"\\/\",\"facebook\":\"\\/\",\"linkedin\":\"\\/\",\"youtube\":null,\"instagram\":\"\\/\"}', NULL, NULL, '1738139775_logo.png', NULL, NULL, '2025-02-17 05:41:17', '1738139775_logo.png', NULL),
 (6, '{\"title\":\"Toads Placements\",\"description\":\"<p>Toads provides job-oriented graphics, animation, VFX, and multimedia courses and career development training to prepare students for different job roles in the media and entertainment industry globally. Animation studios, gaming studios, publishing houses, TV channels, production houses, and advertising agencies are continuously looking out for photographers, UI designers, gaming experts, animators, filmmakers, website developers, VF X artists, photographers, and graphic designers to work with them. Tron helps such organizations to find skilled and talented individuals who knows the demand of the industry and work as professionals in their respective fields.<br><\\/p>\",\"yt_links\":\"https:\\/\\/www.youtube.com\\/embed\\/es4x5R-rV9s?si=NNqwpwX9gMl-GQKy\",\"meta_title\":\"Toads - Placement\",\"meta_tags\":\"test\",\"meta_description\":\"test\"}', NULL, NULL, '1728456389_1.jpg', NULL, NULL, '2024-10-09 01:25:53', NULL, '1728456389_2.jpg'),
 (7, '{\"title\":\"Our Mission\",\"sub_title\":\"Empowering Success How We\'re Making a Difference\",\"link\":\"about-us\",\"desc\":\"<div style=\\\"text-align: right;\\\"><span style=\\\"color: rgb(182, 182, 182); font-family: Poppins, sans-serif; font-size: 18px; background-color: rgb(1, 3, 26);\\\">we believe that success is not reserved for the privileged few. It\'s a journey that anyone can embark upon with right guidance<\\/span><\\/div>\",\"Our_mission\":\"Transformed the trading landscape. Online trading platforms and mobile apps have made it easier than ever for individuals\",\"our_vision\":\"One of the fundamental principles of trading is risk management. Successful traders carefully manage their capital,\",\"core_value\":\"Trading is not without its challenges, as markets can be highly volatile and unpredictable. It requires discipline\",\"meta_title\":\"Stock Market\",\"meta_tags\":\"Stock Market\",\"meta_description\":\"Stock Market\"}', NULL, NULL, '1737966330_why_trade.png', '1737964308_2.avif', NULL, '2025-01-27 08:25:30', '1731973105_author-sign.png', '1737566811_9.png'),
 (8, '{\"title\":\"Large Number of Services Provided\",\"desc\":\"We are a company providing a wide range of maintenance and many other services.\",\"btn\":\"More services\",\"btnurl\":\"https:\\/\\/construction.mywebwork.link\\/about-us\"}', NULL, NULL, NULL, NULL, '2024-11-19 13:50:50', '2024-11-28 17:32:25', NULL, NULL),
@@ -923,52 +797,30 @@ INSERT INTO `webinfo` (`id`, `info_one`, `info_two`, `info_three`, `image`, `ban
 -- --------------------------------------------------------
 
 --
--- Table structure for table `works`
+-- Table structure for table `withdraw`
 --
 
-CREATE TABLE `works` (
+CREATE TABLE `withdraw` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `title` text DEFAULT NULL,
-  `description` text DEFAULT NULL,
-  `image` text DEFAULT NULL,
-  `status` enum('Y','N') DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `works`
---
-
-INSERT INTO `works` (`id`, `title`, `description`, `image`, `status`, `created_at`, `updated_at`) VALUES
-(2, 'nice to me', 'asdd', '1731717547.jpg', 'Y', '2024-11-16 12:39:07', '2024-11-16 12:43:49');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `workshop_cutting`
---
-
-CREATE TABLE `workshop_cutting` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `customer_id` varchar(255) DEFAULT NULL,
-  `user_id` varchar(255) DEFAULT NULL,
-  `category_type` text DEFAULT NULL,
-  `qty` text DEFAULT NULL,
+  `userid` bigint(20) UNSIGNED NOT NULL,
+  `invest_id` bigint(20) UNSIGNED NOT NULL,
+  `package_id` int(11) DEFAULT NULL,
+  `amount` text DEFAULT NULL,
+  `status` enum('pending','complete','reject') NOT NULL DEFAULT 'pending',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `qunatity_work` text DEFAULT NULL,
-  `work_status` enum('pending','complete') NOT NULL DEFAULT 'pending'
+  `reason` text DEFAULT NULL,
+  `amount_cut` enum('N','Y') NOT NULL DEFAULT 'N'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `workshop_cutting`
+-- Dumping data for table `withdraw`
 --
 
-INSERT INTO `workshop_cutting` (`id`, `customer_id`, `user_id`, `category_type`, `qty`, `created_at`, `updated_at`, `qunatity_work`, `work_status`) VALUES
-(1, '10010', '21', 'jacket', '2', '2024-12-19 16:10:00', '2024-12-19 16:10:00', '', 'pending'),
-(4, '10012', '21', '[\"shirt\"]', '50', '2024-12-27 12:51:00', '2024-12-27 14:37:03', NULL, 'pending'),
-(5, '10013', '21', '\"shirt\"', '10', '2024-12-28 04:16:14', '2024-12-28 04:16:14', NULL, 'pending');
+INSERT INTO `withdraw` (`id`, `userid`, `invest_id`, `package_id`, `amount`, `status`, `created_at`, `updated_at`, `reason`, `amount_cut`) VALUES
+(6, 32, 2, 0, '1000', 'complete', '2025-02-11 17:52:47', '2025-02-14 20:38:17', 'test', 'Y'),
+(7, 32, 2, 0, '1120', 'reject', '2025-02-11 17:53:22', '2025-02-11 17:56:56', 'test two', 'N'),
+(8, 35, 6, 0, '2000', 'reject', '2025-02-13 07:49:45', '2025-02-14 20:38:04', 'amount', 'N');
 
 --
 -- Indexes for dumped tables
@@ -1023,33 +875,15 @@ ALTER TABLE `contactus`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `cusotmers`
---
-ALTER TABLE `cusotmers`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `customer_payment`
 --
 ALTER TABLE `customer_payment`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `cutting_qty`
---
-ALTER TABLE `cutting_qty`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `enquiry`
 --
 ALTER TABLE `enquiry`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `events`
---
-ALTER TABLE `events`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1063,6 +897,13 @@ ALTER TABLE `faq`
 --
 ALTER TABLE `gallery`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `invested`
+--
+ALTER TABLE `invested`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `invested_userid_foreign` (`userid`);
 
 --
 -- Indexes for table `migrations`
@@ -1109,24 +950,6 @@ ALTER TABLE `process`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `proje`
---
-ALTER TABLE `proje`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `projects`
---
-ALTER TABLE `projects`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `property`
---
-ALTER TABLE `property`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `services`
 --
 ALTER TABLE `services`
@@ -1163,16 +986,12 @@ ALTER TABLE `webinfo`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `works`
+-- Indexes for table `withdraw`
 --
-ALTER TABLE `works`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `workshop_cutting`
---
-ALTER TABLE `workshop_cutting`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `withdraw`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `withdraw_userid_foreign` (`userid`),
+  ADD KEY `withdraw_invest_id_foreign` (`invest_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -1227,34 +1046,16 @@ ALTER TABLE `contactus`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `cusotmers`
---
-ALTER TABLE `cusotmers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10020;
-
---
 -- AUTO_INCREMENT for table `customer_payment`
 --
 ALTER TABLE `customer_payment`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
---
--- AUTO_INCREMENT for table `cutting_qty`
---
-ALTER TABLE `cutting_qty`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `enquiry`
 --
 ALTER TABLE `enquiry`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `events`
---
-ALTER TABLE `events`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `faq`
@@ -1269,10 +1070,16 @@ ALTER TABLE `gallery`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
+-- AUTO_INCREMENT for table `invested`
+--
+ALTER TABLE `invested`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `pagesettings`
@@ -1284,7 +1091,7 @@ ALTER TABLE `pagesettings`
 -- AUTO_INCREMENT for table `pakeges`
 --
 ALTER TABLE `pakeges`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `partners`
@@ -1303,24 +1110,6 @@ ALTER TABLE `personal_access_tokens`
 --
 ALTER TABLE `process`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `proje`
---
-ALTER TABLE `proje`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `projects`
---
-ALTER TABLE `projects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `property`
---
-ALTER TABLE `property`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `services`
@@ -1344,7 +1133,7 @@ ALTER TABLE `testimonials`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `videos`
@@ -1359,16 +1148,27 @@ ALTER TABLE `webinfo`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
--- AUTO_INCREMENT for table `works`
+-- AUTO_INCREMENT for table `withdraw`
 --
-ALTER TABLE `works`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE `withdraw`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `workshop_cutting`
+-- Constraints for dumped tables
 --
-ALTER TABLE `workshop_cutting`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- Constraints for table `invested`
+--
+ALTER TABLE `invested`
+  ADD CONSTRAINT `invested_userid_foreign` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `withdraw`
+--
+ALTER TABLE `withdraw`
+  ADD CONSTRAINT `withdraw_invest_id_foreign` FOREIGN KEY (`invest_id`) REFERENCES `invested` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `withdraw_userid_foreign` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

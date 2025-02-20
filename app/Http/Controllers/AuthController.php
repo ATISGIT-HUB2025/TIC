@@ -20,6 +20,11 @@ class AuthController extends Controller
         $users = User::latest()->get(); 
         return view('admin.userdata.index', compact('users'));
     }
+    
+    public function viewuser($id){
+        $row = User::findorfail($id); 
+        return view('admin.userdata.viewuser', compact('row'));
+    }
 
     
     

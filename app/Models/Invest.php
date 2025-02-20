@@ -27,5 +27,11 @@ class Invest extends Model
     {
         return $this->belongsTo(Pakeges::class, 'package_id', 'id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'userid', 'id');
+    }
+    
     
 }

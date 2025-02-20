@@ -84,7 +84,9 @@
                                     @foreach ($users as $key => $item)
                                     <tr>
                                         <td>{{ $key+1 }}</td>
-                                        <td>{{ $item->name }}</td>
+                                        <td>
+                                            <a href="/admin/viewuser/{{ $item->id }}">{{ $item->name }}</a>
+                                        </td>
                                         <td>{{ $item->email }}</td>
                                         <td>
                                             <form action="{{ route('updateStatus', $item->id) }}" method="POST">

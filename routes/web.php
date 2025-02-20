@@ -44,6 +44,8 @@ Route::post('/wallet-store', [Commoncontroller::class, 'walletstore'])->name('wa
 Route::post('/buy-normel-package', [Investcontroller::class, 'buynormelpackage'])->name('buy.normel.package');
 Route::post('/buy-business-package', [Investcontroller::class, 'buybusinesspackage'])->name('buy.business.package');
 Route::get('/investnow/{investtype}/{id}', [Investcontroller::class, 'investnow'])->name('investnow');
+Route::get('/deposit-history', [Investcontroller::class, 'deposithistory'])->name('deposithistory');
+Route::get('/referral-list', [Investcontroller::class, 'referrallist'])->name('referrallist');
 });
 
 Route::get('/', [Commoncontroller::class, 'index'])->name('index');
@@ -101,6 +103,7 @@ Route::middleware([Superadmin::class])->prefix('admin')->group(function () {
    // user--register--data
    Route::get('/users', [AuthController::class, 'usersindex'])->name('admin.users.index');
    Route::get('/users-delete/{id}', [AuthController::class, 'usersdelete'])->name('users.delete');
+   Route::get('/viewuser/{id}', [AuthController::class, 'viewuser'])->name('viewuser');
    Route::put('/admin/users/{id}/status', [AuthController::class, 'updateStatus'])->name('updateStatus');
 
 

@@ -57,6 +57,34 @@ function usertotalearning($userid){
 }
 
 
+function usertotalearningbyuser($userid){
+    $mywinning = 0;
+    $daily_earningT = 0;
+    $earning_amountT = 0;
+    $total_new_amountT = 0;
+    $Mypackages = Invest::with('package')->where('userid',$userid)->where('completestatus','pending')->get();
+    foreach ($Mypackages as $key => $val) {
+        $purchased_amount = $val->amount;
+        $purchased_date = $val->created_at;
+        $interest_percent = $val->interest;
+ 
+        // Calculate days passed
+  $days_passed = \Carbon\Carbon::parse($purchased_date)->diffInDays(now());
+  
+  $daily_earning = ($interest_percent / 100) * $purchased_amount;
+  // Calculate earning amount
+  $earning_amount = ($interest_percent / 100) * $purchased_amount * $days_passed;
+  // Calculate new amount
+  $new_amount = $purchased_amount + $earning_amount;
+    $daily_earningT += $daily_earning;
+  $earning_amountT += $earning_amount;
+
+    $total_new_amountT += $new_amount;
+    }
+    return $total_new_amountT;
+}
+
+
 
 
 

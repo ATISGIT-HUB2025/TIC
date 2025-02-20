@@ -304,6 +304,7 @@
                         class="card p-4"
                         style="background: rgb(102, 102, 191)"
                       >
+                      <a href="/deposit-history">
                         <div class="row">
                           <div class="col-4">
                             <div
@@ -327,6 +328,7 @@
                             </div>
                           </div>
                         </div>
+                      </a>
                       </div>
                     </div>
 
@@ -608,7 +610,7 @@
                 data-bs-dismiss="alert"
                 aria-label="Close"
               ></button>
-              Applied For Kyc. Please wait for admin verification.
+              {{ Auth::user()->kyc_reason }}
             </div>
 
 
@@ -623,14 +625,14 @@
               data-bs-dismiss="alert"
               aria-label="Close"
             ></button>
-            Your Kyc Has Been Rejected
+            {{ Auth::user()->kyc_reason }}
            </div>
 
 
            @elseif(Auth::user()->kyc_status == "complete")
 
            <div
-           class="alert alert-success alert-dismissible fade show"
+           class="alert alert-success bg-success text-white alert-dismissible fade show border-0"
            role="alert"
          >
            <button
@@ -639,7 +641,7 @@
              data-bs-dismiss="alert"
              aria-label="Close"
            ></button>
-           Kyc Has been approved by admin now you can start earning..
+           {{ Auth::user()->kyc_reason }}
          </div>
 
             @endif
@@ -649,7 +651,7 @@
               <label class="label fw_500 nw1-color mb-4" for="aadharNumber">Aadhar Card Number</label>
               <input type="text" class="fs-seven" name="aadhar_card_number" id="aadharNumber" 
                 value="{{ auth()->user()->aadhar_card_number ?? '' }}" 
-                @if(auth()->user()->aadhar_card_number) readonly @endif />
+                @if(auth()->user()->kyc_status == "complete" || auth()->user()->kyc_status == "apply") readonly @endif />
               <span class="text-danger error" id="error_aadhar_card_number"></span>
             </div>
           </div>
@@ -658,7 +660,7 @@
             <div class="single-input">
               <label class="label fw_500 nw1-color mb-4" for="aadharUpload">Aadhar Front Image</label>
               <input type="file" class="fs-seven" name="aadhar_card" id="aadharUpload" accept=".jpg,.jpeg,.png,.pdf" 
-                @if(auth()->user()->aadhar_card) disabled @endif />
+                @if(auth()->user()->kyc_status == "complete" || auth()->user()->kyc_status == "apply") disabled @endif />
               <span class="text-danger error" id="error_aadhar_card"></span>
             </div>
           </div>
@@ -667,7 +669,7 @@
             <div class="single-input">
               <label class="label fw_500 nw1-color mb-4" for="aadharUpload">Aadhar Back Image</label>
               <input type="file" class="fs-seven" name="aadhar_card_back" id="aadharUpload" accept=".jpg,.jpeg,.png,.pdf" 
-                @if(auth()->user()->aadhar_card_back) disabled @endif />
+                @if(auth()->user()->kyc_status == "complete" || auth()->user()->kyc_status == "apply") disabled @endif />
               <span class="text-danger error" id="error_aadhar_card"></span>
             </div>
           </div>
@@ -676,7 +678,7 @@
             <div class="single-input">
               <label class="label fw_500 nw1-color mb-4" for="aadharUpload">Bank Passbook Photo</label>
               <input type="file" class="fs-seven" name="cancel_chaque" id="aadharUpload" accept=".jpg,.jpeg,.png,.pdf" 
-                @if(auth()->user()->cancel_chaque) disabled @endif />
+                @if(auth()->user()->kyc_status == "complete" || auth()->user()->kyc_status == "apply") disabled @endif />
               <span class="text-danger error" id="error_aadhar_card"></span>
             </div>
           </div>
@@ -686,7 +688,7 @@
               <label class="label fw_500 nw1-color mb-4" for="panNumber">PAN Number</label>
               <input type="text" class="fs-seven" name="pan_number" id="panNumber" 
                 value="{{ auth()->user()->pan_number ?? '' }}" 
-                @if(auth()->user()->pan_number) readonly @endif />
+                @if(auth()->user()->kyc_status == "complete" || auth()->user()->kyc_status == "apply") readonly @endif />
               <span class="text-danger error" id="error_pan_number"></span>
             </div>
           </div>
@@ -695,7 +697,7 @@
             <div class="single-input">
               <label class="label fw_500 nw1-color mb-4" for="panUpload">PAN Card Upload</label>
               <input type="file" class="fs-seven" name="pan_card" id="panUpload" accept=".jpg,.jpeg,.png,.pdf" 
-                @if(auth()->user()->pan_card) disabled @endif />
+                @if(auth()->user()->kyc_status == "complete" || auth()->user()->kyc_status == "apply") disabled @endif />
               <span class="text-danger error" id="error_pan_card"></span>
             </div>
           </div>
@@ -735,8 +737,7 @@
                 <img src="{{ url('') }}/{{ Auth::user()->cancel_chaque }}" class="img-thumbnail" width="100px" height="80px" alt="">
               </div>
             </div>
-          @endif
-          
+        @endif
         </div>
       </div>
       <input type="text" name="type" value="kyc" hidden>
@@ -745,13 +746,8 @@
         Submit<i class="bi bi-arrow-up-right"></i>
       </button>
     </form>
-
-
-
-
   </div>
 </div>
-
 
 <!-- Referral Tab -->
 <div class="tab-pane fade" id="v-pills-refreal" role="tabpanel" aria-labelledby="v-pills-Bank-tab">
@@ -762,7 +758,9 @@
     <img src="{{ url('website/assets/images/refer-friend-concept-illustration_114360-7039.avif') }}" 
          alt="Refer & Earn" width="600" class="img-fluid mb-4" 
          style="max-width: 100%; border-radius: 10px;">
-
+         <div class="mb-3">
+          <a href="/referral-list">Referral List</a>
+         </div>
     <!-- Share & Copy Link Buttons -->
     <div class="d-flex justify-content-center gap-3">
       <!-- WhatsApp Share Button -->

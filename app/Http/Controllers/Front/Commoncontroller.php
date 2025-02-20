@@ -481,6 +481,7 @@ if ($request->hasFile('cancel_chaque')) {
             'pan_number' => $request->pan_number,
             'pan_card' => $panPath,
             'kyc_status' => 'apply',
+            'kyc_reason' => 'Applied For Kyc. Please wait for admin verification.',
             'kyc_time' => today(),
             ]);
         }

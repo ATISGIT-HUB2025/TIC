@@ -14,6 +14,21 @@ use Illuminate\Support\Facades\DB;
 class Investcontroller extends Controller
 {
 
+    public function referrallist(Request $request){
+
+        $users = User::with(['investments'])
+        ->where('refer_by', Auth::id())
+        ->orderBy('id', 'desc')
+        ->get();
+
+        
+        return view('front.referrallist',compact('users'));
+    }
+
+    public function deposithistory(Request $request){
+        return view('front.deposithistory');
+    }
+
     public function withdrawRequest(Request $request, $investid)
 {
     $invest = Invest::findOrFail($investid);
@@ -93,14 +108,18 @@ class Investcontroller extends Controller
 
         // Handle referral commission
         $refer_by = $user->refer_by;
+
+        $commission = 0;
+
         if ($refer_by) {
             $amount = $request->amount;
             $referpercentage = refer_amount() ?? 0; // Assuming a fixed 3% referral percentage
             $referrer = User::find($refer_by);
 
             if ($referrer) {
-                $commission = ($amount * $referpercentage) / 100;
-                $referrer->wallet += $commission; // Correct way to update wallet balance
+                $commission += ($amount * $referpercentage) / 100;
+                $referrer->wallet += $commission; 
+                $referrer->refer_wallet += $commission; 
                 $referrer->save();
             }
         }
@@ -119,6 +138,7 @@ class Investcontroller extends Controller
 
         // Deduct wallet balance
         $user->wallet -= $request->amount;
+        $user->refer_by_wallet += $commission;
         $user->save();
 
         return response()->json([
@@ -171,14 +191,19 @@ class Investcontroller extends Controller
 
              // Handle referral commission
         $refer_by = $user->refer_by;
+
+        $commission = 0;
+
+
         if ($refer_by) {
             $amount = $request->amount;
             $referpercentage = refer_amount() ?? 0;
             $referrer = User::find($refer_by);
 
             if ($referrer) {
-                $commission = ($amount * $referpercentage) / 100;
-                $referrer->wallet += $commission; // Correct way to update wallet balance
+                $commission += ($amount * $referpercentage) / 100;
+                $referrer->wallet += $commission;
+                $referrer->refer_wallet += $commission; 
                 $referrer->save();
             }
         }
@@ -197,6 +222,7 @@ class Investcontroller extends Controller
             $investment->save();
             // Deduct wallet balance
             $user->wallet -= $request->amount;
+            $user->refer_by_wallet += $commission;
             $user->save();
             return response()->json([
                 'status'  => 'success',

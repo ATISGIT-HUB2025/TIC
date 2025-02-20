@@ -1,9 +1,31 @@
 <div class="table-responsive">
     <table class="table table-bordered">
         <tbody>
+
             <tr>
-                <th class="table-dark">Aadhar Number</th>
-                <td>{{ $row->aadhar_card_number ?? 'N/A' }}</td>
+                <th class="table-dark">Account Holder Name</th>
+                <td>{{ $row->account_holder_name ?? 'N/A' }}</td>
+            </tr>
+
+            <tr>
+                <th class="table-dark">Account Number</th>
+                <td>{{ $row->account_number ?? 'N/A' }}</td>
+            </tr>
+
+
+            <tr>
+                <th class="table-dark">IFSC Code</th>
+                <td>{{ $row->ifsc_code ?? 'N/A' }}</td>
+            </tr>
+
+
+            <tr>
+                <th class="table-dark">Account Holder Name</th>
+                <td>{{ $row->account_holder_name ?? 'N/A' }}</td>
+            </tr>
+            <tr>
+                <th class="table-dark">Branch Name</th>
+                <td>{{ $row->branch_name ?? 'N/A' }}</td>
             </tr>
             <tr>
                 <th class="table-dark">Aadhar Front</th>
@@ -50,23 +72,32 @@
                 </td>
             </tr>
 
-            <tr>
-                <th class="table-dark">Change Status</th>
-                <td>
-                    <form method="post" action="{{ url('admin/viewkyc/' . $row->id) }}">
-                        @csrf
-                        <div class="d-flex align-items-center">
-                            <select name="kyc_status" class="form-select w-50 me-3">
-                                <option value="apply" {{ $row->kyc_status == 'apply' ? 'selected' : '' }}>Pending</option>
-                                <option value="reject" {{ $row->kyc_status == 'reject' ? 'selected' : '' }}>Reject</option>
-                                <option value="complete" {{ $row->kyc_status == 'complete' ? 'selected' : '' }}>Complete</option>
-                            </select>
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </div>
-                    </form>
-                </td>
-            </tr>
+         
 
         </tbody>
     </table>
+
+
+    <h4>Update Status & Reason</h4>
+
+    <form method="post" action="{{ url('admin/viewkyc/' . $row->id) }}">
+        @csrf
+        <div class="row p-0 w-100 m-auto">
+            <div class="col-12">
+                <select name="kyc_status" class="form-select w-100 mb-3">
+                    <option value="apply" {{ $row->kyc_status == 'apply' ? 'selected' : '' }}>Pending</option>
+                    <option value="reject" {{ $row->kyc_status == 'reject' ? 'selected' : '' }}>Reject</option>
+                    <option value="complete" {{ $row->kyc_status == 'complete' ? 'selected' : '' }}>Complete</option>
+                </select>
+            </div>
+            <div>
+            <textarea name="kyc_reason" id="" placeholder="Reason" cols="30" rows="3" class="form-control  mb-3">{{ $row->kyc_reason }}</textarea>
+        </div>
+        <div class="col-12">
+        <button type="submit" class="btn btn-primary">Save</button>
+
+        </div>
+        </div>
+    </form>
+
 </div>

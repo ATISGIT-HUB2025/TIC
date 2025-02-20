@@ -64,7 +64,10 @@ class User extends Authenticatable
         'status',
         'kyc_status',
         'reason',
+        'kyc_reason',
         'kyc_time',
+        'refer_by_wallet',
+        'refer_wallet'
     ];
 
     
@@ -96,5 +99,18 @@ class User extends Authenticatable
         return User::where('remember_token', '=', $token)->first();
     }
 
+
+
+    public function referredUsers()
+    {
+        return $this->hasMany(User::class, 'refer_by', 'id');
+    }
+
+    public function investments()
+    {
+        return $this->hasMany(Invest::class, 'userid', 'id');
+    }
+
+    
 
 }

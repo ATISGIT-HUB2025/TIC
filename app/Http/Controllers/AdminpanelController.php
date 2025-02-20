@@ -156,10 +156,10 @@ class AdminpanelController extends Controller
     
     public function kycrequests(Request $request)
     {
-        $data['users'] = User::where('kyc_status', 'apply')->latest()->get();
+        $data['users'] = User::where('kyc_status', 'apply')->orderBy('kyc_time','desc')->get();
     
         if ($request->ajax()) {
-            $query = User::query()->where('kyc_status', '!=', 'pending')->latest();
+            $query = User::query()->where('kyc_status', '!=', 'pending')->orderBy('kyc_time','desc');
            // Filter by Request No (User ID)
             if ($request->has('request_no') && !empty($request->request_no)) {
                 $query->where('id', 'like', "%{$request->request_no}%");
@@ -217,6 +217,7 @@ class AdminpanelController extends Controller
         $row = User::findorfail($id);
         if($request->method() == "POST"){
             $row->kyc_status = $request->kyc_status;
+            $row->kyc_reason = $request->kyc_reason;
             $row->save();
             return redirect()->back()->with('success','Updated Successfully');
         }
