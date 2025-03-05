@@ -33,7 +33,7 @@
             <form
               method="POST"
               autocomplete="off"
-              id="frmContactus"
+              id="formwithdrawyy"
               action="/withdraw/{{ $val->id }}"
               class="message__form p-4 p-lg-8"
             >
@@ -178,17 +178,32 @@
                       />
                     </div>
                   </div>
+             
+             <div class="col-lg-12 otp_box d-none" id="otp_input_section">
+                  <div class="single-input">
+                      <div class="" >
+                        <input type="number" id="otp_input" class="form-control" placeholder="Enter OTP">
+                  </div>
+                </div>
+            </div>
+
                 </div>
               </div>
               <span id="msg"></span>
-              <button
-                type="submit"
-                class="cmn-btn py-3 px-5 px-lg-6 mt-8 mt-lg-10 d-flex ms-auto"
-                name="submit"
-                id="submit"
-              >
-                Submit<i class="bi bi-arrow-up-right"></i>
-              </button>
+
+             
+
+              <div class="otp_box" id="otp_section">
+                <button id="send_otp" type="button" class="cmn-btn py-3 px-5 px-lg-6 mt-8 mt-lg-10 d-flex ms-auto">Send OTP</button>
+                <button id="verify_otp" type="button" class="cmn-btn py-3 px-5 px-lg-6 mt-8 mt-lg-10 d-flex ms-auto d-none">Verify OTP</button>
+            </div>
+            
+         
+            
+            <button type="submit" class="cmn-btn py-3 px-5 px-lg-6 mt-8 mt-lg-10 d-flex ms-auto d-none" name="submit" id="submit_withdraw_qu">
+                Submit <i class="bi bi-arrow-up-right"></i>
+            </button>
+            
             </form>
           </div>
         </div>

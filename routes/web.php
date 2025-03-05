@@ -31,13 +31,9 @@ use Illuminate\Support\Facades\Route;
  */
 
 //  -website routes -
-
-
-
-
 Route::middleware([Team::class])->group(function () {
-Route::get('/dashboard', [Commoncontroller::class, 'dashboard'])->name('dashboard');
-Route::post('/profile-update', [Commoncontroller::class, 'profileupdate'])->name('profile.update');
+Route::match(['get','post'],'/dashboard', [Commoncontroller::class, 'dashboard'])->name('dashboard');
+Route::match(['get','post'],'/profile-update', [Commoncontroller::class, 'profileupdate'])->name('profile.update');
 Route::post('/update-bank', [Commoncontroller::class, 'updatebank'])->name('update.bank');
 Route::post('/withdraw/{investid}', [Investcontroller::class, 'withdrawrequest'])->name('withdrawrequest');
 Route::post('/wallet-store', [Commoncontroller::class, 'walletstore'])->name('wallet.store');
@@ -67,17 +63,19 @@ Route::get('/pricing', [Commoncontroller::class, 'pricing'])->name('pricing');
 Route::get('/roadmap', [Commoncontroller::class, 'roadmap'])->name('roadmap');
 Route::get('/sign-in', [Commoncontroller::class, 'signin'])->name('signin');
 Route::get('/sign-up', [Commoncontroller::class, 'signup'])->name('signup');
-Route::get('/userlogout', [Commoncontroller::class, 'userlogout'])->name('userlogout');
+Route::get('/userlogout',[Commoncontroller::class, 'userlogout'])->name('userlogout');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 // Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
-
 
 Route::middleware([Superadmin::class])->prefix('admin')->group(function () {
     Route::match(['get', 'post'], '/dashboard', [AdminpanelController::class, 'dashboard'])->name('dashboard');
     Route::match(['get', 'post'], '/profile', [AdminpanelController::class, 'profile'])->name('profile');
     Route::match(['get', 'post'], '/transactions', [AdminpanelController::class, 'transactions'])->name('transactions');
     Route::match(['get', 'post'], '/withdraw', [AdminpanelController::class, 'withdraw'])->name('sdflhksgd');
+    Route::match(['get', 'post'], '/pnl-history', [AdminpanelController::class, 'pnlhistory'])->name('pnlhistory');
+    Route::match(['get', 'post'], '/new-pnl', [AdminpanelController::class, 'newpnl'])->name('newpnl');
+    Route::match(['get', 'post'], '/getpurchaedpackages', [AdminpanelController::class, 'getpurchaedpackages'])->name('getpurchaedpackages');
     Route::match(['get', 'post'], '/kyc', [AdminpanelController::class, 'kycrequests'])->name('kycadmin');
     Route::match(['get', 'post'], '/viewkyc/{id}', [AdminpanelController::class, 'viewkyc'])->name('viewkyc');
     Route::match(['get', 'post'], '/withdrawadmin', [AdminpanelController::class, 'withdrawadmin'])->name('withdrawadmin');
@@ -214,6 +212,8 @@ Route::middleware([Superadmin::class])->prefix('admin')->group(function () {
 
 Route::match(['get', 'post'], '/admin-login', [AuthController::class, 'login'])->name('adminlogin');
 Route::match(['post'], '/loginUser', [AuthController::class, 'loginUser'])->name('loginUser');
+Route::match(['post'], '/send-otp', [AuthController::class, 'sendotp'])->name('send.otp');
+Route::match(['post'], '/verify-otp', [AuthController::class, 'verifyotp'])->name('verify.otp');
 Route::match(['get', 'post'], '/forgot-password', [AuthController::class, 'fotgotpassword'])->name('fotgotpassword');
 Route::match(['get', 'post'], '/logout', [AuthController::class, 'logout'])->name('logout');
 Route::match(['get', 'post'], 'reset-password/{token}', [AuthController::class, 'ResetPassword'])->name('reset-password');

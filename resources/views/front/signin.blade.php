@@ -76,16 +76,15 @@
                 /></a>
                 <h5 class="mt-5 mt-lg-6">Login to Your Account</h5>
               </div>
+
               <form method="POST" autocomplete="off" id="loginForm" class="contact__form mt-8 mt-lg-10 text-start">
                 @csrf
 
-
-                @if (session()->has('success'))
-                <div class="alert alert-primary mt-3">
+                  @if (session()->has('success'))
+                  <div class="alert alert-primary mt-3">
                     {{ session()->get('success') }}
-                </div>
-            @endif
-
+                  </div>
+                  @endif
             
                 <div class="d-flex flex-column gap-5 gap-lg-6">
                     <div class="single-input">

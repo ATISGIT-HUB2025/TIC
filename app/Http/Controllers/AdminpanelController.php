@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TransactionCompletedMail;
+use App\Mail\WithdrawCompletedMail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
@@ -11,11 +14,13 @@ use App\Models\Usertype;
 use App\Models\Withdraw;
 use App\Models\Projects;
 use App\Models\Invest;
+use App\Models\Pnlhistory;
 use App\Models\CRM\Customerpayment;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 use Carbon\Carbon;
+
 
 
 
@@ -33,48 +38,43 @@ class AdminpanelController extends Controller
         if ($request->status == "complete") {
             $user->wallet += $payment->amount;
             $user->save();
+            // Send email to the user
+             Mail::to($user->email)->send(new TransactionCompletedMail($user, $payment));
         }
-        $payment->status = $request->status;
+       $payment->status = $request->status;
         $payment->save();
         return redirect()->back()->with('success', 'Transaction Updated Successfully!');
     }
  
  
-    public function updatewithdraw(Request $request)
-    {
+    public function updatewithdraw(Request $request) {
         // Validate request inputs
         $request->validate([
             'transaction_id' => 'required|exists:withdraw,id', 
             'status' => 'required|in:pending,complete,reject', 
         ]);
-
+    
         $payment = Withdraw::findOrFail($request->transaction_id);
-
-        // $invest = Invest::findOrFail($payment->invest_id);
-
-        // // Update the created_at field to the current date and time
-        // $invest->created_at = now();
-        // $invest->firstminus = 'Y';
         
-        // // Save the changes to the database
-        
-        // $invest->save();
-
-        // $user = User::findOrFail($payment->customer_id); 
-        // if ($request->status == "complete") {
-        //     $user->wallet += $payment->amount;
-        //     $user->save();
-        // }
-        
-        if($request->status == "reject"){
-            $payment->amount_cut = 'N';
-        }else{
-            $payment->amount_cut = 'Y';
-        }
+        // Get user details
+        $user = $payment->user; // मान लेते हैं कि Withdraw मॉडल में user() रिलेशनशिप है
+    
+        // Update amount_cut field based on status
+        $payment->amount_cut = ($request->status == "reject") ? 'N' : 'Y';
+    
+        // Update status
         $payment->status = $request->status;
-        $payment->save();
+        $payment->save(); // पहले सेव करें, फिर मेल भेजें
+    
+        // Send email to the user
+          // Send email only if the status is 'complete'
+    if ($request->status == "complete" && $user) {
+        Mail::to($user->email)->send(new WithdrawCompletedMail($user));
+    }
+    
         return redirect()->back()->with('success', 'Withdraw Updated Successfully!');
     }
+    
     
 
     public function gettransaction($modelid){
@@ -152,6 +152,21 @@ class AdminpanelController extends Controller
         
      return view('admin/transaction/index',$data);   
     }
+
+
+    public function updateTransactionStatus(Request $request, $id)
+{
+    $payment = CustomerPayment::findOrFail($id);
+    $payment->status = $request->status;
+    $payment->save();
+
+    // Send email when transaction is marked as complete
+    if ($payment->status === 'complete') {
+        Mail::to($payment->user->email)->send(new TransactionCompletedMail($payment));
+    }
+
+    return response()->json(['message' => 'Transaction updated successfully']);
+}
     
     
     public function kycrequests(Request $request)
@@ -283,6 +298,135 @@ class AdminpanelController extends Controller
         }
     
         return view('admin/transaction/withdraw');
+    }
+
+    public function newpnl(Request $request){
+        if ($request->isMethod('post')) {
+
+           
+
+            // Validate Input Data
+            $request->validate([
+                'user' => 'required|exists:users,id',
+                'amount' => 'required|numeric|min:1',
+                'profit_amount' => 'required|numeric|min:1',
+                'percantage' => 'required',
+                'invest' => 'required|exists:invested,id'
+            ]); 
+            DB::beginTransaction(); 
+            try {
+                $user = User::findOrFail($request->user);
+
+
+                $invest = DB::table('invested')->where('id',$request->invest)->first();
+                $pnl = new Pnlhistory();
+                $pnl->userid = $user->id;
+                $pnl->amount = $request->amount;
+                $pnl->trade_balance = $user->wallet; 
+                $pnl->invest = $request->invest; 
+                $pnl->profit_amount = $request->profit_amount; 
+                $pnl->percantage = $request->percantage; 
+                $pnl->package_id = $invest->package_id; 
+                $pnl->save();
+                
+                // $user->wallet += $request->amount;
+                // $user->save();
+                
+                DB::commit();
+    
+                return redirect('/admin/pnl-history')->with('success', 'PNL record created & amount added to user wallet');
+            } catch (\Exception $e) {
+                DB::rollBack(); // Rollback on error
+                return redirect()->back()->with('error', 'Something went wrong: ' . $e->getMessage());
+            }
+        } else {
+            return view('admin.transaction.newpnl');
+        }
+    }
+    public function getpurchaedpackages(Request $request){
+        $userid = $request->user_id;
+        
+
+        $invested = Invest::with('package')->where('userid', $userid)->get();
+    
+        // Start the return string
+        $return  = '<div class="col-md-6 mb-3"><label class="form-label">Select Invest Id</label>';
+        $return .= '<select class="form-control" name="invest">';
+    
+        if ($invested->isEmpty()) {
+            $return .= '<option value="">No Packages Found</option>';
+        } else {
+            foreach ($invested as $investment) {
+                // Check if package exists to avoid null error
+                $package = $investment->package;
+            
+                $criteria = $package->clint_criteria ?? "5 - 6%"; // Fallback if null
+                $benefit = $package->benefit ?? "5 - 6%"; 
+                $amount = $investment->amount;
+                $type = $investment->package_id == 0 ? 'Normal' : 'Business';
+                $optionValue = $investment->id ?? 0;
+                $return .= '<option value="'.$optionValue.'">' . 
+                $type . ' , ' . $benefit . ' , Amount - Rs. ' . number_format($amount, 2) . 
+                            '</option>';
+            }            
+        }
+    
+        $return .= '</select></div>'; 
+    
+        return response()->json(['html' => $return]);
+    }
+    
+
+
+    public function pnlhistory(Request $request)
+    {
+        $searchkey = $request->query('type');  // Use $request->query() to safely retrieve the 'type' parameter
+    
+        if ($request->ajax()) {
+            // Fetch the data with relationships
+            $query = Pnlhistory::latest()->with(['user']);
+    
+            // If there is a date filter, add it to the query
+            if ($request->has('start_date') && $request->has('end_date')) {
+                $startDate = $request->start_date;
+                $endDate = $request->end_date;
+                $query->whereBetween('created_at', [$startDate, $endDate]);
+            }
+
+
+             // Filter by Request No
+    if ($request->filled('request_no')) {
+        $query->where('id', $request->request_no);
+    }
+
+    // Handle Date Filtering
+    if ($request->filled('from_date') && $request->filled('to_date')) {
+        $startDate = Carbon::parse($request->from_date)->startOfDay();
+        $endDate = Carbon::parse($request->to_date)->endOfDay();
+
+            $query->whereBetween('created_at', [$startDate, $endDate]);
+       
+    }
+    
+            // Return the response formatted for DataTables
+            return DataTables::eloquent($query)
+                ->addIndexColumn()
+                ->addColumn('user_name', function ($row) {
+                    return $row->user ? $row->user->name : 'N/A';
+                })
+                
+                ->editColumn('created_at', function ($row) {
+                    return $row->created_at ? $row->created_at->format('d F Y h:i A') : 'N/A';
+                })
+
+                ->setRowId('id') // Optional: You can set a custom row ID here
+                ->rawColumns(['created_at','user_name',]) // Allow HTML in these columns
+                ->make(true);
+        }
+    
+        $data['totalrecords'] = Pnlhistory::count();
+        $data['total_profit'] = Pnlhistory::sum('profit_amount');
+        return view('admin/transaction/pnlhistory',$data);
     }
 
 

@@ -38,6 +38,7 @@
                                         <div class="col-12">
                                             <h5>Refer Setting</h5>
 
+                                          <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     
@@ -52,6 +53,44 @@
                                             </div>
 
 
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <label for="simpleinput" class="form-label">Upi Id </label>
+                                                    <input type="text" placeholder="" id="simpleinput"
+                                                        name="upiid" value="{{ $row->upiid ?? "" }}" class="form-control">
+                                                    @error('upiid')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-lg-6 >
+                                                <div class="mb-3">
+                                                    <label for="simpleinput" class="form-label">Qr Code</label>
+                                                    <input type="file" id="simpleinput" name="banner" accept="image/*"
+                                                        class="form-control">
+                                                    @error('favicon')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                   
+                                                    @if (isset($data->banner))
+                                                    <div class="col- mt-3">
+                                                        <div class="uploaded_image ">
+                                                            <img class="shadow"
+                                                                src="{{ url('uploads') }}/{{ $data->banner }}"
+                                                                alt=""
+                                                                style="    width: 120px;
+                                                         height: 120px;
+                                                      object-fit: contain;"
+                                                                loading="lazy">
+                                                        </div>
+                                                    </div>
+                                                @endif
+
+                                                </div>
+                                            </div>
+                                          </div>
                                         </div>
 
                                         <hr>

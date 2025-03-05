@@ -515,6 +515,18 @@ function instagram()
     }
 }
 
+
+function upiid()
+{
+    $data = Info::where('id', 5)->first();
+    $mdata = json_decode($data->info_one);
+    if ($mdata) {
+        return $mdata->upiid;
+    } else {
+        return "";
+    }
+}
+
 function youtube()
 {
     $data = Info::where('id', 5)->first();

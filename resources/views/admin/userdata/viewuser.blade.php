@@ -150,6 +150,10 @@
                         <table class="table table-bordered">
                             <tbody>
                                 <tr>
+                                    <th class="table-dark">Bank Name</th>
+                                    <td>{{ $row->bank_name ?? 'N/A' }}</td>
+                                </tr>
+                                <tr>
                                     <th class="table-dark">Account Holder Name</th>
                                     <td>{{ $row->account_holder_name ?? 'N/A' }}</td>
                                 </tr>
@@ -376,8 +380,47 @@
                         @php
                             $totalReferralUsers = App\Models\User::where('referred_by', $row->id)->count();
                         @endphp
-                        <h3>Total Referrals = {{ $totalReferralUsers }}</h3>
+                        <h5>Total Referrals = {{ $totalReferralUsers }}</h5>
+                        <h5>Total Referral Earning : Rs.{{ $row->refer_wallet ?? 0 }}</h5>
                     </div>
+                </div>
+
+
+                <div class="col-12">
+                  <div class="card p-3">
+                    <div class="col-12 mt-0">
+                      <h5 class="mb-0">Total Referrals List</h5>
+                      <table class="table table-bordered border-light text-center mt-2 text-white">
+                          <thead class="table-dark">
+                              <tr>
+                                  <th>SN</th>
+                                  <th>Username</th>
+                                  <th>Earning</th>
+                                  <th>Total Invest</th>
+                                  <th>Register Date</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+              
+                              @php
+                                  $user = DB::table('users')->where('refer_by', Auth::user()->id)->orderBy('id', 'desc')->get();
+                              @endphp
+              
+              @foreach ($users as $key => $user)
+              <tr>
+                  <td>{{ $key + 1 }}</td>
+                  <td>{{ $user->name }}</td>
+                  <td>Rs.{{ $user->refer_by_wallet ?? 0 }}</td>
+                  <td>Rs.{{ $user->investments->sum('amount') ?? 0 }}</td>
+                  <td>{{ $user->created_at->format('d-m-Y h:i A') }}</td>
+              </tr>
+              @endforeach
+                          </tbody>
+                      </table>
+                      
+                  
+                    </div>
+                  </div>
                 </div>
 
          

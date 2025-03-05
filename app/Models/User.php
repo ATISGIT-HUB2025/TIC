@@ -25,6 +25,7 @@ class User extends Authenticatable
         'name',
         'referral_code',
         'cancel_chaque',
+        'bank_name',
         'nominee_contact',
         'nominee_age',
         'nominee_relation',

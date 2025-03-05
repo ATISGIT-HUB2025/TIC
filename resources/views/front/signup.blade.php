@@ -130,7 +130,7 @@
                   <div class="single-input">
                     <label class="mb-2 nw1-color" for="referral_code">Referral Code</label>
                     <input type="text" class="fs-six-up bg_transparent" name="referral_code" id="referral_code" 
-                        placeholder="Referral Code (Optional)" value="{{ request()->get('ref') ?? "" }}  " />
+                        placeholder="Referral Code (Optional)" value="{{ request()->get('ref') ?? "" }}" />
                     <small class="text-danger error" id="error_referral_code"></small>
                 </div>
                 

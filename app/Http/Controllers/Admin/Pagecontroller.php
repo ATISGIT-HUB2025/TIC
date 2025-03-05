@@ -693,6 +693,8 @@ class Pagecontroller extends Controller
                 'meta_description' => ['required'],
             ]);
 
+            
+
             $info = [
                 'phone' => $request->phone,
                 'phone_2' => $request->phone_2,
@@ -708,6 +710,7 @@ class Pagecontroller extends Controller
                 'linkedin' => $request->linkedin,
                 'youtube' => $request->youtube,
                 'instagram' => $request->instagram,
+                'upiid' => $request->upiid,
             ];
 
             $data->info_one = json_encode($info);
@@ -719,12 +722,16 @@ class Pagecontroller extends Controller
                 $data->favicon = updateImage($request->favicon, $data, 'favicon');
             }
 
+            if ($request->banner) {
+                $data->banner = updateImage($request->banner, $data, 'banner');
+            }
+
             $data->save();
 
             return redirect()->back()->with('success', 'Successfully Updated');
         }
 
-        $data = DB::table('webinfo')->where('id', 5)->select(['image', 'favicon', 'info_one'])->first();
+        $data = DB::table('webinfo')->where('id', 5)->select(['image','banner', 'favicon', 'info_one'])->first();
         $row = json_decode($data->info_one);
 
         return view('admin.genralsetting', compact('row', 'data'));

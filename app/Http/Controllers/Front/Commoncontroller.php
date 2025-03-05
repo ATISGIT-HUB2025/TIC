@@ -303,38 +303,50 @@ class Commoncontroller extends Controller
         return view('front.clients',compact('clients'));
     }
 
-    public function profileupdate(Request $request)
-    {
+    public function profileupdate(Request $request){
         // Validate form data
+        
+    
+        $user = Auth::user();
+    
+        // Update password if provided
+        if ($request->input('password')) {
+
+            $request->validate([
+                'password' => 'nullable|string|min:6',
+                'new_password' => 'nullable|string|min:6|confirmed',
+            ]);
+        
+            
+
+
+            if (!Hash::check($request->password, $user->password)) {
+                return redirect()->back()->with('errors', 'Incorrect current password.');
+            }
+            if ($request->filled('new_password')) {
+                $user->password = Hash::make($request->new_password);
+            }
+
+             $user->save();
+             return redirect()->back()->with('success', 'updated your password successfully.');
+        }
+
         $validator = Validator::make($request->all(), [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . Auth::id(),
-            'password' => 'nullable|string|min:6',
-            'new_password' => 'nullable|string|min:6|confirmed',
-            'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048' // Validate image
+            'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif' // Validate image
         ]);
     
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
     
-        $user = Auth::user();
-    
-        // Update password if provided
-        if ($request->filled('password')) {
-            if (!Hash::check($request->password, $user->password)) {
-                return response()->json(['errors' => ['password' => ['Incorrect current password.']]], 422);
-            }
-            if ($request->filled('new_password')) {
-                $user->password = Hash::make($request->new_password);
-            }
-        }
-    
         // Update profile fields
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
         $user->email = $request->email;
+        $user->phone = $request->phone;
         $user->nominee_contact = $request->nominee_contact;
         $user->nominee_age = $request->nominee_age;
         $user->nominee_relation = $request->nominee_relation;
@@ -354,7 +366,7 @@ class Commoncontroller extends Controller
         }
     
         $user->save();
-    
+
         return response()->json(['success' => 'Profile updated successfully.'], 200);
     }
     
@@ -379,9 +391,10 @@ class Commoncontroller extends Controller
      }else{
         $validator = Validator::make($request->all(), [
             'aadhar_card_number' => 'required|numeric|digits:12',
-            'aadhar_card' => 'required|mimes:jpg,jpeg,png,pdf|max:2048',
+            'aadhar_card' => 'required|mimes:jpg,jpeg,png,pdf',
             'pan_number' => 'required|string|size:10',
-            'pan_card' => 'required|mimes:jpg,jpeg,png,pdf|max:2048',
+            'pan_card' => 'required|mimes:jpg,jpeg,png,pdf',
+            'bank_name' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -467,6 +480,7 @@ if ($request->hasFile('cancel_chaque')) {
         // Update User Data
         $user->update([
             'account_holder_name' => $request->account_holder_name,
+            'bank_name' => $request->bank_name,
             'account_number' => $request->account_number,
             'ifsc_code' => $request->ifsc_code,
             'branch_name' => $request->branch_name,
@@ -489,7 +503,8 @@ if ($request->hasFile('cancel_chaque')) {
     }
 
     public function dashboard(){
-        $data['mywithdraw'] = Withdraw::where('userid',Auth::user()->id)->latest()->get();
+        $data['mywithdrawlist'] = Withdraw::where('userid',Auth::user()->id)->latest()->get();
+        
         $withdraw = Withdraw::where('userid', Auth::id())->sum('amount');
         $DepositedAmount = Auth::user()->wallet;
        $pnl_amount = Auth::user()->amount; // Agar column ka naam 'pnl_amount' hai
@@ -502,7 +517,7 @@ if ($request->hasFile('cancel_chaque')) {
         $request->validate([
             'amount' => 'required|numeric|min:1',
             'transaction_id' => 'required|alpha_num|size:12|unique:customer_payment,utr',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif'
         ],[
             'image.required' => 'Upload Payment Screenshot and Amount Details.'
         ]);

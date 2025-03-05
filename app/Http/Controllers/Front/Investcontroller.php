@@ -10,6 +10,8 @@ use App\Models\Withdraw;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\Session;
+
 
 class Investcontroller extends Controller
 {
@@ -42,11 +44,14 @@ class Investcontroller extends Controller
         'amount.numeric'  => 'The amount must be a number.',
     ]);
 
-     $totalwithdraw = Withdraw::where('invest_id',$investid)->where('userid',Auth::user()->id)->where('amount_cut','Y')->sum('amount');
 
+    if (Session::get('otp_verify') !== "Y") {
+        return redirect()->back()->with('error', 'Please verify OTP before making a withdrawal request.');
+    }
+
+     $totalwithdraw = Withdraw::where('invest_id',$investid)->where('userid',Auth::user()->id)->where('amount_cut','Y')->sum('amount');
      $availble =  total_earn_by_invest($investid) - $totalwithdraw ;
      
-
     if ($request->amount > $availble) {
         return redirect()->back()->with('error', 'Insufficient Earning Balance. You can withdraw only Rs.' . $availble);
     }
@@ -63,6 +68,10 @@ class Investcontroller extends Controller
     $new->status = 'pending'; // Default status
     $new->save();
     $invest->save();
+
+
+    Session::forget('otp_verify');
+    
     return redirect()->back()->with('success','Withdraw request submitted successfully');
 }
 

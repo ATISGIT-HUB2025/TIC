@@ -9,7 +9,15 @@
             border-radius: 10px;
             object-fit: cover;
         }
-    </style>
+
+        /* span.select2-dropdown.select2-dropdown--below {
+    z-index: 111111111111111111111;
+    position: relative;
+} */
+
+</style>
+
+    
 
 @section('header')
     <!-- Datatables css -->
@@ -23,6 +31,8 @@
         rel="stylesheet" type="text/css" />
     <link href="{{ url('admin') }}/assets/libs/datatables.net-select-bs5/css/select.bootstrap5.min.css" rel="stylesheet"
         type="text/css" />
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
 @endsection
 
 <div class="content-page">
@@ -39,12 +49,12 @@
             @endif
             <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
                 <div class="flex-grow-1">
-                    <h4 class="fs-18 fw-semibold m-0">Transaction</h4>
+                    <h4 class="fs-18 fw-semibold m-0">PNL History</h4>
                 </div>
                 <div class="text-end">
                     <ol class="breadcrumb m-0 py-0">
                         <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Transaction</li>
+                        <li class="breadcrumb-item active">PNL History</li>
                     </ol>
                 </div>
             </div>
@@ -52,9 +62,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <h5 class="card-title mb-0">@if (isset($_GET['type']) && !empty($_GET['type']))
-                                Withdraw
-                            @endif</h5>
+                            <h5 class="card-title mb-0">PNL History</h5>
                         </div>
 
                         <div class="card-body">
@@ -65,46 +73,18 @@
                                     <form id="filterForm" class="row">
                                         <!-- Request No -->
                                         <div class="mb-3 col-6 col-sm-3 col-lg-2">
-                                            <label for="requestNo" class="form-label">Request No.</label>
-                                            <input type="text" class="form-control" id="requestNo" name="request_no" placeholder="Enter Request No.">
+                                            <label for="requestNo" class="form-label">Order No.</label>
+                                            <input type="text" class="form-control" id="requestNo" name="order_no" placeholder="Enter Order No.">
                                         </div>
                             
-                                        <!-- Request Status -->
-                                        <div class="mb-3 col-6 col-sm-3 col-lg-2">
-                                            <label for="requestStatus" class="form-label">Request Status</label>
-                                            <select class="form-select" id="requestStatus" name="status">
-                                                <option value="">Select Status</option>
-                                                <option value="pending">Pending</option>
-                                                <option value="complete">Complete</option>
-                                                <option value="reject">Rejected</option>
-                                            </select>
-                                        </div>
-                            
-                                        <!-- Request Date / Verified Date -->
-                                        <div class="mb-3 col-sm-3 col-md-3">
-                                            <label class="form-label">Filter By</label>
-                                            <div class="d-flex">
-                                                <div class="form-check me-3">
-                                                    <input class="form-check-input" type="radio" name="dateFilter" id="requestDate" value="request" checked>
-                                                    <label class="form-check-label" for="requestDate">Request Date</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="dateFilter" id="verifiedDate" value="verified">
-                                                    <label class="form-check-label" for="verifiedDate">Verified Date</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                            
-                                        <!-- Date Range -->
                                         <div class="mb-3 col-sm-4 col-md-5">
-                                            <label class="form-label" id="dateLabel">Request Date Range</label>
                                             <div class="row">
                                                 <div class="col">
-                                                    <label>From</label>
+                                                    <label class="form-label">From</label>
                                                     <input type="date" class="form-control" id="fromDate" name="from_date">
                                                 </div>
                                                 <div class="col">
-                                                    <label>To</label>
+                                                    <label class="form-label">To</label>
                                                     <input type="date" class="form-control" id="toDate" name="to_date">
                                                 </div>
                                             </div>
@@ -119,21 +99,26 @@
                                 </div>
                             </div>
 
-
-
+                            <div class="d-flex justify-content-end">
+                                <a href="/admin/new-pnl" class="btn btn-primary my-3" >New PNL</a>
+                            </div>
+                            <div class="d-flex align-items-center mb-4">
+                                <p class="mb-0">Total Records : {{ $totalrecords }}</p>
+                                <p class="mb-0 ms-3">Total Profit : Rs.{{ $total_profit }}</p>
+                            </div>
+                            
                             <table id="example"
                                 class="table table-striped dt-responsive nowrap table-striped w-100">
                                 <thead>
                                     <tr>
                                         <th>S.N</th>
-                                        <th>Request Id</th>
+                                        <th>Order Id</th>
                                         <th>Username</th>
                                         <th>Amount</th>
-                                        <th>Reason</th>
+                                        <th>Trade Balance</th>
+                                        <th>Profit Update</th>
+                                        <th>Percentage</th>
                                         <th>Created At</th>
-                                        <th>Verified At</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -154,6 +139,52 @@
 
 </div>
 
+
+   
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form action="/admin/newpnl" method="post">
+        <input type="hidden" name="_token" value="Om4jBtyaJtR1Worb8hFlj7wWi4ArO8GCQUjFsvyn" autocomplete="off">      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">New PNL</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="bodycontent">
+            <div class="row">
+
+                <div class="col-lg-6">
+                    <div class="mb-3">
+                        <label for="simpleinput" class="form-label">Select User</label>
+                        <select name="user" id="user-select" class="form-control">
+                            @foreach (App\Models\User::where('role','user')->where('status','approved')->latest()->get() as $key => $value )
+                            <option value="{{ $value->id }}">{{ $value->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+    
+    
+                <div class="col-lg-6">
+                    <div class="mb-3">
+                        <label for="simpleinput" class="form-label">Amount</label>
+                       <input type="number" name="amount" class="form-control" value="0">
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </form>
+    </div>
+  </div>
+
+  
 @section('footer')
 
     <!-- Datatables js -->
@@ -188,16 +219,25 @@
     <script src="{{ url('admin') }}/assets/js/pages/datatable.init.js"></script>
 
 
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#user-select').select2({
+                placeholder: "Search and select a user",
+                allowClear: true
+            });
+        });
+    </script>
     <script>
         $(document).ready(function () {
     var table = $('#example').DataTable({
         processing: true,
         serverSide: true,
         ajax: {
-            url: '{{ route('withdrawadmin') }}',
+            url: '{{ route('pnlhistory') }}',
             data: function (d) {
                 d.request_no = $('#requestNo').val();
-                d.status = $('#requestStatus').val();
                 d.date_filter = $('input[name="dateFilter"]:checked').val(); // Radio button value
                 d.from_date = $('#fromDate').val();
                 d.to_date = $('#toDate').val();
@@ -209,11 +249,11 @@
             { data: 'id', name: 'id' },
             { data: 'user_name', name: 'user_name' },
             { data: 'amount', name: 'amount' },
-            { data: 'reason', name: 'reason' },
+            { data: 'trade_balance', name: 'trade_balance' },
+            { data: 'profit_amount', name: 'profit_amount' },
+            { data: 'percantage', name: 'percantage' },
             { data: 'created_at', name: 'created_at' },
-            { data: 'updated_at', name: 'updated_at' },
-            { data: 'status', name: 'status' },
-            { data: 'action', name: 'action', orderable: false, searchable: false }
+            // { data: 'action', name: 'action', orderable: false, searchable: false }
         ]
     });
 

@@ -18,6 +18,7 @@ class Invest extends Model
         'time',
         'interest',
         'completestatus',
+        'admin_added',
         'type',
         'status'
     ];

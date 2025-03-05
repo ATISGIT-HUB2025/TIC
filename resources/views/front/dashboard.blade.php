@@ -25,8 +25,6 @@
         >
         Dashboard
         </button>
-       
-
             <button
               class="nav-link active mb-3"
               id="v-pills-Profile-tab"
@@ -39,8 +37,6 @@
             >
               Profile
             </button>
-       
-            
             <button
               class="nav-link mb-3"
               id="v-pills-Bank-tab"
@@ -107,10 +103,11 @@
           >
           Share and earn
           </button>
-         <!-- WhatsApp Share Button -->
-{{-- <button id="whatsappShare" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition">
-  Share and earn
-</button> --}}
+          <button class="nav-link mb-3" id="v-pills-changepassword-tab" data-bs-toggle="pill" data-bs-target="#v-pills-changepassword" type="button" role="tab" aria-controls="v-pills-changepassword" aria-selected="false">
+            Change Password
+          </button>
+          
+         
             <hr />
             <div class="text-center">
               <a href="/userlogout" class="nav-link"> Logout </a>
@@ -170,19 +167,7 @@
                               </div>
                           </div>
 
-                          
-                          
-                          <div class="col-lg-6">
-                            <div class="single-input">
-                                <label class="label fw_500 nw1-color mb-4" for="file">Profile Image</label>
-                                <input type="file" class="fs-seven" accept="image/*" name="profile_photo" id="file"/>
-                                <span class="text-danger error" id="error_image"></span>
-                            </div>
-                        </div>
-                        
-                    
-                        
-                        
+              
 
                           <!-- Email -->
                           <div class="col-lg-6">
@@ -192,7 +177,26 @@
                                   <span class="text-danger error" id="error_email"></span>
                               </div>
                           </div>
-                          <!-- Password -->
+
+
+                           <!-- phone -->
+                           <div class="col-lg-6">
+                            <div class="single-input">
+                                <label class="label fw_500 nw1-color mb-4" for="email">Phone</label>
+                                <input type="number" class="fs-seven" name="phone" id="email" value="{{ Auth::user()->phone ?? "" }}"  required />
+                                <span class="text-danger error" id="error_phone"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                          <div class="single-input">
+                              <label class="label fw_500 nw1-color mb-4" for="file">Profile Image</label>
+                              <input type="file" class="fs-seven" accept="image/*" name="profile_photo" id="file"/>
+                              <span class="text-danger error" id="error_image"></span>
+                          </div>
+                      </div>
+                      
+                          {{-- <!-- Password -->
                           <div class="col-lg-6">
                               <div class="single-input">
                                   <label class="label fw_500 nw1-color mb-4" for="password">Password</label>
@@ -226,52 +230,54 @@
                                   </div>
                                   <span class="text-danger error" id="error_new_password_confirmation"></span>
                               </div>
+                          </div> --}}
+                      </div>
+                  </div>
+                  
+                  <h6 class="message__title text-warning mb-4">Nominee Details</h6>
+
+                  <div class="row">
+                      <div class="col-lg-6">
+                          <div class="single-input">
+                              <label class="label fw_500 nw1-color mb-4" for="nominee_name">Nominee Name</label>
+                              <input type="text" class="fs-seven" name="nominee_name" value="{{ Auth::user()->nominee_name }}" 
+                                  id="nominee_name" placeholder="Nominee Name" 
+                                  @if(Auth::user()->nominee_name) readonly @endif />
+                              <span class="text-danger error" id="error_nominee_name"></span>
+                          </div>
+                      </div>
+                  
+                      <div class="col-lg-6">
+                          <div class="single-input">
+                              <label class="label fw_500 nw1-color mb-4" for="nominee_relation">Relation with Nominee</label>
+                              <input type="text" class="fs-seven" name="nominee_relation" value="{{ Auth::user()->nominee_relation }}" 
+                                  placeholder="Relation with Nominee" 
+                                  @if(Auth::user()->nominee_relation) readonly @endif />
+                              <span class="text-danger error" id="error_nominee_relation"></span>
+                          </div>
+                      </div>
+                  
+                      <div class="col-lg-6">
+                          <div class="single-input">
+                              <label class="label fw_500 nw1-color mb-4" for="nominee_age">Nominee Age</label>
+                              <input type="number" class="fs-seven" name="nominee_age" value="{{ Auth::user()->nominee_age }}" 
+                                  placeholder="Nominee Age" 
+                                  @if(Auth::user()->nominee_age) readonly @endif />
+                              <span class="text-danger error" id="error_nominee_age"></span>
+                          </div>
+                      </div>
+                  
+                      <div class="col-lg-6">
+                          <div class="single-input">
+                              <label class="label fw_500 nw1-color mb-4" for="nominee_contact">Nominee Contact</label>
+                              <input type="number" class="fs-seven" name="nominee_contact" value="{{ Auth::user()->nominee_contact }}" 
+                                  placeholder="Nominee Contact" 
+                                  @if(Auth::user()->nominee_contact) readonly @endif />
+                              <span class="text-danger error" id="error_nominee_contact"></span>
                           </div>
                       </div>
                   </div>
                   
-                   <h6 class="message__title  text-warning mb-4">Nominee Details</h6>
-                   
-                   
-                   
-                   
-                          <div class="row">
-                              <div class="col-lg-6">
-                              <div class="single-input">
-                                  <label class="label fw_500 nw1-color mb-4" for="password_confirmation">Nominee Name</label>
-                                  <input type="text" class="fs-seven" name="nominee_name" value="{{Auth::user()->nominee_name}}" id="password_confirmation" placeholder="Nominee Name" />
-                                  <span class="text-danger error" id="error_nominee_name"></span>
-                              </div>
-                          </div>
-                         
-                         
-                         <div class="col-lg-6">
-                              <div class="single-input">
-                                  <label class="label fw_500 nw1-color mb-4" for="password_confirmation">Relation with Nominee</label>
-                                  <input type="text" class="fs-seven" name="nominee_relation" value="{{Auth::user()->nominee_relation}}" placeholder="Relation with Nominee" />
-                                  <span class="text-danger error" id="error_nominee_relation"></span>
-                              </div>
-                          </div>
-                        
-                        
-                         <div class="col-lg-6">
-                              <div class="single-input">
-                                  <label class="label fw_500 nw1-color mb-4" for="password_confirmation">Nominee Age</label>
-                                  <input type="number" class="fs-seven" value="{{Auth::user()->nominee_age}}" name="nominee_age" placeholder="Nominee Age"/>
-                                  <span class="text-danger error" id="error_nominee_age"></span>
-                              </div>
-                          </div>
-                         
-                         
-                         <div class="col-lg-6">
-                              <div class="single-input">
-                                  <label class="label fw_500 nw1-color mb-4" for="password_confirmation">Nominee Contact</label>
-                                  <input type="number" class="fs-seven" name="nominee_contact" value="{{Auth::user()->nominee_contact}}" placeholder="Nominee Contact"/>
-                                  <span class="text-danger error" id="error_nominee_contact"></span>
-                              </div>
-                          </div>
-                          </div>
-                          
                           
                    
                   
@@ -550,12 +556,25 @@
           <!-- Account Holder Name -->
           <div class="col-lg-6">
             <div class="single-input">
+              <label class="label fw_500 nw1-color mb-4" for="accountHolderName">Bank Name</label>
+              <input type="text" class="fs-seven" name="bank_name" id="accountHolderName" 
+                value="{{ auth()->user()->bank_name ?? '' }}"/>
+              <span class="text-danger error" id="error_bank_name"></span>
+            </div>
+          </div>
+
+
+
+          <div class="col-lg-6">
+            <div class="single-input">
               <label class="label fw_500 nw1-color mb-4" for="accountHolderName">Account Holder Name</label>
               <input type="text" class="fs-seven" name="account_holder_name" id="accountHolderName" 
                 value="{{ auth()->user()->account_holder_name ?? '' }}"/>
               <span class="text-danger error" id="error_account_holder_name"></span>
             </div>
           </div>
+
+
           <!-- Account Number -->
           <div class="col-lg-6">
             <div class="single-input">
@@ -749,6 +768,58 @@
   </div>
 </div>
 
+<!-- Change Password Tab -->
+<div class="tab-pane fade" id="v-pills-changepassword" role="tabpanel" aria-labelledby="v-pills-changepassword-tab">
+  <div class="comments-form cus-rounded-1 nb3-bg">
+    <form method="POST" action="{{route('profile.update')}}" autocomplete="off" id="changepassword_form" enctype="multipart/form-data" class="message__form p-4 p-lg-8">
+      @csrf
+      <h6 class="message__title text-warning">Change Password</h6>
+      <div class="d-flex gap-7 gap-lg-8 flex-column">
+        <div class="row gy-4">
+          <!-- Password -->
+          <div class="col-lg-6">
+            <div class="single-input">
+              <label class="label fw_500 nw1-color mb-4" for="password">Password</label>
+              <div class="formppi">
+                <input type="password" class="fs-seven" name="password" id="password" placeholder="Your Password" />
+                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19 10H20C20.5523 10 21 10.4477 21 11V21C21 21.5523 20.5523 22 20 22H4C3.44772 22 3 21.5523 3 21V11C3 10.44772 3.44772 10 4 10H5V9C5 5.13401 8.13401 2 12 2C15.866 2 19 5.13401 19 9V10ZM5 12V20H19V12H5ZM11 14H13V18H11V14ZM17 10V9C17 6.23858 14.7614 4 12 4C9.23858 4 7 6.23858 7 9V10H17Z"></path></svg></span>
+              </div>
+              <span class="text-danger error" id="error_password"></span>
+            </div>
+          </div>
+          <!-- New Password -->
+          <div class="col-lg-6">
+            <div class="single-input">
+              <label class="label fw_500 nw1-color mb-4" for="new_password">New Password</label>
+              <div class="formppi">
+                <input type="password" class="fs-seven" name="new_password" id="new_password" placeholder="New Password" />
+                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19 10H20C20.5523 10 21 10.4477 21 11V21C21 21.5523 20.5523 22 20 22H4C3.44772 22 3 21.5523 3 21V11C3 10.44772 3.44772 10 4 10H5V9C5 5.13401 8.13401 2 12 2C15.866 2 19 5.13401 19 9V10ZM5 12V20H19V12H5ZM11 14H13V18H11V14ZM17 10V9C17 6.23858 14.7614 4 12 4C9.23858 4 7 6.23858 7 9V10H17Z"></path></svg></span>
+              </div>
+              <span class="text-danger error" id="error_new_password"></span>
+            </div>
+          </div>
+          <!-- Confirm Password -->
+          <div class="col-lg-6">
+            <div class="single-input">
+              <label class="label fw_500 nw1-color mb-4" for="password_confirmation">Confirm Password</label>
+              <div class="formppi">
+                <input type="password" class="fs-seven" name="new_password_confirmation" id="password_confirmation" placeholder="Confirm Password" />
+                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19 10H20C20.5523 10 21 10.4477 21 11V21C21 21.5523 20.5523 22 20 22H4C3.44772 22 3 21.5523 3 21V11C3 10.44772 3.44772 10 4 10H5V9C5 5.13401 8.13401 2 12 2C15.866 2 19 5.13401 19 9V10ZM5 12V20H19V12H5ZM11 14H13V18H11V14ZM17 10V9C17 6.23858 14.7614 4 12 4C9.23858 4 7 6.23858 7 9V10H17Z"></path></svg></span>
+              </div>
+              <span class="text-danger error" id="error_new_password_confirmation"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="cmn-btn py-3 px-5 px-lg-6 mt-8 mt-lg-10 d-flex ms-auto">
+        Update <i class="bi bi-arrow-up-right"></i>
+      </button>
+    </form>
+  </div>
+</div>
+
+
+
 <!-- Referral Tab -->
 <div class="tab-pane fade" id="v-pills-refreal" role="tabpanel" aria-labelledby="v-pills-Bank-tab">
   <div class="comments-form cus-rounded-1 nb3-bg text-center p-4 p-lg-8">
@@ -813,11 +884,32 @@
               
                           <!-- QR Code -->
                           <div class="col-lg-12">
+                            <?php
+                                      $data = DB::table('webinfo')->where('id', 5)->select(['image','banner', 'favicon', 'info_one'])->first();
+                                      $row = json_decode($data->info_one);
+                              
+                              ?>
                               <div class="single-input text-center">
                                   <label class="label fw_500 nw1-color mb-4">Make A Payment Using This QR Code</label>
                                   <div class="qrcodebox">
-                                      <img src="{{ url('') }}/qrcode/qrcode.png" class="qrcodeimagewallet" alt="QR Code">
+                                      <img src="{{ url('uploads')}}/<?=$data->banner ?>" class="qrcodeimagewallet" alt="QR Code">
                                   </div>
+
+                                  @if (!empty(upiid()))
+                                    
+                                  
+                                  <div class="upiiduserpanel">
+                                    <span class="copytextupiid" id="copytextupiid">{{ upiid() }}</span>
+                                    
+                                    <div class="copyupiid" id="copyupiid">
+                                        <svg width="15" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M6.9998 6V3C6.9998 2.44772 7.44752 2 7.9998 2H19.9998C20.5521 2 20.9998 2.44772 20.9998 3V17C20.9998 17.5523 20.5521 18 19.9998 18H16.9998V20.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998ZM5.00242 8L5.00019 20H14.9998V8H5.00242ZM8.9998 6H16.9998V16H18.9998V4H8.9998V6Z"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+
+                                @endif
+
                               </div>
                           </div>
               
@@ -1074,6 +1166,7 @@
                 </div>
               </div>
             </div>
+            </div>
 
             <!-- Withdrawals Tab -->
             <div
@@ -1084,7 +1177,7 @@
             >
               <div class="comments-form cus-rounded-1 nb3-bg p-5">
                 <div class="table-responsive">
-                  <table class="table table-bordered text-white">
+                  <table class="table table-bordered text-white" id="mywithdrawlist">
                     <thead>
                       <tr>
                         <th
@@ -1144,7 +1237,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach ($mywithdraw as $value)
+                      @foreach ($mywithdrawlist as $value)
                           
                       
                       <tr>
@@ -1483,6 +1576,127 @@ submitButton.prop("disabled", true).text("Updating...");
   }
 </script>
   
+
+<script>
+  $(document).ready(function () {
+      $("#send_otp").click(function () {
+          let sendOtpBtn = $("#send_otp");
+          let originalText = sendOtpBtn.text();
+
+          // Change button text to "Sending..."
+          sendOtpBtn.text("Sending...").prop("disabled", true);
+
+          $.ajax({
+              url: "{{ route('send.otp') }}",
+              type: "POST",
+              data: { _token: "{{ csrf_token() }}" },
+              success: function (response) {
+                  Swal.fire({
+                      toast: true,
+                      icon: 'success',
+                      title: response.message,
+                      position: 'top-end',
+                      showConfirmButton: false,
+                      timer: 3000
+                  });
+
+                  // Show OTP input field and verify button
+                  $("#otp_input_section").removeClass("d-none");
+                  $("#verify_otp").removeClass("d-none");
+
+                  // Hide Send OTP button after success
+                  sendOtpBtn.addClass("d-none");
+              },
+              error: function () {
+                  Swal.fire({
+                      toast: true,
+                      icon: 'error',
+                      title: 'Failed to send OTP. Please try again.',
+                      position: 'top-end',
+                      showConfirmButton: false,
+                      timer: 3000
+                  });
+
+                  sendOtpBtn.text(originalText).prop("disabled", false);
+              }
+          });
+      });
+
+      $("#verify_otp").click(function () {
+          let otp = $("#otp_input").val();
+          let verifyBtn = $("#verify_otp");
+          let originalText = verifyBtn.text();
+
+          verifyBtn.text("Verifying...").prop("disabled", true);
+
+          $.ajax({
+              url: "{{ route('verify.otp') }}",
+              type: "POST",
+              data: { _token: "{{ csrf_token() }}", otp: otp },
+              success: function (response) {
+                  Swal.fire({
+                      toast: true,
+                      icon: response.success ? 'success' : 'error',
+                      title: response.message,
+                      position: 'top-end',
+                      showConfirmButton: false,
+                      timer: 3000
+                  });
+
+                  if (response.success) {
+                      $("#submit_withdraw_qu").removeClass("d-none"); // Show the submit button
+                      $("#verify_otp").addClass("d-none"); // Hide verify button
+                  } else {
+                      verifyBtn.text(originalText).prop("disabled", false);
+                  }
+              },
+              error: function () {
+                  Swal.fire({
+                      toast: true,
+                      icon: 'error',
+                      title: 'Error verifying OTP. Please try again.',
+                      position: 'top-end',
+                      showConfirmButton: false,
+                      timer: 3000
+                  });
+
+                  verifyBtn.text(originalText).prop("disabled", false);
+              }
+          });
+      });
+  });
+</script>
+<script>
+  $(document).ready(function () {
+      $("#formwithdrawyy").on("keypress", function (event) {
+          if (event.which === 13) { // Use `event.which` for better compatibility
+              event.preventDefault(); // Prevent form submission on Enter key
+          }
+      });
+  });
+</script>
+
+
+<script>
+  document.getElementById("copyupiid").addEventListener("click", function() {
+      var upiText = document.getElementById("copytextupiid").innerText;
+      
+      // Copy to clipboard
+      navigator.clipboard.writeText(upiText).then(() => {
+          // Show SweetAlert notification
+          Swal.fire({
+              icon: "success",
+              title: "Copied!",
+              text: "UPI ID copied to clipboard",
+              timer: 2000,
+              showConfirmButton: false
+          });
+      }).catch(err => {
+          console.error('Failed to copy:', err);
+      });
+  });
+  </script>
+
 
 @endsection
 @endsection

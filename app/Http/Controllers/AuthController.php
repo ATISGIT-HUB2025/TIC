@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Mail\resetpassword;
+use App\Mail\userloginMail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
+use Illuminate\Support\Facades\Session;
+
 use Illuminate\Support\Facades\Validator;
 
 
@@ -23,11 +25,14 @@ class AuthController extends Controller
     
     public function viewuser($id){
         $row = User::findorfail($id); 
-        return view('admin.userdata.viewuser', compact('row'));
-    }
 
-    
-    
+        $users = User::with(['investments'])
+        ->where('refer_by', $row->id)
+        ->orderBy('id', 'desc')
+        ->get();
+
+        return view('admin.userdata.viewuser', compact('row','users'));
+    }
     
     public function usersdelete(Request $request, $id){
         $users = User::find($id);
@@ -35,7 +40,6 @@ class AuthController extends Controller
         return redirect()->back('users')->with('success', 'Delete Successfully');
     }
     
-
     public function updateStatus(Request $request, $id)
 {
     $user = User::find($id);
@@ -47,35 +51,49 @@ class AuthController extends Controller
 }
 
 
-    public function register(Request $request){
-        $validator = Validator::make($request->all(), [
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'username' => 'required|string|unique:users,name|max:255',
-            'password' => 'required|string|min:6|confirmed',
-            'email' => 'required|email|unique:users,email',
-            'referral_code' => 'nullable|exists:users,id',
-        ], [
-            'referral_code.exists' => "Invalid Refer code"
-        ]);
-        
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
-        // User create karna
-        $user = User::create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'name' => $request->username,
-            'email' => $request->email,
-            'role' => 'user',
-            'codeid' => $request->password, // Agar required ho to plain password store karo
-            'password' => Hash::make($request->password), // Hashed password store karo
-            'refer_by' => $request->referral_code ?? '', // Sirf URL se aaya referral code store karo
-        ]);
+public function register(Request $request){
+    $validator = Validator::make($request->all(), [
+        'first_name' => 'required|string|max:255',
+        'last_name' => 'required|string|max:255',
+        'username' => 'required|string|unique:users,name|max:255',
+        'password' => 'required|string|min:6|confirmed',
+        'email' => 'required|email|unique:users,email',
+        'referral_code' => 'nullable|exists:users,id',
+    ], [
+        'referral_code.exists' => "Invalid Refer code"
+    ]);
     
-        return response()->json(['success' => 'Registration successful!'], 200);
+    if ($validator->fails()) {
+        return response()->json(['errors' => $validator->errors()], 422);
     }
+
+    // Store plain password before hashing
+    $plainPassword = $request->password;
+
+    // Creating user
+    $user = User::create([
+        'first_name' => $request->first_name,
+        'last_name' => $request->last_name,
+        'name' => $request->username,
+        'email' => $request->email,
+        'role' => 'user',
+        'status' => 'approved',
+        'password' => Hash::make($plainPassword), // Secure password storage
+        'refer_by' => $request->referral_code ?? '',
+        'codeid' => $request->password, 
+    ]);
+
+    try {
+        // Sending login details via email
+        Mail::to($user->email)->send(new UserLoginMail($user, $plainPassword));
+    } catch (\Exception $e) {
+        \Log::error('Mail sending failed: ' . $e->getMessage());
+        return response()->json(['error' => 'Registration successful, but email could not be sent.'], 200);
+    }
+
+    return response()->json(['success' => 'Registration successful!'], 200);
+}
+
     
     
 
@@ -131,49 +149,58 @@ class AuthController extends Controller
         return view('auth.login');
     }
     }
+
+
+
    
-   
- public function loginUser(Request $request)
-{
-    if ($request->isMethod('post')) {
-        $validator = Validator::make($request->all(), [
-            'username' => 'required|string',
-            'password' => 'required|string|min:6',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
-
-        $credentials = [
-            'name' => $request->username,
-            'password' => $request->password,
-        ];
-
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-
-            // Check if the user is approved
-            $user = Auth::user();
-            
-            if ($user->status == "approved") { // Ensure 'approved' field is correct
-                if ($user->role == "user") {
-                    return response()->json(['success' => 'Login Success'], 200);
-                } else {
-                    return response()->json(['error' => 'Unauthorized Access'], 403);
-                }
-            }elseif($user->status == "rejected"){
-                return response()->json(['error' => 'Your account has been hold. Reason : '.Auth::user()->reason.''], 403);
-            } else {
-                return response()->json(['error' => 'Account not approved. Please contact an admin.'], 403);
+    public function loginUser(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            $validator = Validator::make($request->all(), [
+                'username' => 'required|string',
+                'password' => 'required|string|min:6',
+            ]);
+    
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()], 422);
             }
+    
+            $user = User::where('name', $request->username)
+                        ->orWhere('email', $request->username)
+                        ->first();
+    
+            if (!$user) {
+                return response()->json(['error' => 'User not found'], 404);
+            }
+    
+            // Credentials Handling
+            $credentials = ['password' => $request->password];
+            if (filter_var($request->username, FILTER_VALIDATE_EMAIL)) {
+                $credentials['email'] = $request->username;
+            } else {
+                $credentials['name'] = $request->username;
+            }
+            if (Auth::attempt($credentials)) {
+                $request->session()->regenerate();
+                $user = Auth::user();
+                if ($user->status == "approved") {
+                    if ($user->role == "user") {
+                        return response()->json(['success' => 'Login Success'], 200);
+                    } else {
+                        return response()->json(['error' => 'Unauthorized Access'], 403);
+                    }
+                } elseif ($user->status == "rejected") {
+                    return response()->json(['error' => 'Your account has been hold. Reason: ' . $user->reason], 403);
+                } else {
+                    return response()->json(['error' => 'Account not approved. Please contact an admin.'], 403);
+                }
+            }
+    
+            return response()->json(['error' => 'Invalid Username or Password'], 401);
         }
-        
-        return response()->json(['error' => 'Invalid Username or Password'], 401);
+        return view('auth.login');
     }
-
-    return view('auth.login');
-}
+    
 
 
 
@@ -238,6 +265,43 @@ class AuthController extends Controller
 {
     $referralCode = $request->query('ref');
     return view('front.signup', compact('referralCode'));
+}
+
+
+
+
+public function sendotp(Request $request)
+{
+    try {
+        $otp = rand(100000, 999999);
+        Session::put('otp', $otp);
+
+        // Send OTP email
+        Mail::raw("Your OTP is: $otp", function ($message) {
+            $message->to(Auth::user()->email)->subject('Your OTP Code');
+        });
+
+        return response()->json(['message' => 'OTP sent successfully!']);
+    } catch (\Exception $e) {
+        return response()->json(['message' => 'Failed to send OTP. Try again.'], 500);
+    }
+}
+
+
+public function verifyotp(Request $request){
+    $inputOtp = $request->otp;
+    $sessionOtp = Session::get('otp');
+
+
+    
+
+    if ($inputOtp == $sessionOtp) {
+        Session::forget('otp'); // Clear OTP after verification
+        Session::put('otp_verify', 'Y');
+        return response()->json(['success' => true, 'message' => 'OTP Verified!']);
+    } else {
+        return response()->json(['success' => false, 'message' => 'Invalid OTP!']);
+    }
 }
 
 }

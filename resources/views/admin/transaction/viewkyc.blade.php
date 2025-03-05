@@ -2,9 +2,22 @@
     <table class="table table-bordered">
         <tbody>
 
+
+
+            <tr>
+                <th class="table-dark">Bank Name</th>
+                <td>{{ $row->bank_name ?? 'N/A' }}</td>
+            </tr>
+           
             <tr>
                 <th class="table-dark">Account Holder Name</th>
                 <td>{{ $row->account_holder_name ?? 'N/A' }}</td>
+            </tr>
+           
+           
+            <tr>
+                <th class="table-dark">Username</th>
+                <td>{{ $row->name ?? 'N/A' }}</td>
             </tr>
 
             <tr>
@@ -18,11 +31,10 @@
                 <td>{{ $row->ifsc_code ?? 'N/A' }}</td>
             </tr>
 
-
-            <tr>
+            {{-- <tr>
                 <th class="table-dark">Account Holder Name</th>
                 <td>{{ $row->account_holder_name ?? 'N/A' }}</td>
-            </tr>
+            </tr> --}}
             <tr>
                 <th class="table-dark">Branch Name</th>
                 <td>{{ $row->branch_name ?? 'N/A' }}</td>
